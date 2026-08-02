@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Russisch lernen – digitaler Lernordner</title>
+    <style>
+        /* ===== RESET & GRUNDLAGEN ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #ECE7DD;
+            color: #2C2C2C;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            transition: background 0.4s;
+        }
+        body.dark {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+        body.dark .notizblock {
+            background: #3a3a3a;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+        body.dark .papier {
+            background: #f5f0e8;
+            color: #1e1e1e;
+        }
+        body.dark .papier h1,
+        body.dark .papier h2,
+        body.dark .papier h3 {
+            color: #1e1e1e;
+        }
+        body.dark .tab-nav button {
+            color: #ccc;
+        }
+        body.dark .tab-nav button.active {
+            color: #4D83FF;
+            border-bottom-color: #4D83FF;
+        }
+        body.dark .karte {
+            background: #f5f0e8;
+            color: #1e1e1e;
+        }
+        body.dark .karte .vorderseite,
+        body.dark .karte .rueckseite {
+            background: #f5f0e8;
+        }
+
+        .notizblock {
+            max-width: 1280px;
+            width: 100%;
+            background: #FDFBF6;
+            border-radius: 24px;
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03);
+            padding: 30px 35px 45px;
+            transition: background 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+        .papier {
+            background: #FDFBF6;
+            border-radius: 16px;
+            padding: 10px 0 0 0;
+            transition: background 0.4s;
+        }
+        /* Papierstile */
+        .papier.kariert {
+            background-image: linear-gradient(rgba(216, 212, 204, 0.25) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(216, 212, 204, 0.25) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .papier.liniert {
+            background-image: repeating-linear-gradient(transparent,
+                    transparent 27px,
+                    rgba(216, 212, 204, 0.5) 27px,
+                    rgba(216, 212, 204, 0.5) 28px);
+            background-size: 100% 28px;
+        }
+        .papier.blanko {
+            background: #FDFBF6;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #D8D4CC;
+        }
+        .header h1 {
+            font-size: 2.6rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #2C2C2C;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.02);
+        }
+        .header .sub {
+            font-size: 0.95rem;
+            color: #8a857b;
+            background: #ECE7DD;
+            padding: 4px 14px;
+            border-radius: 30px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            margin: 18px 0 22px 0;
+            border-bottom: 2px solid #E3DFD6;
+            padding-bottom: 6px;
+        }
+        .tab-nav button {
+            background: transparent;
+            border: none;
+            font-size: 1.1rem;
+            padding: 8px 4px 10px 4px;
+            cursor: pointer;
+            color: #8a857b;
+            font-weight: 500;
+            transition: color 0.2s, border-color 0.2s;
+            border-bottom: 3px solid transparent;
+            font-family: inherit;
+        }
+        .tab-nav button:hover {
+            color: #4D83FF;
+        }
+        .tab-nav button.active {
+            color: #2C2C2C;
+            border-bottom-color: #4D83FF;
+            font-weight: 600;
+        }
+        body.dark .tab-nav button.active {
+            color: #e0e0e0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0.4;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== ALLGEMEINE KOMPONENTEN ===== */
+        .btn {
+            background: #f0ede6;
+            border: 1px solid #D8D4CC;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            color: #2C2C2C;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn:hover {
+            background: #e5e0d6;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+        .btn.primär {
+            background: #4D83FF;
+            border-color: #4D83FF;
+            color: #fff;
+        }
+        .btn.primär:hover {
+            background: #3a6ee0;
+        }
+        .btn.rot {
+            background: #D64A4A;
+            border-color: #D64A4A;
+            color: #fff;
+        }
+        .btn.rot:hover {
+            background: #bd3a3a;
+        }
+        .btn.grün {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            color: #fff;
+        }
+        .btn.grün:hover {
+            background: #3d8b40;
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+            font-size: 0.95rem;
+            padding: 8px 14px;
+            border: 1px solid #D8D4CC;
+            border-radius: 12px;
+            background: #faf8f3;
+            transition: border 0.2s, box-shadow 0.2s;
+            width: 100%;
+            color: #2C2C2C;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4D83FF;
+            box-shadow: 0 0 0 3px rgba(77, 131, 255, 0.15);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        label {
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: block;
+            font-size: 0.9rem;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .row>* {
+            flex: 1 1 200px;
+        }
+
+        /* ===== VOKABELN ===== */
+        .vokabel-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+            align-items: center;
+        }
+        .vokabel-actions .suche {
+            flex: 2 1 240px;
+        }
+        .vokabel-liste .eintrag {
+            background: #fcf9f3;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 4px solid #D8D4CC;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 16px;
+            transition: background 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+        .vokabel-liste .eintrag:hover {
+            background: #f8f4eb;
+        }
+        .vokabel-liste .eintrag .wort {
+            font-weight: 600;
+            font-size: 1.1rem;
+            min-width: 100px;
+        }
+        .vokabel-liste .eintrag .uebersetzung {
+            color: #5a5a5a;
+            min-width: 80px;
+        }
+        .vokabel-liste .eintrag .kategorie {
+            background: #E3DFD6;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .vokabel-liste .eintrag .kasten-badge {
+            background: #4D83FF;
+            color: #fff;
+            border-radius: 30px;
+            padding: 0 12px;
+            font-size: 0.75rem;
+            line-height: 22px;
+        }
+        .vokabel-liste .eintrag .aktionen {
+            margin-left: auto;
+            display: flex;
+            gap: 6px;
+        }
+        .vokabel-liste .eintrag .aktionen button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 4px;
+            color: #8a857b;
+            transition: color 0.2s;
+        }
+        .vokabel-liste .eintrag .aktionen button:hover {
+            color: #2C2C2C;
+        }
+
+        /* ===== KARTEIKASTEN ===== */
+        .kasten-uebersicht {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 16px 0 20px;
+        }
+        .kasten-box {
+            background: #fcf9f3;
+            border-radius: 14px;
+            padding: 8px 14px;
+            border: 1px solid #E3DFD6;
+            flex: 1 0 80px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .kasten-box .nummer {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .kasten-box .anzahl {
+            color: #5a5a5a;
+        }
+
+        .lernmodus-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 44, 44, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .lernmodus-overlay.open {
+            display: flex;
+        }
+        .lernmodus-card {
+            background: #FDFBF6;
+            border-radius: 32px;
+            max-width: 620px;
+            width: 100%;
+            padding: 30px 28px 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .lernmodus-overlay.open .lernmodus-card {
+            transform: scale(1);
+        }
+        .lernmodus-card .fortschritt {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #5a5a5a;
+            margin-bottom: 10px;
+        }
+        .lernmodus-card .fortschrittsbalken {
+            width: 100%;
+            height: 6px;
+            background: #E3DFD6;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .lernmodus-card .fortschrittsbalken .fuellung {
+            height: 100%;
+            background: #4D83FF;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .karte-lern {
+            perspective: 1200px;
+            height: 280px;
+            margin: 16px 0 24px;
+            cursor: pointer;
+        }
+        .karte-lern-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+        .karte-lern-inner.gewendet {
+            transform: rotateY(180deg);
+        }
+        .karte-lern .seite {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background: #fcf9f3;
+            border: 1px solid #E3DFD6;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+        .karte-lern .vorderseite {
+            transform: rotateY(0deg);
+        }
+        .karte-lern .rueckseite {
+            transform: rotateY(180deg);
+        }
+        .karte-lern .seite .russisch {
+            font-size: 2.4rem;
+            font-weight: 600;
+            font-family: 'Georgia', serif;
+        }
+        .karte-lern .seite .deutsch {
+            font-size: 2rem;
+            font-weight: 400;
+        }
+        .karte-lern .seite .beispiel {
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #5a5a5a;
+            font-style: italic;
+        }
+        .karte-lern .seite .aussprache {
+            font-size: 1rem;
+            color: #8a857b;
+            margin-top: 4px;
+        }
+
+        .lern-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 6px;
+        }
+        .lern-buttons .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 12px 0;
+            font-size: 1.1rem;
+        }
+
+        /* ===== GRAMMATIK ===== */
+        .grammatik-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .grammatik-inhalt {
+            flex: 3 1 400px;
+        }
+        .grammatik-toc {
+            flex: 1 1 200px;
+            background: #fcf9f3;
+            border-radius: 16px;
+            padding: 16px 12px;
+            border: 1px solid #E3DFD6;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .grammatik-toc li {
+            list-style: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.95rem;
+        }
+        .grammatik-toc li:hover {
+            background: #ECE7DD;
+        }
+        .grammatik-toc li.aktiv {
+            background: #4D83FF;
+            color: #fff;
+        }
+        .grammatik-toc ul {
+            padding-left: 0;
+        }
+        .grammatik-toc .unter {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+
+        .grammatik-seite {
+            background: #fcf9f3;
+            border-radius: 16px;
+            padding: 24px 28px;
+            border: 1px solid #E3DFD6;
+            min-height: 300px;
+        }
+        .grammatik-seite h2 {
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+            border-bottom: 2px solid #D8D4CC;
+            padding-bottom: 6px;
+            margin-bottom: 18px;
+        }
+        .grammatik-seite .beispiel-box {
+            background: #f0f4ff;
+            border-left: 4px solid #4D83FF;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .grammatik-seite .merk-box {
+            background: #fef7e6;
+            border-left: 4px solid #D64A4A;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        .grammatik-seite table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+        }
+        .grammatik-seite th,
+        .grammatik-seite td {
+            border: 1px solid #D8D4CC;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        .grammatik-seite th {
+            background: #ECE7DD;
+        }
+
+        /* ===== STATISTIK ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stats-card {
+            background: #fcf9f3;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #E3DFD6;
+            text-align: center;
+        }
+        .stats-card .zahl {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2C2C2C;
+        }
+        .stats-card .label {
+            font-size: 0.8rem;
+            color: #8a857b;
+        }
+
+        .diagramm-container {
+            background: #fcf9f3;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #E3DFD6;
+            margin-top: 12px;
+        }
+        .diagramm-container canvas {
+            width: 100% !important;
+            height: 180px !important;
+        }
+
+        /* ===== QUIZ ===== */
+        .quiz-frage {
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin: 20px 0;
+        }
+        .quiz-optionen {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .quiz-optionen button {
+            background: #fcf9f3;
+            border: 2px solid #D8D4CC;
+            border-radius: 40px;
+            padding: 10px 24px;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 1rem;
+            flex: 1 0 auto;
+        }
+        .quiz-optionen button:hover {
+            background: #ECE7DD;
+        }
+        .quiz-optionen button.richtig {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+        .quiz-optionen button.falsch {
+            border-color: #D64A4A;
+            background: #fce4e4;
+        }
+
+        /* ===== EINSTELLUNGEN ===== */
+        .einstellungen-group {
+            background: #fcf9f3;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #E3DFD6;
+            margin-bottom: 18px;
+        }
+        .einstellungen-group label {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .notizblock {
+                padding: 16px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .tab-nav button {
+                font-size: 0.95rem;
+                padding: 6px 2px 8px;
+            }
+            .lernmodus-card {
+                padding: 20px 16px;
+            }
+            .karte-lern {
+                height: 220px;
+            }
+            .karte-lern .seite .russisch {
+                font-size: 1.8rem;
+            }
+            .karte-lern .seite .deutsch {
+                font-size: 1.6rem;
+            }
+            .grammatik-toc {
+                flex: 1 1 100%;
+                max-height: 250px;
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            .notizblock {
+                padding: 12px;
+                border-radius: 16px;
+            }
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            .tab-nav {
+                gap: 0 10px;
+            }
+            .tab-nav button {
+                font-size: 0.8rem;
+                padding: 4px 0 6px;
+            }
+            .btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Druckansicht */
+        @media print {
+            body {
+                background: #fff !important;
+                padding: 0.5in !important;
+            }
+            .notizblock {
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+            .tab-nav,
+            .vokabel-actions .btn,
+            .aktionen,
+            .lern-buttons,
+            .lernmodus-overlay {
+                display: none !important;
+            }
+            .tab-content {
+                display: block !important;
+            }
+            .grammatik-toc {
+                max-height: none !important;
+            }
+            .karte-lern {
+                height: auto !important;
+                perspective: none !important;
+            }
+            .karte-lern-inner {
+                transform: none !important;
+            }
+            .karte-lern .seite {
+                position: relative !important;
+                backface-visibility: visible !important;
+                transform: none !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 16px !important;
+            }
+            .karte-lern .rueckseite {
+                display: block !important;
+            }
+            .lernmodus-overlay {
+                position: static !important;
+                backdrop-filter: none !important;
+                background: none !important;
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="notizblock" id="app">
+        <div class="papier kariert" id="papierStil">
+
+            <!-- HEADER -->
+            <header class="header">
+                <h1>📘 Russisch lernen</h1>
+                <span class="sub">✍️ digitaler Lernordner</span>
+            </header>
+
+            <!-- NAVIGATION -->
+            <nav class="tab-nav" id="tabNav">
+                <button class="active" data-tab="vokabeln">📖 Vokabeln</button>
+                <button data-tab="grammatik">📝 Grammatik</button>
+                <button data-tab="statistiken">📊 Statistiken</button>
+                <button data-tab="einstellungen">⚙ Einstellungen</button>
+            </nav>
+
+            <!-- ===== TAB: VOKABELN ===== -->
+            <section class="tab-content active" id="tabVokabeln">
+                <div class="vokabel-actions">
+                    <div class="suche">
+                        <input type="text" id="vokabelSuche" placeholder="🔍 Vokabeln durchsuchen..." />
+                    </div>
+                    <select id="kategorieFilter">
+                        <option value="">Alle Kategorien</option>
+                    </select>
+                    <select id="sortierung">
+                        <option value="alphabetisch">Alphabetisch</option>
+                        <option value="kasten">Nach Kasten</option>
+                        <option value="datum">Neueste zuerst</option>
+                    </select>
+                    <button class="btn primär" id="neueVokabelBtn">+ Neue Karte</button>
+                    <button class="btn" id="lernmodusStartenBtn">📚 Lernen</button>
+                    <button class="btn" id="exportBtn">⬇ Export</button>
+                    <button class="btn" id="importBtn">⬆ Import</button>
+                    <input type="file" id="importFileInput" accept=".json" style="display:none" />
+                </div>
+
+                <!-- Kastenübersicht -->
+                <div class="kasten-uebersicht" id="kastenUebersicht"></div>
+
+                <!-- Vokabelliste -->
+                <div class="vokabel-liste" id="vokabelListe"></div>
+
+                <!-- Editor Modal (einfach) -->
+                <div id="editorModal" style="display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);backdrop-filter:blur(3px);z-index:2000;justify-content:center;align-items:center;">
+                    <div style="background:#FDFBF6;border-radius:24px;max-width:560px;width:100%;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+                        <h2 id="editorTitel" style="margin-bottom:16px;">✏️ Vokabel bearbeiten</h2>
+                        <div class="form-group"><label>Russisch *</label><input id="editRussisch" /></div>
+                        <div class="form-group"><label>Deutsch *</label><input id="editDeutsch" /></div>
+                        <div class="form-group"><label>Aussprache</label><input id="editAussprache" /></div>
+                        <div class="form-group"><label>Beispielsatz</label><input id="editBeispiel" /></div>
+                        <div class="form-group"><label>Kategorie</label><input id="editKategorie" /></div>
+                        <div class="form-group"><label>Schwierigkeit (1–5)</label><input id="editSchwierigkeit" type="number" min="1" max="5" value="3" /></div>
+                        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+                            <button class="btn primär" id="editorSpeichern">💾 Speichern</button>
+                            <button class="btn" id="editorAbbrechen">Abbrechen</button>
+                            <button class="btn rot" id="editorLoeschen" style="margin-left:auto;">🗑 Löschen</button>
+                        </div>
+                        <input type="hidden" id="editId" />
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== TAB: GRAMMATIK ===== -->
+            <section class="tab-content" id="tabGrammatik">
+                <div class="grammatik-layout">
+                    <div class="grammatik-toc" id="grammatikToc"></div>
+                    <div class="grammatik-inhalt">
+                        <div class="grammatik-seite" id="grammatikSeite"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== TAB: STATISTIKEN ===== -->
+            <section class="tab-content" id="tabStatistiken">
+                <div class="stats-grid" id="statsGrid"></div>
+                <div class="diagramm-container">
+                    <h3>📈 Fortschritt der letzten 30 Tage</h3>
+                    <canvas id="statsDiagramm"></canvas>
+                </div>
+                <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+                    <button class="btn" id="resetStatsBtn">🔄 Statistiken zurücksetzen</button>
+                </div>
+            </section>
+
+            <!-- ===== TAB: EINSTELLUNGEN ===== -->
+            <section class="tab-content" id="tabEinstellungen">
+                <div class="einstellungen-group">
+                    <h3>📄 Papierstil</h3>
+                    <label><input type="radio" name="papier" value="kariert" checked /> Kariert</label>
+                    <label><input type="radio" name="papier" value="liniert" /> Liniert</label>
+                    <label><input type="radio" name="papier" value="blanko" /> Blanko</label>
+                </div>
+                <div class="einstellungen-group">
+                    <h3>🔤 Schriftgröße</h3>
+                    <input type="range" id="schriftgroesse" min="14" max="22" value="16" step="1" />
+                    <span id="schriftgroesseAnzeige">16px</span>
+                </div>
+                <div class="einstellungen-group">
+                    <h3>🌙 Dark Mode</h3>
+                    <label><input type="checkbox" id="darkModeToggle" /> Dunkler Schreibtisch</label>
+                </div>
+                <div class="einstellungen-group">
+                    <h3>🎞 Animationen</h3>
+                    <label><input type="checkbox" id="animationenToggle" checked /> Animationen aktivieren</label>
+                </div>
+                <div class="einstellungen-group">
+                    <h3>💾 Daten</h3>
+                    <button class="btn" id="backupErstellenBtn">📦 Backup erstellen</button>
+                    <button class="btn" id="backupLadenBtn">📂 Backup laden</button>
+                    <input type="file" id="backupFileInput" accept=".json" style="display:none" />
+                </div>
+            </section>
+
+            <!-- ===== LERNNODUS OVERLAY ===== -->
+            <div class="lernmodus-overlay" id="lernOverlay">
+                <div class="lernmodus-card">
+                    <div class="fortschritt">
+                        <span id="lernKastenInfo">Kasten 1</span>
+                        <span id="lernZaehler">0 / 0</span>
+                    </div>
+                    <div class="fortschrittsbalken"><div class="fuellung" id="lernFortschritt"></div></div>
+                    <div class="karte-lern" id="lernKarte">
+                        <div class="karte-lern-inner" id="lernKarteInner">
+                            <div class="seite vorderseite">
+                                <div class="russisch" id="lernRussisch">Привет</div>
+                                <div class="aussprache" id="lernAussprache">[priˈvʲet]</div>
+                            </div>
+                            <div class="seite rueckseite">
+                                <div class="deutsch" id="lernDeutsch">Hallo</div>
+                                <div class="beispiel" id="lernBeispiel">Пример: Привет, как дела?</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lern-buttons">
+                        <button class="btn grün" id="lernGewusst">✅ Gewusst</button>
+                        <button class="btn rot" id="lernNichtGewusst">❌ Nicht gewusst</button>
+                        <button class="btn" id="lernBeenden">✖ Beenden</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /papier -->
+    </div><!-- /notizblock -->
+
+    <script>
+        // ================================================================
+        //  JAVASCRIPT – Vollständige App
+        // ================================================================
+
+        (function() {
+            'use strict';
+
+            // ---------- DATEN ----------
+            let vokabeln = [];
+            let stats = {
+                heuteGelernt: 0,
+                streak: 0,
+                xp: 0,
+                level: 1,
+                lernzeitGesamt: 0, // Sekunden
+                lernHistorie: {} // { '2026-01-01': 3, ... }
+            };
+            let einstellungen = {
+                papierStil: 'kariert',
+                schriftgroesse: 16,
+                animationen: true,
+                darkMode: false
+            };
+            let lernSession = {
+                aktiv: false,
+                karten: [],
+                index: 0,
+                kasten: 1,
+                startZeit: null
+            };
+            let aktuellerGrammatikKapitel = 'alphabet';
+
+            // ---------- SPEICHERN & LADEN ----------
+            function speichern() {
+                try {
+                    localStorage.setItem('russischVokabeln', JSON.stringify(vokabeln));
+                    localStorage.setItem('russischStats', JSON.stringify(stats));
+                    localStorage.setItem('russischEinstellungen', JSON.stringify(einstellungen));
+                } catch (e) {}
+            }
+
+            function laden() {
+                try {
+                    const v = localStorage.getItem('russischVokabeln');
+                    if (v) vokabeln = JSON.parse(v);
+                    const s = localStorage.getItem('russischStats');
+                    if (s) stats = JSON.parse(s);
+                    const e = localStorage.getItem('russischEinstellungen');
+                    if (e) einstellungen = JSON.parse(e);
+                } catch (e) {}
+                // Sicherstellen, dass jeder Eintrag eine id hat
+                vokabeln.forEach(v => { if (!v.id) v.id = Date.now() + '_' + Math.random().toString(36).slice(2, 6); });
+                if (!stats.lernHistorie) stats.lernHistorie = {};
+            }
+
+            // ---------- HILFSFUNKTIONEN ----------
+            function heute() {
+                return new Date().toISOString().slice(0, 10);
+            }
+
+            function generateId() {
+                return Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+            }
+
+            function kastenName(k) { return 'Kasten ' + k; }
+
+            // ---------- INIT ----------
+            laden();
+            // falls keine Vokabeln, Beispielvokabeln einfügen
+            if (vokabeln.length === 0) {
+                vokabeln = [
+                    { id: generateId(), russisch: 'Привет', deutsch: 'Hallo', aussprache: '[priˈvʲet]',
+                        beispiel: 'Привет, как дела?', kategorie: 'Begrüßung', schwierigkeit: 1, kasten: 1,
+                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
+                    { id: generateId(), russisch: 'Спасибо', deutsch: 'Danke', aussprache: '[spɐˈsʲibə]',
+                        beispiel: 'Спасибо большое!', kategorie: 'Höflichkeit', schwierigkeit: 1, kasten: 2,
+                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
+                    { id: generateId(), russisch: 'Да', deutsch: 'Ja', aussprache: '[da]', beispiel: 'Да, я понимаю.',
+                        kategorie: 'Grundlagen', schwierigkeit: 1, kasten: 1, liebling: false, schwierigMarkiert: false,
+                        zuletztGelernt: null, erstelltAm: Date.now() },
+                    { id: generateId(), russisch: 'Нет', deutsch: 'Nein', aussprache: '[nʲet]',
+                        beispiel: 'Нет, спасибо.', kategorie: 'Grundlagen', schwierigkeit: 1, kasten: 1,
+                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
+                    { id: generateId(), russisch: 'Мама', deutsch: 'Mutter', aussprache: '[ˈmamə]',
+                        beispiel: 'Моя мама дома.', kategorie: 'Familie', schwierigkeit: 2, kasten: 1,
+                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
+                    { id: generateId(), russisch: 'Папа', deutsch: 'Vater', aussprache: '[ˈpapə]',
+                        beispiel: 'Папа на работе.', kategorie: 'Familie', schwierigkeit: 2, kasten: 1,
+                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
+                ];
+                speichern();
+            }
+
+            // ---------- DOM-REFERENZEN ----------
+            const $ = (sel) => document.querySelector(sel);
+            const $$ = (sel) => document.querySelectorAll(sel);
+
+            const tabNav = $('#tabNav');
+            const tabContents = {
+                vokabeln: $('#tabVokabeln'),
+                grammatik: $('#tabGrammatik'),
+                statistiken: $('#tabStatistiken'),
+                einstellungen: $('#tabEinstellungen')
+            };
+            const vokabelListe = $('#vokabelListe');
+            const kastenUebersicht = $('#kastenUebersicht');
+            const vokabelSuche = $('#vokabelSuche');
+            const kategorieFilter = $('#kategorieFilter');
+            const sortierung = $('#sortierung');
+            const neueVokabelBtn = $('#neueVokabelBtn');
+            const lernmodusStartenBtn = $('#lernmodusStartenBtn');
+            const exportBtn = $('#exportBtn');
+            const importBtn = $('#importBtn');
+            const importFileInput = $('#importFileInput');
+            const editorModal = $('#editorModal');
+            const editorTitel = $('#editorTitel');
+            const editRussisch = $('#editRussisch');
+            const editDeutsch = $('#editDeutsch');
+            const editAussprache = $('#editAussprache');
+            const editBeispiel = $('#editBeispiel');
+            const editKategorie = $('#editKategorie');
+            const editSchwierigkeit = $('#editSchwierigkeit');
+            const editId = $('#editId');
+            const editorSpeichern = $('#editorSpeichern');
+            const editorAbbrechen = $('#editorAbbrechen');
+            const editorLoeschen = $('#editorLoeschen');
+
+            const lernOverlay = $('#lernOverlay');
+            const lernKastenInfo = $('#lernKastenInfo');
+            const lernZaehler = $('#lernZaehler');
+            const lernFortschritt = $('#lernFortschritt');
+            const lernKarteInner = $('#lernKarteInner');
+            const lernRussisch = $('#lernRussisch');
+            const lernAussprache = $('#lernAussprache');
+            const lernDeutsch = $('#lernDeutsch');
+            const lernBeispiel = $('#lernBeispiel');
+            const lernGewusst = $('#lernGewusst');
+            const lernNichtGewusst = $('#lernNichtGewusst');
+            const lernBeenden = $('#lernBeenden');
+
+            const grammatikToc = $('#grammatikToc');
+            const grammatikSeite = $('#grammatikSeite');
+
+            const statsGrid = $('#statsGrid');
+            const statsDiagramm = $('#statsDiagramm');
+            const resetStatsBtn = $('#resetStatsBtn');
+
+            const papierRadios = document.querySelectorAll('input[name="papier"]');
+            const schriftgroesse = $('#schriftgroesse');
+            const schriftgroesseAnzeige = $('#schriftgroesseAnzeige');
+            const darkModeToggle = $('#darkModeToggle');
+            const animationenToggle = $('#animationenToggle');
+            const backupErstellenBtn = $('#backupErstellenBtn');
+            const backupLadenBtn = $('#backupLadenBtn');
+            const backupFileInput = $('#backupFileInput');
+
+            // ---------- RENDER FUNKTIONEN ----------
+            function renderKastenUebersicht() {
+                const zaehler = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+                vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) zaehler[v.kasten]++; });
+                let html = '';
+                for (let i = 1; i <= 6; i++) {
+                    html += `<div class="kasten-box"><div class="nummer">📦 ${i}</div><div class="anzahl">${zaehler[i]} Karten</div></div>`;
+                }
+                kastenUebersicht.innerHTML = html;
+            }
+
+            function renderVokabelListe(filterText = '', filterKat = '', sort = 'alphabetisch') {
+                let liste = [...vokabeln];
+                // Filter
+                if (filterText.trim()) {
+                    const t = filterText.trim().toLowerCase();
+                    liste = liste.filter(v => v.russisch.toLowerCase().includes(t) || v.deutsch.toLowerCase().includes(t) || (
+                        v.kategorie && v.kategorie.toLowerCase().includes(t)));
+                }
+                if (filterKat) {
+                    liste = liste.filter(v => v.kategorie === filterKat);
+                }
+                // Sortierung
+                if (sort === 'alphabetisch') {
+                    liste.sort((a, b) => a.russisch.localeCompare(b.russisch));
+                } else if (sort === 'kasten') {
+                    liste.sort((a, b) => a.kasten - b.kasten || a.russisch.localeCompare(b.russisch));
+                } else if (sort === 'datum') {
+                    liste.sort((a, b) => (b.erstelltAm || 0) - (a.erstelltAm || 0));
+                }
+                if (liste.length === 0) {
+                    vokabelListe.innerHTML =
+                        '<div style="padding:30px;text-align:center;color:#8a857b;">Keine Vokabeln gefunden.</div>';
+                    return;
+                }
+                let html = '';
+                liste.forEach(v => {
+                    const stern = v.liebling ? '⭐' : '☆';
+                    const schwer = v.schwierigMarkiert ? '⚠️' : '';
+                    html += `
+                    <div class="eintrag" data-id="${v.id}">
+                        <span class="wort">${v.russisch}</span>
+                        <span class="uebersetzung">${v.deutsch}</span>
+                        <span class="kategorie">${v.kategorie || 'keine'}</span>
+                        <span class="kasten-badge">${kastenName(v.kasten)}</span>
+                        <span style="font-size:0.9rem;">${stern} ${schwer}</span>
+                        <div class="aktionen">
+                            <button class="editBtn" data-id="${v.id}">✏️</button>
+                            <button class="delBtn" data-id="${v.id}">🗑</button>
+                            <button class="toggleLiebling" data-id="${v.id}">${v.liebling ? '⭐' : '☆'}</button>
+                            <button class="toggleSchwer" data-id="${v.id}">${v.schwierigMarkiert ? '⚠️' : '○'}</button>
+                        </div>
+                    </div>
+                    `;
+                });
+                vokabelListe.innerHTML = html;
+
+                // Event-Listener für die Buttons
+                vokabelListe.querySelectorAll('.editBtn').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        const vok = vokabeln.find(v => v.id === id);
+                        if (vok) openEditor(vok);
+                    });
+                });
+                vokabelListe.querySelectorAll('.delBtn').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        if (confirm('Vokabel wirklich löschen?')) {
+                            vokabeln = vokabeln.filter(v => v.id !== id);
+                            speichern();
+                            renderAll();
+                        }
+                    });
+                });
+                vokabelListe.querySelectorAll('.toggleLiebling').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        const vok = vokabeln.find(v => v.id === id);
+                        if (vok) { vok.liebling = !vok.liebling;
+                            speichern();
+                            renderAll(); }
+                    });
+                });
+                vokabelListe.querySelectorAll('.toggleSchwer').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        const vok = vokabeln.find(v => v.id === id);
+                        if (vok) { vok.schwierigMarkiert = !vok.schwierigMarkiert;
+                            speichern();
+                            renderAll(); }
+                    });
+                });
+            }
+
+            function renderKategorieFilter() {
+                const kats = new Set();
+                vokabeln.forEach(v => { if (v.kategorie) kats.add(v.kategorie); });
+                const current = kategorieFilter.value;
+                kategorieFilter.innerHTML = '<option value="">Alle Kategorien</option>';
+                kats.forEach(k => {
+                    const opt = document.createElement('option');
+                    opt.value = k;
+                    opt.textContent = k;
+                    kategorieFilter.appendChild(opt);
+                });
+                kategorieFilter.value = current;
+            }
+
+            function renderAll() {
+                renderKastenUebersicht();
+                renderKategorieFilter();
+                const filterText = vokabelSuche.value;
+                const filterKat = kategorieFilter.value;
+                const sort = sortierung.value;
+                renderVokabelListe(filterText, filterKat, sort);
+                renderStats();
+                renderDiagramm();
+                // Einstellungen UI aktualisieren
+                schriftgroesse.value = einstellungen.schriftgroesse;
+                schriftgroesseAnzeige.textContent = einstellungen.schriftgroesse + 'px';
+                darkModeToggle.checked = einstellungen.darkMode;
+                animationenToggle.checked = einstellungen.animationen;
+                document.body.classList.toggle('dark', einstellungen.darkMode);
+                // Papierstil
+                document.querySelectorAll('input[name="papier"]').forEach(r => {
+                    r.checked = (r.value === einstellungen.papierStil);
+                });
+                const papier = document.getElementById('papierStil');
+                papier.className = 'papier ' + einstellungen.papierStil;
+                // Schriftgröße
+                document.querySelectorAll('.notizblock, .papier, input, select, textarea, button, .btn').forEach(el => {
+                    el.style.fontSize = einstellungen.schriftgroesse + 'px';
+                });
+                // Animationen
+                document.querySelectorAll('.karte-lern-inner, .tab-content, .btn').forEach(el => {
+                    if (einstellungen.animationen) {
+                        el.style.transition = '';
+                    } else {
+                        el.style.transition = 'none !important';
+                    }
+                });
+            }
+
+            // ---------- EDITOR ----------
+            let editorCallback = null;
+
+            function openEditor(vok = null) {
+                if (vok) {
+                    editorTitel.textContent = '✏️ Vokabel bearbeiten';
+                    editId.value = vok.id;
+                    editRussisch.value = vok.russisch || '';
+                    editDeutsch.value = vok.deutsch || '';
+                    editAussprache.value = vok.aussprache || '';
+                    editBeispiel.value = vok.beispiel || '';
+                    editKategorie.value = vok.kategorie || '';
+                    editSchwierigkeit.value = vok.schwierigkeit || 3;
+                    editorLoeschen.style.display = 'inline-block';
+                } else {
+                    editorTitel.textContent = '➕ Neue Vokabel';
+                    editId.value = '';
+                    editRussisch.value = '';
+                    editDeutsch.value = '';
+                    editAussprache.value = '';
+                    editBeispiel.value = '';
+                    editKategorie.value = '';
+                    editSchwierigkeit.value = 3;
+                    editorLoeschen.style.display = 'none';
+                }
+                editorModal.style.display = 'flex';
+                editRussisch.focus();
+            }
+
+            function closeEditor() { editorModal.style.display = 'none'; }
+
+            function saveEditor() {
+                const id = editId.value;
+                const russisch = editRussisch.value.trim();
+                const deutsch = editDeutsch.value.trim();
+                if (!russisch || !deutsch) { alert('Bitte Russisch und Deutsch ausfüllen.'); return; }
+                const aussprache = editAussprache.value.trim();
+                const beispiel = editBeispiel.value.trim();
+                const kategorie = editKategorie.value.trim();
+                const schwierigkeit = parseInt(editSchwierigkeit.value) || 3;
+                if (id) {
+                    // vorhanden
+                    const vok = vokabeln.find(v => v.id === id);
+                    if (vok) {
+                        vok.russisch = russisch;
+                        vok.deutsch = deutsch;
+                        vok.aussprache = aussprache;
+                        vok.beispiel = beispiel;
+                        vok.kategorie = kategorie;
+                        vok.schwierigkeit = schwierigkeit;
+                    }
+                } else {
+                    // neu
+                    const neu = {
+                        id: generateId(),
+                        russisch,
+                        deutsch,
+                        aussprache,
+                        beispiel,
+                        kategorie,
+                        schwierigkeit,
+                        kasten: 1,
+                        liebling: false,
+                        schwierigMarkiert: false,
+                        zuletztGelernt: null,
+                        erstelltAm: Date.now()
+                    };
+                    vokabeln.push(neu);
+                }
+                speichern();
+                closeEditor();
+                renderAll();
+            }
+
+            // ---------- LERNMODUS ----------
+            function startLernmodus(kasten = 1) {
+                // Karten aus diesem Kasten holen (oder alle? Standard: Kasten 1)
+                // Wir nehmen alle Karten aus Kasten 1-6, aber sortiert nach Kasten, und dann zufällig?
+                // Besser: alle Karten aus dem gewählten Kasten (Standard 1) oder alle?
+                let karten = vokabeln.filter(v => v.kasten === kasten);
+                if (karten.length === 0) {
+                    alert('In diesem Kasten sind keine Karten. Versuche einen anderen Kasten.');
+                    return;
+                }
+                // Zufällig mischen
+                karten = karten.sort(() => Math.random() - 0.5);
+                lernSession.aktiv = true;
+                lernSession.karten = karten;
+                lernSession.index = 0;
+                lernSession.kasten = kasten;
+                lernSession.startZeit = Date.now();
+                lernOverlay.classList.add('open');
+                // Eventuell alte Karten-Animation zurücksetzen
+                lernKarteInner.classList.remove('gewendet');
+                zeigeLernKarte();
+            }
+
+            function zeigeLernKarte() {
+                const karten = lernSession.karten;
+                const idx = lernSession.index;
+                if (idx >= karten.length) {
+                    // Lernsession beenden
+                    beendeLernmodus(true);
+                    return;
+                }
+                const vok = karten[idx];
+                lernRussisch.textContent = vok.russisch;
+                lernAussprache.textContent = vok.aussprache || '';
+                lernDeutsch.textContent = vok.deutsch;
+                lernBeispiel.textContent = vok.beispiel ? 'Beispiel: ' + vok.beispiel : '';
+                lernKastenInfo.textContent = 'Kasten ' + vok.kasten;
+                lernZaehler.textContent = (idx + 1) + ' / ' + karten.length;
+                lernFortschritt.style.width = ((idx / karten.length) * 100) + '%';
+                // Karte auf Vorderseite (Russisch) zurücksetzen
+                lernKarteInner.classList.remove('gewendet');
+                // Tastatur-Shortcuts: Leertaste zum Umdrehen, Pfeiltasten für Antwort
+            }
+
+            function beendeLernmodus(abgeschlossen = false) {
+                lernSession.aktiv = false;
+                lernOverlay.classList.remove('open');
+                if (abgeschlossen && lernSession.startZeit) {
+                    const dauer = Math.floor((Date.now() - lernSession.startZeit) / 1000);
+                    stats.lernzeitGesamt = (stats.lernzeitGesamt || 0) + dauer;
+                    // Heute gelernt erhöhen
+                    const heuteStr = heute();
+                    stats.heuteGelernt = (stats.heuteGelernt || 0) + lernSession.karten.length;
+                    stats.lernHistorie[heuteStr] = (stats.lernHistorie[heuteStr] || 0) + lernSession.karten.length;
+                    // XP: pro Karte 10 XP
+                    stats.xp = (stats.xp || 0) + lernSession.karten.length * 10;
+                    // Level: alle 100 XP ein Level
+                    stats.level = Math.floor((stats.xp || 0) / 100) + 1;
+                    // Streak prüfen
+                    const gestern = new Date();
+                    gestern.setDate(gestern.getDate() - 1);
+                    const gesternStr = gestern.toISOString().slice(0, 10);
+                    if (stats.lernHistorie[gesternStr] && stats.lernHistorie[gesternStr] > 0) {
+                        stats.streak = (stats.streak || 0) + 1;
+                    } else if (stats.lernHistorie[heuteStr] && stats.lernHistorie[heuteStr] > 0) {
+                        if (!stats.lernHistorie[gesternStr]) stats.streak = 1;
+                    } else {
+                        stats.streak = 0;
+                    }
+                    speichern();
+                    renderAll();
+                }
+                renderAll();
+            }
+
+            function lernAntwort(gewusst) {
+                if (!lernSession.aktiv) return;
+                const karten = lernSession.karten;
+                const idx = lernSession.index;
+                if (idx >= karten.length) return;
+                const vok = karten[idx];
+                if (gewusst) {
+                    // Kasten +1 (max 6)
+                    if (vok.kasten < 6) vok.kasten++;
+                    vok.zuletztGelernt = Date.now();
+                } else {
+                    // zurück in Kasten 1
+                    vok.kasten = 1;
+                    vok.zuletztGelernt = Date.now();
+                }
+                speichern();
+                lernSession.index++;
+                zeigeLernKarte();
+                renderAll(); // aktualisiert Kastenübersicht etc.
+            }
+
+            // ---------- GRAMMATIK ----------
+            const grammatikDaten = {
+                alphabet: {
+                    titel: 'Алфавит – Alphabet',
+                    inhalt: `
+                    <p>Das russische Alphabet (Кириллица) hat 33 Buchstaben.</p>
+                    <table>
+                        <tr><th>Buchstabe</th><th>Aussprache</th><th>Beispiel</th></tr>
+                        <tr><td>А а</td><td>[a]</td><td>мама</td></tr>
+                        <tr><td>Б б</td><td>[b]</td><td>баба</td></tr>
+                        <tr><td>В в</td><td>[v]</td><td>вода</td></tr>
+                        <tr><td>Г г</td><td>[g]</td><td>год</td></tr>
+                        <tr><td>Д д</td><td>[d]</td><td>дом</td></tr>
+                        <tr><td>Е е</td><td>[je]</td><td>есть</td></tr>
+                        <tr><td>Ё ё</td><td>[jo]</td><td>ёж</td></tr>
+                        <tr><td>Ж ж</td><td>[ʒ]</td><td>жизнь</td></tr>
+                        <tr><td>З з</td><td>[z]</td><td>зима</td></tr>
+                        <tr><td>И и</td><td>[i]</td><td>или</td></tr>
+                        <tr><td>Й й</td><td>[j]</td><td>йогурт</td></tr>
+                        <tr><td>К к</td><td>[k]</td><td>кот</td></tr>
+                        <tr><td>Л л</td><td>[l]</td><td>луна</td></tr>
+                        <tr><td>М м</td><td>[m]</td><td>мама</td></tr>
+                        <tr><td>Н н</td><td>[n]</td><td>нота</td></tr>
+                        <tr><td>О о</td><td>[o]</td><td>окно</td></tr>
+                        <tr><td>П п</td><td>[p]</td><td>папа</td></tr>
+                        <tr><td>Р р</td><td>[r]</td><td>река</td></tr>
+                        <tr><td>С с</td><td>[s]</td><td>сок</td></tr>
+                        <tr><td>Т т</td><td>[t]</td><td>том</td></tr>
+                        <tr><td>У у</td><td>[u]</td><td>утка</td></tr>
+                        <tr><td>Ф ф</td><td>[f]</td><td>факт</td></tr>
+                        <tr><td>Х х</td><td>[x]</td><td>хлеб</td></tr>
+                        <tr><td>Ц ц</td><td>[ts]</td><td>цвет</td></tr>
+                        <tr><td>Ч ч</td><td>[tʃ]</td><td>час</td></tr>
+                        <tr><td>Ш ш</td><td>[ʃ]</td><td>шум</td></tr>
+                        <tr><td>Щ щ</td><td>[ʃtʃ]</td><td>щи</td></tr>
+                        <tr><td>Ъ ъ</td><td>hartes Zeichen</td><td>объезд</td></tr>
+                        <tr><td>Ы ы</td><td>[ɨ]</td><td>мы</td></tr>
+                        <tr><td>Ь ь</td><td>weiches Zeichen</td><td>конь</td></tr>
+                        <tr><td>Э э</td><td>[e]</td><td>это</td></tr>
+                        <tr><td>Ю ю</td><td>[ju]</td><td>юг</td></tr>
+                        <tr><td>Я я</td><td>[ja]</td><td>яблоко</td></tr>
+                    </table>
+                    <div class="merk-box">💡 Merke: Ы ist ein typisch russischer Laut, der im Deutschen nicht vorkommt.</div>
+                    `
+                },
+                aussprache: {
+                    titel: 'Aussprache – произношение',
+                    inhalt: `
+                    <p>Die russische Aussprache folgt bestimmten Regeln.</p>
+                    <ul>
+                        <li><strong>Reduktion</strong>: Unbetonte Vokale werden schwächer ausgesprochen (z.B. о → а).</li>
+                        <li><strong>Palatalisierung</strong>: Konsonanten werden weich ausgesprochen, wenn ein мыгкий знак (ь) oder bestimmte Vokale folgen.</li>
+                        <li><strong>Stimmhaftigkeit</strong>: Stimmhafte Konsonanten werden am Wortende stimmlos (z.B. год → [got]).</li>
+                    </ul>
+                    <div class="beispiel-box">🔊 Beispiel: <strong>молоко</strong> wird [malaˈko] ausgesprochen.</div>
+                    `
+                },
+                faelle: {
+                    titel: 'Fälle – падежи',
+                    inhalt: `
+                    <p>Im Russischen gibt es sechs Fälle. Sie zeigen die grammatische Funktion eines Nomens im Satz an.</p>
+                    <table>
+                        <tr><th>Fall</th><th>Frage</th><th>Beispiel</th></tr>
+                        <tr><td>Nominativ</td><td>wer? was?</td><td>стол (der Tisch)</td></tr>
+                        <tr><td>Genitiv</td><td>wessen?</td><td>стола (des Tisches)</td></tr>
+                        <tr><td>Dativ</td><td>wem?</td><td>столу (dem Tisch)</td></tr>
+                        <tr><td>Akkusativ</td><td>wen? was?</td><td>стол (den Tisch)</td></tr>
+                        <tr><td>Instrumental</td><td>womit?</td><td>столом (mit dem Tisch)</td></tr>
+                        <tr><td>Präpositiv</td><td>über wen? über was?</td><td>о столе (über den Tisch)</td></tr>
+                    </table>
+                    <div class="merk-box">📌 Die Endungen der Nomen hängen von Geschlecht und Deklination ab.</div>
+                    `
+                },
+                nominativ: {
+                    titel: 'Nominativ – именительный падеж',
+                    inhalt: `<p>Der Nominativ ist die Grundform des Nomens. Er beantwortet die Fragen «wer?» oder «was?».</p>
+                    <div class="beispiel-box">👤 Пример: <strong>Мама</strong> читает. (Die Mutter liest.)</div>
+                    <p>Das Subjekt eines Satzes steht immer im Nominativ.</p>`
+                },
+                genitiv: {
+                    titel: 'Genitiv – родительный падеж',
+                    inhalt: `<p>Der Genitiv zeigt Besitz oder Zugehörigkeit an (Frage: wessen?).</p>
+                    <div class="beispiel-box">📖 Пример: <strong>Книга брата</strong> (Das Buch des Bruders.)</div>
+                    <p>Er wird auch bei Verneinung und bei Mengenangaben verwendet.</p>`
+                },
+                dativ: {
+                    titel: 'Dativ – дательный падеж',
+                    inhalt: `<p>Der Dativ beantwortet die Frage «wem?» und zeigt den indirekten Empfänger an.</p>
+                    <div class="beispiel-box">🎁 Пример: Я даю подарок <strong>другу</strong>. (Ich gebe dem Freund ein Geschenk.)</div>`
+                },
+                akkusativ: {
+                    titel: 'Akkusativ – винительный падеж',
+                    inhalt: `<p>Der Akkusativ zeigt das direkte Objekt an (Frage: wen? was?).</p>
+                    <div class="beispiel-box">👀 Пример: Я вижу <strong>дом</strong>. (Ich sehe das Haus.)</div>
+                    <p>Bei belebten Wesen (Maskulinum) ändert sich die Endung.</p>`
+                },
+                instrumental: {
+                    titel: 'Instrumental – творительный падеж',
+                    inhalt: `<p>Der Instrumental beantwortet die Frage «womit?» und zeigt das Mittel oder die Begleitung an.</p>
+                    <div class="beispiel-box">✏️ Пример: Я пишу <strong>ручкой</strong>. (Ich schreibe mit einem Kuli.)</div>`
+                },
+                praepositiv: {
+                    titel: 'Präpositiv – предложный падеж',
+                    inhalt: `<p>Der Präpositiv wird immer mit einer Präposition verwendet (z.B. о, в, на). Er beantwortet die Frage «über wen? über was?».</p>
+                    <div class="beispiel-box">🏠 Пример: Я живу <strong>в доме</strong>. (Ich wohne im Haus.)</div>`
+                },
+                verben: {
+                    titel: 'Verben – глаголы',
+                    inhalt: `<p>Russische Verben werden nach Person und Numerus konjugiert. Es gibt zwei Konjugationsklassen.</p>
+                    <table>
+                        <tr><th>Person</th><th>-ить (z.B. говорить)</th><th>-ать (z.B. читать)</th></tr>
+                        <tr><td>я</td><td>говорю</td><td>читаю</td></tr>
+                        <tr><td>ты</td><td>говоришь</td><td>читаешь</td></tr>
+                        <tr><td>он/она</td><td>говорит</td><td>читает</td></tr>
+                        <tr><td>мы</td><td>говорим</td><td>читаем</td></tr>
+                        <tr><td>вы</td><td>говорите</td><td>читаете</td></tr>
+                        <tr><td>они</td><td>говорят</td><td>читают</td></tr>
+                    </table>
+                    <div class="merk-box">⚡ Unregelmäßige Verben wie <strong>быть</strong> (sein) weichen ab.</div>`
+                },
+                aspekte: {
+                    titel: 'Aspekte – виды глаголов',
+                    inhalt: `<p>Jedes russische Verb hat zwei Aspekte: <strong>imperfektiv</strong> (unvollendet) und <strong>perfektiv</strong> (vollendet).</p>
+                    <ul>
+                        <li><strong>Imperfektiv</strong>: betont den Ablauf oder die Wiederholung (z.B. читать – lesen).</li>
+                        <li><strong>Perfektiv</strong>: betont das Ergebnis oder die Vollendung (z.B. прочитать – (zu Ende) lesen).</li>
+                    </ul>
+                    <div class="beispiel-box">📚 Пример: Я <strong>читал</strong> книгу (ich habe gelesen) vs. Я <strong>прочитал</strong> книгу (ich habe zu Ende gelesen).</div>`
+                },
+                zeitformen: {
+                    titel: 'Zeitformen – времена',
+                    inhalt: `<p>Im Russischen gibt es drei Zeitformen: <strong>Präsens</strong>, <strong>Präteritum</strong> und <strong>Futur</strong>.</p>
+                    <ul>
+                        <li><strong>Präsens</strong>: Nur bei imperfektiven Verben (z.B. я читаю).</li>
+                        <li><strong>Präteritum</strong>: wird mit -л- gebildet (z.B. я читал).</li>
+                        <li><strong>Futur</strong>: bei perfektiven Verben (z.B. я прочитаю) oder mit werden (буду читать).</li>
+                    </ul>`
+                },
+                pronomen: {
+                    titel: 'Pronomen – местоимения',
+                    inhalt: `<p>Die wichtigsten Personalpronomen:</p>
+                    <table>
+                        <tr><th>Person</th><th>Nominativ</th><th>Genitiv</th><th>Dativ</th><th>Akkusativ</th></tr>
+                        <tr><td>ich</td><td>я</td><td>меня</td><td>мне</td><td>меня</td></tr>
+                        <tr><td>du</td><td>ты</td><td>тебя</td><td>тебе</td><td>тебя</td></tr>
+                        <tr><td>er</td><td>он</td><td>его</td><td>ему</td><td>его</td></tr>
+                        <tr><td>sie (f)</td><td>она</td><td>её</td><td>ей</td><td>её</td></tr>
+                        <tr><td>es</td><td>оно</td><td>его</td><td>ему</td><td>его</td></tr>
+                        <tr><td>wir</td><td>мы</td><td>нас</td><td>нам</td><td>нас</td></tr>
+                        <tr><td>ihr</td><td>вы</td><td>вас</td><td>вам</td><td>вас</td></tr>
+                        <tr><td>sie (pl)</td><td>они</td><td>их</td><td>им</td><td>их</td></tr>
+                    </table>`
+                },
+                adjektive: {
+                    titel: 'Adjektive – прилагательные',
+                    inhalt: `<p>Adjektive passen sich in Genus, Numerus und Kasus an das Nomen an.</p>
+                    <div class="beispiel-box">🟢 Пример: <strong>красивый дом</strong> (schönes Haus, mask.), <strong>красивая книга</strong> (schönes Buch, fem.), <strong>красивое окно</strong> (schönes Fenster, neutr.)</div>
+                    <p>Die Endungen: -ый/-ий (mask.), -ая/-яя (fem.), -ое/-ее (neutr.), -ые/-ие (pl.)</p>`
+                },
+                zahlen: {
+                    titel: 'Zahlen – числительные',
+                    inhalt: `<p>Die Grundzahlen 1–10:</p>
+                    <table>
+                        <tr><th>Zahl</th><th>Russisch</th></tr>
+                        <tr><td>1</td><td>один</td></tr>
+                        <tr><td>2</td><td>два</td></tr>
+                        <tr><td>3</td><td>три</td></tr>
+                        <tr><td>4</td><td>четыре</td></tr>
+                        <tr><td>5</td><td>пять</td></tr>
+                        <tr><td>6</td><td>шесть</td></tr>
+                        <tr><td>7</td><td>семь</td></tr>
+                        <tr><td>8</td><td>восемь</td></tr>
+                        <tr><td>9</td><td>девять</td></tr>
+                        <tr><td>10</td><td>десять</td></tr>
+                    </table>
+                    <p>Zahlen 1–4 verlangen den Nominativ Singular, 5–20 den Genitiv Plural.</p>`
+                },
+                praepositionen: {
+                    titel: 'Präpositionen – предлоги',
+                    inhalt: `<p>Wichtige Präpositionen mit den dazugehörigen Fällen:</p>
+                    <ul>
+                        <li><strong>в</strong> + Akkusativ (Richtung) / Präpositiv (Ort): в школу / в школе</li>
+                        <li><strong>на</strong> + Akkusativ / Präpositiv: на стол / на столе</li>
+                        <li><strong>с</strong> + Genitiv (von) / Instrumental (mit): с работы / с другом</li>
+                        <li><strong>о</strong> + Präpositiv: о книге</li>
+                    </ul>`
+                },
+                satzbau: {
+                    titel: 'Satzbau – построение предложений',
+                    inhalt: `<p>Die Grundwortfolge im Russischen ist <strong>Subjekt – Prädikat – Objekt</strong>, aber sie ist flexibel.</p>
+                    <div class="beispiel-box">📝 Пример: <strong>Я читаю книгу.</strong> (Ich lese ein Buch.) – Betonung kann durch Umstellung verändert werden.</div>
+                    <p>Fragen werden oft durch Intonation gebildet, ohne Wortumstellung.</p>`
+                }
+            };
+
+            function renderGrammatikToc() {
+                const kapitel = Object.keys(grammatikDaten);
+                let html = '<ul>';
+                kapitel.forEach(key => {
+                    const aktiv = (key === aktuellerGrammatikKapitel) ? 'aktiv' : '';
+                    html += `<li class="${aktiv}" data-key="${key}">${grammatikDaten[key].titel}</li>`;
+                });
+                html += '</ul>';
+                grammatikToc.innerHTML = html;
+                grammatikToc.querySelectorAll('li').forEach(li => {
+                    li.addEventListener('click', () => {
+                        aktuellerGrammatikKapitel = li.dataset.key;
+                        renderGrammatikToc();
+                        renderGrammatikSeite();
+                    });
+                });
+            }
+
+            function renderGrammatikSeite() {
+                const data = grammatikDaten[aktuellerGrammatikKapitel];
+                if (!data) return;
+                grammatikSeite.innerHTML = `<h2>${data.titel}</h2>${data.inhalt}`;
+            }
+
+            // ---------- STATISTIKEN ----------
+            function renderStats() {
+                const total = vokabeln.length;
+                const heuteStr = heute();
+                const heuteGelernt = stats.lernHistorie[heuteStr] || 0;
+                const erfolge = vokabeln.filter(v => v.kasten >= 6).length;
+                const quote = total > 0 ? Math.round((erfolge / total) * 100) : 0;
+                // Karten pro Kasten
+                const kastenZ = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+                vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) kastenZ[v.kasten]++; });
+                let kastenText = '';
+                for (let i = 1; i <= 6; i++) {
+                    kastenText += `K${i}: ${kastenZ[i]} `;
+                }
+
+                statsGrid.innerHTML = `
+                    <div class="stats-card"><div class="zahl">${total}</div><div class="label">📚 Gesamt</div></div>
+                    <div class="stats-card"><div class="zahl">${heuteGelernt}</div><div class="label">📖 Heute gelernt</div></div>
+                    <div class="stats-card"><div class="zahl">${quote}%</div><div class="label">✅ Erfolgsquote (Kasten 6)</div></div>
+                    <div class="stats-card"><div class="zahl">${stats.streak || 0}</div><div class="label">🔥 Streak (Tage)</div></div>
+                    <div class="stats-card"><div class="zahl">${stats.xp || 0}</div><div class="label">⭐ XP</div></div>
+                    <div class="stats-card"><div class="zahl">${stats.level || 1}</div><div class="label">🏅 Level</div></div>
+                    <div class="stats-card" style="grid-column: span 2;"><div class="zahl" style="font-size:1rem;">${kastenText}</div><div class="label">📦 Verteilung</div></div>
+                `;
+            }
+
+            function renderDiagramm() {
+                const canvas = statsDiagramm;
+                const ctx = canvas.getContext('2d');
+                const width = canvas.parentElement.clientWidth - 40;
+                const height = 180;
+                canvas.width = width * window.devicePixelRatio;
+                canvas.height = height * window.devicePixelRatio;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+                // Daten der letzten 30 Tage
+                const daten = [];
+                const heuteStr = heute();
+                const today = new Date();
+                for (let i = 29; i >= 0; i--) {
+                    const d = new Date(today);
+                    d.setDate(d.getDate() - i);
+                    const key = d.toISOString().slice(0, 10);
+                    const val = stats.lernHistorie[key] || 0;
+                    daten.push({ tag: key, wert: val });
+                }
+                const max = Math.max(1, ...daten.map(d => d.wert));
+                const padding = { top: 10, bottom: 20, left: 20, right: 10 };
+                const chartWidth = width - padding.left - padding.right;
+                const chartHeight = height - padding.top - padding.bottom;
+                const barWidth = Math.min(chartWidth / 30, 16);
+
+                ctx.clearRect(0, 0, width, height);
+
+                // Hintergrund
+                ctx.fillStyle = '#fcf9f3';
+                ctx.fillRect(0, 0, width, height);
+
+                // Achsen
+                ctx.strokeStyle = '#D8D4CC';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, padding.top);
+                ctx.lineTo(padding.left, padding.top + chartHeight);
+                ctx.lineTo(padding.left + chartWidth, padding.top + chartHeight);
+                ctx.stroke();
+
+                // Balken
+                daten.forEach((d, i) => {
+                    const x = padding.left + (i / daten.length) * chartWidth;
+                    const barH = (d.wert / max) * chartHeight;
+                    const y = padding.top + chartHeight - barH;
+                    ctx.fillStyle = '#4D83FF';
+                    ctx.fillRect(x - barWidth / 2, y, barWidth, barH);
+                    // Tag (nur jeder 3.)
+                    if (i % 3 === 0) {
+                        ctx.fillStyle = '#8a857b';
+                        ctx.font = '8px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(d.tag.slice(5), x, padding.top + chartHeight + 14);
+                    }
+                });
+                // Werte über den Balken
+                daten.forEach((d, i) => {
+                    if (d.wert > 0) {
+                        const x = padding.left + (i / daten.length) * chartWidth;
+                        const barH = (d.wert / max) * chartHeight;
+                        const y = padding.top + chartHeight - barH - 4;
+                        ctx.fillStyle = '#2C2C2C';
+                        ctx.font = '8px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(d.wert, x, y);
+                    }
+                });
+            }
+
+            // ---------- QUIZ (einfach integriert) ----------
+            // Wir nutzen den Lernmodus nicht für Quiz, aber wir können ein einfaches Quiz im Vokabel-Tab starten.
+            // Ich füge einen Quiz-Button hinzu. Aber der ist nicht explizit gefordert, aber erwähnt.
+            // Ich werde einen einfachen Quiz-Modus implementieren, der im Vokabel-Tab erscheint.
+            // Dazu brauche ich einen zusätzlichen Button "📝 Quiz" und ein Overlay.
+            // Der Einfachheit halber baue ich ein einfaches Quiz in den Lernmodus ein? Nein, besser eigenes Overlay.
+            // Aber das würde den Rahmen sprengen. Stattdessen zeige ich bei "Lernen" auch Quiz-Fragen an?
+            // Da die Anforderung "Quiz" mit verschiedenen Fragetypen enthält, muss ich es umsetzen.
+            // Ich füge einen "Quiz starten" Button im Vokabel-Tab hinzu und ein Quiz-Overlay.
+            // Das Quiz verwendet alle Vokabeln, fragt Russisch->Deutsch, Deutsch->Russisch, Multiple Choice (3 Optionen), Lückentext (Buchstaben ergänzen), schriftliche Eingabe (Vergleich).
+            // Ich werde es relativ simpel halten, aber funktional.
+
+            // Quiz-Overlay hinzufügen (dynamisch)
+            const quizOverlay = document.createElement('div');
+            quizOverlay.id = 'quizOverlay';
+            quizOverlay.style.cssText =
+                'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:3000;display:none;justify-content:center;align-items:center;padding:20px;';
+            quizOverlay.innerHTML = `
+                <div style="background:#FDFBF6;border-radius:24px;max-width:600px;width:100%;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+                    <h2 id="quizTitel">📝 Quiz</h2>
+                    <div id="quizFrageContainer">
+                        <div class="quiz-frage" id="quizFrageText"></div>
+                        <div class="quiz-optionen" id="quizOptionen"></div>
+                        <div id="quizEingabe" style="display:none;"><input type="text" id="quizInput" placeholder="Antwort eingeben..." /><button class="btn primär" id="quizInputBestätigen">Bestätigen</button></div>
+                        <div id="quizFeedback" style="margin:12px 0;font-weight:500;"></div>
+                    </div>
+                    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+                        <button class="btn primär" id="quizNächste">➡ Nächste Frage</button>
+                        <button class="btn" id="quizBeenden">✖ Beenden</button>
+                    </div>
+                    <div id="quizErgebnis" style="display:none;margin-top:16px;background:#f0f4ff;padding:16px;border-radius:12px;">
+                        <h3>Ergebnis</h3>
+                        <p id="quizPunkte"></p>
+                        <p id="quizFehler"></p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(quizOverlay);
+
+            const quizFrageText = document.getElementById('quizFrageText');
+            const quizOptionen = document.getElementById('quizOptionen');
+            const quizEingabe = document.getElementById('quizEingabe');
+            const quizInput = document.getElementById('quizInput');
+            const quizInputBestätigen = document.getElementById('quizInputBestätigen');
+            const quizFeedback = document.getElementById('quizFeedback');
+            const quizNächste = document.getElementById('quizNächste');
+            const quizBeenden = document.getElementById('quizBeenden');
+            const quizErgebnis = document.getElementById('quizErgebnis');
+            const quizPunkte = document.getElementById('quizPunkte');
+            const quizFehler = document.getElementById('quizFehler');
+            const quizTitel = document.getElementById('quizTitel');
+
+            let quizFragen = [];
+            let quizIndex = 0;
+            let quizPunkteZahl = 0;
+            let quizFehlerZahl = 0;
+            let quizAntwortGegeben = false;
+
+            function starteQuiz() {
+                const alle = vokabeln.filter(v => v.russisch && v.deutsch);
+                if (alle.length < 3) { alert('Bitte mindestens 3 Vokabeln für ein Quiz anlegen.'); return; }
+                // 10 zufällige Fragen generieren
+                const anzahl = Math.min(10, alle.length);
+                const auswahl = alle.sort(() => Math.random() - 0.5).slice(0, anzahl);
+                quizFragen = auswahl.map(v => {
+                    // Fragetyp zufällig
+                    const typ = Math.floor(Math.random() * 5); // 0-4
+                    const frage = {
+                        vok: v,
+                        typ: typ,
+                        // Für MC: 3 falsche Optionen aus anderen Vokabeln
+                        optionen: []
+                    };
+                    if (typ === 2) { // MC
+                        const falsche = vokabeln.filter(x => x.id !== v.id && x.deutsch).sort(() => Math.random() - 0.5)
+                            .slice(0, 2);
+                        const opt = [v.deutsch, ...falsche.map(x => x.deutsch)];
+                        frage.optionen = opt.sort(() => Math.random() - 0.5);
+                    }
+                    return frage;
+                });
+                quizIndex = 0;
+                quizPunkteZahl = 0;
+                quizFehlerZahl = 0;
+                quizAntwortGegeben = false;
+                quizErgebnis.style.display = 'none';
+                document.getElementById('quizFrageContainer').style.display = 'block';
+                quizOverlay.style.display = 'flex';
+                zeigeQuizFrage();
+            }
+
+            function zeigeQuizFrage() {
+                if (quizIndex >= quizFragen.length) {
+                    beendeQuiz();
+                    return;
+                }
+                const f = quizFragen[quizIndex];
+                const v = f.vok;
+                quizAntwortGegeben = false;
+                quizFeedback.textContent = '';
+                quizFeedback.style.color = '#2C2C2C';
+                quizEingabe.style.display = 'none';
+                quizOptionen.style.display = 'none';
+                quizOptionen.innerHTML = '';
+                quizInput.value = '';
+
+                let frageText = '';
+                switch (f.typ) {
+                    case 0:
+                        frageText = `Was bedeutet <strong>${v.russisch}</strong> auf Deutsch?`;
+                        break;
+                    case 1:
+                        frageText = `Was bedeutet <strong>${v.deutsch}</strong> auf Russisch?`;
+                        break;
+                    case 2:
+                        frageText = `Wähle die richtige Übersetzung für <strong>${v.russisch}</strong>:`;
+                        quizOptionen.style.display = 'flex';
+                        f.optionen.forEach(opt => {
+                            const btn = document.createElement('button');
+                            btn.textContent = opt;
+                            btn.addEventListener('click', () => quizAntwortMC(btn, opt, v.deutsch));
+                            quizOptionen.appendChild(btn);
+                        });
+                        break;
+                    case 3: {
+                        // Lückentext: zeige russisch, aber ein Buchstabe fehlt
+                        const wort = v.russisch;
+                        const idx = Math.floor(Math.random() * wort.length);
+                        const lücke = wort.substring(0, idx) + '___' + wort.substring(idx + 1);
+                        frageText =
+                            `Ergänze den fehlenden Buchstaben: <strong>${lücke}</strong> (${v.deutsch})<br><small>Tipp: ${v.aussprache || ''}</small>`;
+                        quizEingabe.style.display = 'flex';
+                        quizInput.placeholder = 'Buchstabe eingeben...';
+                        quizInputBestätigen.onclick = () => {
+                            const antwort = quizInput.value.trim().toLowerCase();
+                            const korrekt = wort[idx].toLowerCase();
+                            if (antwort === korrekt) {
+                                quizFeedback.textContent = '✅ Richtig!';
+                                quizFeedback.style.color = '#4CAF50';
+                                quizPunkteZahl++;
+                            } else {
+                                quizFeedback.textContent = '❌ Falsch. Richtig wäre: ' + wort[idx];
+                                quizFeedback.style.color = '#D64A4A';
+                                quizFehlerZahl++;
+                            }
+                            quizAntwortGegeben = true;
+                            quizInputBestätigen.disabled = true;
+                        };
+                        break;
+                    }
+                    case 4: {
+                        // Schriftliche Eingabe: Deutsch -> Russisch
+                        frageText = `Schreibe die russische Übersetzung für <strong>${v.deutsch}</strong>:`;
+                        quizEingabe.style.display = 'flex';
+                        quizInput.placeholder = 'Russisch eingeben...';
+                        quizInputBestätigen.onclick = () => {
+                            const antwort = quizInput.value.trim().toLowerCase();
+                            const korrekt = v.russisch.toLowerCase();
+                            // einfacher Vergleich, Toleranz für Akzente ignorieren wir
+                            if (antwort === korrekt) {
+                                quizFeedback.textContent = '✅ Richtig!';
+                                quizFeedback.style.color = '#4CAF50';
+                                quizPunkteZahl++;
+                            } else {
+                                quizFeedback.textContent = '❌ Falsch. Richtig: ' + v.russisch;
+                                quizFeedback.style.color = '#D64A4A';
+                                quizFehlerZahl++;
+                            }
+                            quizAntwortGegeben = true;
+                            quizInputBestätigen.disabled = true;
+                        };
+                        break;
+                    }
+                    default:
+                        frageText = 'Fehler';
+                }
+                quizFrageText.innerHTML = frageText;
+                if (f.typ !== 2 && f.typ !== 3 && f.typ !== 4) {
+                    // Bei Typ 0 und 1: Buttons für Antwort
+                    quizOptionen.style.display = 'flex';
+                    const richtigeAntwort = (f.typ === 0) ? v.deutsch : v.russisch;
+                    const falsche = vokabeln.filter(x => x.id !== v.id).sort(() => Math.random() - 0.5).slice(0, 2);
+                    const opt = [richtigeAntwort, ...falsche.map(x => (f.typ === 0) ? x.deutsch : x.russisch)];
+                    opt.sort(() => Math.random() - 0.5);
+                    opt.forEach(optVal => {
+                        const btn = document.createElement('button');
+                        btn.textContent = optVal;
+                        btn.addEventListener('click', () => quizAntwortMC(btn, optVal, richtigeAntwort));
+                        quizOptionen.appendChild(btn);
+                    });
+                }
+                // Nächste-Button deaktivieren bis Antwort gegeben
+                quizNächste.disabled = true;
+                // Bei Eingabe-Typen: Bestätigen aktivieren
+                if (f.typ === 3 || f.typ === 4) {
+                    quizInputBestätigen.disabled = false;
+                }
+            }
+
+            function quizAntwortMC(btn, gewählt, korrekt) {
+                if (quizAntwortGegeben) return;
+                quizAntwortGegeben = true;
+                const isRichtig = (gewählt === korrekt);
+                if (isRichtig) {
+                    btn.classList.add('richtig');
+                    quizFeedback.textContent = '✅ Richtig!';
+                    quizFeedback.style.color = '#4CAF50';
+                    quizPunkteZahl++;
+                } else {
+                    btn.classList.add('falsch');
+                    quizFeedback.textContent = '❌ Falsch. Richtig: ' + korrekt;
+                    quizFeedback.style.color = '#D64A4A';
+                    quizFehlerZahl++;
+                }
+                // Alle Buttons deaktivieren
+                quizOptionen.querySelectorAll('button').forEach(b => b.disabled = true);
+                quizNächste.disabled = false;
+            }
+
+            // Überschreibe quizNächste und quizBeenden
+            quizNächste.addEventListener('click', () => {
+                if (quizNächste.disabled) return;
+                quizIndex++;
+                zeigeQuizFrage();
+            });
+
+            quizBeenden.addEventListener('click', () => {
+                beendeQuiz();
+            });
+
+            function beendeQuiz() {
+                quizOverlay.style.display = 'none';
+                // Ergebnis anzeigen (wenn vorzeitig beendet, trotzdem)
+                quizErgebnis.style.display = 'block';
+                quizPunkte.textContent = 'Punkte: ' + quizPunkteZahl;
+                quizFehler.textContent = 'Fehler: ' + quizFehlerZahl;
+                // Speichern: XP für Quiz (pro richtige 5 XP)
+                const xpGewinn = quizPunkteZahl * 5;
+                stats.xp = (stats.xp || 0) + xpGewinn;
+                stats.level = Math.floor((stats.xp || 0) / 100) + 1;
+                speichern();
+                renderAll();
+                setTimeout(() => {
+                    quizErgebnis.style.display = 'none';
+                    document.getElementById('quizFrageContainer').style.display = 'block';
+                }, 5000);
+            }
+
+            // Quiz-Button hinzufügen
+            const quizStartBtn = document.createElement('button');
+            quizStartBtn.className = 'btn';
+            quizStartBtn.textContent = '📝 Quiz';
+            quizStartBtn.addEventListener('click', starteQuiz);
+            document.querySelector('.vokabel-actions').appendChild(quizStartBtn);
+
+            // ---------- EXPORT / IMPORT ----------
+            function exportData() {
+                const data = { vokabeln, stats, einstellungen };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'russisch_lernen_backup_' + heute() + '.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            function importData(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.vokabeln && data.stats && data.einstellungen) {
+                            vokabeln = data.vokabeln;
+                            stats = data.stats;
+                            einstellungen = data.einstellungen;
+                            speichern();
+                            renderAll();
+                            alert('Import erfolgreich!');
+                        } else {
+                            alert('Ungültige Datei.');
+                        }
+                    } catch (err) { alert('Fehler beim Import: ' + err.message); }
+                };
+                reader.readAsText(file);
+            }
+
+            // ---------- EVENT BINDING ----------
+            // Tab-Navigation
+            tabNav.addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const tab = btn.dataset.tab;
+                if (!tab) return;
+                tabNav.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.keys(tabContents).forEach(key => {
+                    tabContents[key].classList.toggle('active', key === tab);
+                });
+                // Bei Statistik-Tab Diagramm neu zeichnen
+                if (tab === 'statistiken') {
+                    setTimeout(renderDiagramm, 100);
+                }
+                if (tab === 'grammatik') {
+                    renderGrammatikToc();
+                    renderGrammatikSeite();
+                }
+            });
+
+            // Vokabel Suche & Filter
+            vokabelSuche.addEventListener('input', renderAll);
+            kategorieFilter.addEventListener('change', renderAll);
+            sortierung.addEventListener('change', renderAll);
+
+            // Neue Vokabel
+            neueVokabelBtn.addEventListener('click', () => openEditor(null));
+
+            // Editor
+            editorAbbrechen.addEventListener('click', closeEditor);
+            editorSpeichern.addEventListener('click', saveEditor);
+            editorLoeschen.addEventListener('click', () => {
+                const id = editId.value;
+                if (id && confirm('Wirklich löschen?')) {
+                    vokabeln = vokabeln.filter(v => v.id !== id);
+                    speichern();
+                    closeEditor();
+                    renderAll();
+                }
+            });
+            // Enter im Editor
+            document.querySelectorAll('#editorModal input').forEach(inp => {
+                inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') saveEditor(); });
+            });
+
+            // Lernmodus
+            lernmodusStartenBtn.addEventListener('click', () => {
+                // Kasten auswählen? Einfach Kasten 1, oder alle?
+                // Wir fragen den Benutzer per Prompt
+                const k = prompt('Welcher Kasten? (1-6, oder 0 für alle)', '1');
+                if (k === null) return;
+                let kasten = parseInt(k);
+                if (isNaN(kasten) || kasten < 0 || kasten > 6) { alert('Bitte 0-6 eingeben.'); return; }
+                if (kasten === 0) {
+                    // alle Karten aus allen Kästen
+                    const alle = vokabeln.filter(v => v.kasten >= 1 && v.kasten <= 6);
+                    if (alle.length === 0) { alert('Keine Karten vorhanden.'); return; }
+                    // Starte mit Kasten 1, aber alle Karten
+                    lernSession.karten = alle.sort(() => Math.random() - 0.5);
+                    lernSession.index = 0;
+                    lernSession.kasten = 0;
+                    lernSession.aktiv = true;
+                    lernSession.startZeit = Date.now();
+                    lernOverlay.classList.add('open');
+                    lernKastenInfo.textContent = 'Alle Kästen';
+                    zeigeLernKarte();
+                } else {
+                    startLernmodus(kasten);
+                }
+            });
+
+            lernGewusst.addEventListener('click', () => lernAntwort(true));
+            lernNichtGewusst.addEventListener('click', () => lernAntwort(false));
+            lernBeenden.addEventListener('click', () => beendeLernmodus(false));
+
+            // Karte umdrehen mit Klick
+            lernKarteInner.addEventListener('click', () => {
+                if (!lernSession.aktiv) return;
+                lernKarteInner.classList.toggle('gewendet');
+            });
+
+            // Tastatursteuerung im Lernmodus
+            document.addEventListener('keydown', (e) => {
+                if (!lernSession.aktiv) return;
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    lernKarteInner.classList.toggle('gewendet');
+                } else if (e.key === 'y' || e.key === 'Y') {
+                    lernAntwort(true);
+                } else if (e.key === 'n' || e.key === 'N') {
+                    lernAntwort(false);
+                } else if (e.key === 'Escape') {
+                    beendeLernmodus(false);
+                }
+            });
+
+            // Export / Import
+            exportBtn.addEventListener('click', exportData);
+            importBtn.addEventListener('click', () => importFileInput.click());
+            importFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    importData(e.target.files[0]);
+                    e.target.value = '';
+                }
+            });
+
+            // Statistiken zurücksetzen
+            resetStatsBtn.addEventListener('click', () => {
+                if (confirm('Statistiken zurücksetzen? (Vokabeln bleiben erhalten)')) {
+                    stats = { heuteGelernt: 0, streak: 0, xp: 0, level: 1, lernzeitGesamt: 0, lernHistorie: {} };
+                    speichern();
+                    renderAll();
+                }
+            });
+
+            // Einstellungen
+            papierRadios.forEach(r => {
+                r.addEventListener('change', () => {
+                    if (r.checked) {
+                        einstellungen.papierStil = r.value;
+                        speichern();
+                        renderAll();
+                    }
+                });
+            });
+
+            schriftgroesse.addEventListener('input', () => {
+                einstellungen.schriftgroesse = parseInt(schriftgroesse.value);
+                schriftgroesseAnzeige.textContent = einstellungen.schriftgroesse + 'px';
+                speichern();
+                renderAll();
+            });
+
+            darkModeToggle.addEventListener('change', () => {
+                einstellungen.darkMode = darkModeToggle.checked;
+                speichern();
+                renderAll();
+            });
+
+            animationenToggle.addEventListener('change', () => {
+                einstellungen.animationen = animationenToggle.checked;
+                speichern();
+                renderAll();
+            });
+
+            // Backup
+            backupErstellenBtn.addEventListener('click', exportData);
+            backupLadenBtn.addEventListener('click', () => backupFileInput.click());
+            backupFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    importData(e.target.files[0]);
+                    e.target.value = '';
+                }
+            });
+
+            // Fenster-Resize für Diagramm
+            window.addEventListener('resize', () => {
+                if (document.getElementById('tabStatistiken').classList.contains('active')) {
+                    renderDiagramm();
+                }
+            });
+
+            // ---------- INIT ----------
+            renderAll();
+            renderGrammatikToc();
+            renderGrammatikSeite();
+
+            // Standardmäßig Statistik-Tab nicht aktiv, aber Diagramm beim ersten Wechsel zeichnen
+            // Beim ersten Klick auf Statistiken wird es gezeichnet.
+
+            console.log('📘 Russisch lernen – App bereit!');
+        })();
+    </script>
+
+</body>
+</html>
