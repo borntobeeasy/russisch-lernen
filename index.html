@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Russisch lernen – digitaler Lernordner</title>
+    <title>Russisch lernen – Конечно! 1</title>
     <style>
         /* ===== RESET & GRUNDLAGEN ===== */
         * {
@@ -87,7 +87,6 @@
             background: #FDFBF6;
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -113,7 +112,6 @@
             border-radius: 30px;
         }
 
-        /* ===== NAVIGATION ===== */
         .tab-nav {
             display: flex;
             flex-wrap: wrap;
@@ -165,7 +163,6 @@
             }
         }
 
-        /* ===== ALLGEMEINE KOMPONENTEN ===== */
         .btn {
             background: #f0ede6;
             border: 1px solid #D8D4CC;
@@ -254,7 +251,6 @@
             flex: 1 1 200px;
         }
 
-        /* ===== VOKABELN ===== */
         .vokabel-actions {
             display: flex;
             flex-wrap: wrap;
@@ -269,7 +265,6 @@
         .vokabel-liste {
             margin-top: 12px;
             display: none;
-            /* standardmäßig ausgeblendet */
         }
         .vokabel-liste.sichtbar {
             display: block;
@@ -334,7 +329,6 @@
             color: #2C2C2C;
         }
 
-        /* ===== KARTEIKASTEN ===== */
         .kasten-uebersicht {
             display: flex;
             flex-wrap: wrap;
@@ -483,7 +477,6 @@
             font-size: 1.1rem;
         }
 
-        /* ===== GRAMMATIK ===== */
         .grammatik-layout {
             display: flex;
             flex-wrap: wrap;
@@ -518,10 +511,6 @@
         }
         .grammatik-toc ul {
             padding-left: 0;
-        }
-        .grammatik-toc .unter {
-            padding-left: 20px;
-            font-size: 0.9rem;
         }
 
         .grammatik-seite {
@@ -567,7 +556,6 @@
             background: #ECE7DD;
         }
 
-        /* ===== STATISTIK ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -603,7 +591,6 @@
             height: 180px !important;
         }
 
-        /* ===== QUIZ ===== */
         .quiz-frage {
             font-size: 1.6rem;
             font-weight: 500;
@@ -637,7 +624,6 @@
             background: #fce4e4;
         }
 
-        /* ===== EINSTELLUNGEN ===== */
         .einstellungen-group {
             background: #fcf9f3;
             border-radius: 16px;
@@ -650,7 +636,6 @@
             margin-right: 20px;
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
             .notizblock {
                 padding: 16px;
@@ -703,7 +688,6 @@
             }
         }
 
-        /* Druckansicht */
         @media print {
             body {
                 background: #fff !important;
@@ -757,13 +741,11 @@
     <div class="notizblock" id="app">
         <div class="papier kariert" id="papierStil">
 
-            <!-- HEADER -->
             <header class="header">
                 <h1>Russisch lernen</h1>
-                <span class="sub">digitaler Lernordner</span>
+                <span class="sub">Конечно! 1 – nach Lektionen</span>
             </header>
 
-            <!-- NAVIGATION -->
             <nav class="tab-nav" id="tabNav">
                 <button class="active" data-tab="vokabeln">Vokabeln</button>
                 <button data-tab="grammatik">Grammatik</button>
@@ -778,7 +760,7 @@
                         <input type="text" id="vokabelSuche" placeholder="Vokabeln durchsuchen..." />
                     </div>
                     <select id="kategorieFilter">
-                        <option value="">Alle Kategorien</option>
+                        <option value="">Alle Lektionen</option>
                     </select>
                     <select id="sortierung">
                         <option value="alphabetisch">Alphabetisch</option>
@@ -793,13 +775,10 @@
                     <input type="file" id="importFileInput" accept=".json" style="display:none" />
                 </div>
 
-                <!-- Kastenübersicht -->
                 <div class="kasten-uebersicht" id="kastenUebersicht"></div>
 
-                <!-- Vokabelliste (standardmäßig ausgeblendet) -->
                 <div class="vokabel-liste" id="vokabelListe"></div>
 
-                <!-- Editor Modal -->
                 <div id="editorModal" style="display:none; position:fixed; top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);backdrop-filter:blur(3px);z-index:2000;justify-content:center;align-items:center;">
                     <div style="background:#FDFBF6;border-radius:24px;max-width:560px;width:100%;padding:30px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
                         <h2 id="editorTitel" style="margin-bottom:16px;">Vokabel bearbeiten</h2>
@@ -807,7 +786,7 @@
                         <div class="form-group"><label>Deutsch *</label><input id="editDeutsch" /></div>
                         <div class="form-group"><label>Aussprache</label><input id="editAussprache" /></div>
                         <div class="form-group"><label>Beispielsatz</label><input id="editBeispiel" /></div>
-                        <div class="form-group"><label>Kategorie</label><input id="editKategorie" /></div>
+                        <div class="form-group"><label>Kategorie (Lektion)</label><input id="editKategorie" /></div>
                         <div class="form-group"><label>Schwierigkeit (1–5)</label><input id="editSchwierigkeit" type="number" min="1" max="5" value="3" /></div>
                         <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
                             <button class="btn primär" id="editorSpeichern">Speichern</button>
@@ -870,7 +849,7 @@
                 </div>
             </section>
 
-            <!-- ===== LERNNODUS OVERLAY ===== -->
+            <!-- ===== LERNMODUS OVERLAY ===== -->
             <div class="lernmodus-overlay" id="lernOverlay">
                 <div class="lernmodus-card">
                     <div class="fortschritt">
@@ -902,14 +881,544 @@
     </div><!-- /notizblock -->
 
     <script>
-        // ================================================================
-        //  JAVASCRIPT – Vollständige App
-        // ================================================================
-
         (function() {
             'use strict';
 
-            // ---------- DATEN ----------
+            // ============================================================
+            //  VOKABELN – basierend auf den Bildern (Урок 1, 2, 3)
+            // ============================================================
+            const basisVokabeln = [
+                // ---- Урок 1 (aus IMG_5756) ----
+                { id: 'u1_1', russisch: 'конечно', deutsch: 'natürlich; Na klar!', aussprache: '[=ешно-]',
+                    beispiel: 'Конечно, я помогу.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_2', russisch: 'урок', deutsch: 'Lektion, Unterrichtsstunde', aussprache: '',
+                    beispiel: 'Урок 1', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_3', russisch: 'Привет', deutsch: 'Hallo!', aussprache: '[priˈvʲet]', beispiel: 'Привет, Россия!',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_4', russisch: 'Россия', deutsch: 'Russland', aussprache: '[rɐˈsʲijə]', beispiel: 'Я из России.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_5', russisch: 'кто', deutsch: 'wer', aussprache: '[kto]', beispiel: 'Кто это?',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_6', russisch: 'это', deutsch: 'das ist, dies ist', aussprache: '[ˈɛtə]', beispiel: 'Кто это?',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_7', russisch: 'ребята', deutsch: 'Jugendliche', aussprache: '[rʲɪˈbʲatə]', beispiel: 'Это ребята.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_8', russisch: 'нет', deutsch: 'nein', aussprache: '[nʲet]', beispiel: 'Нет, спасибо.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_9', russisch: 'да', deutsch: 'ja', aussprache: '[da]', beispiel: 'Да, я понимаю.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_10', russisch: 'меня зовут', deutsch: 'ich heiße (wörtl.: mich nennt man)', aussprache: '',
+                    beispiel: 'Меня зовут Мышка.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_11', russisch: 'как', deutsch: 'wie', aussprache: '[kak]', beispiel: 'Как тебя зовут?',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_12', russisch: 'тебя', deutsch: 'dich (Gen./Akk. von ты)', aussprache: '[tʲɪˈbʲa]',
+                    beispiel: 'Как тебя зовут?', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_13', russisch: 'или', deutsch: 'oder', aussprache: '[ˈilʲi]', beispiel: 'Чай или кофе?',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_14', russisch: 'хобби', deutsch: 'Hobby', aussprache: '[ˈxobʲɪ]', beispiel: 'Моё хобби – музыка.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_15', russisch: 'гитара', deutsch: 'Gitarre', aussprache: '[ɡʲɪˈtarə]', beispiel: 'Я играю на гитаре.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_16', russisch: 'скейтборд', deutsch: 'Skateboard', aussprache: '[skʲeɪtˈbort]',
+                    beispiel: 'Скейтборд – это круто.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_17', russisch: 'компьютер', deutsch: 'Computer', aussprache: '[kɐmˈpʲjutɛr]',
+                    beispiel: 'У меня есть компьютер.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_18', russisch: 'мода', deutsch: 'Mode', aussprache: '[ˈmodə]', beispiel: 'Она интересуется модой.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_19', russisch: 'фитнес', deutsch: 'Fitness', aussprache: '[ˈfʲitnʲes]', beispiel: 'Я занимаюсь фитнесом.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_20', russisch: 'мороженое', deutsch: 'Speiseeis', aussprache: '[mɐˈroʐɨnəjə]',
+                    beispiel: 'Я люблю мороженое.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_21', russisch: 'пианино', deutsch: 'Klavier', aussprache: '[pʲɪɐˈnʲinə]',
+                    beispiel: 'Она играет на пианино.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_22', russisch: 'лошади', deutsch: 'Pferde', aussprache: '[lɐˈʂadʲɪ]', beispiel: 'Она любит лошадей.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_23', russisch: 'спагетти', deutsch: 'Spaghetti', aussprache: '[spɐˈɡʲetʲɪ]',
+                    beispiel: 'Я ем спагетти.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_24', russisch: 'гамбургер', deutsch: 'Hamburger', aussprache: '[ˈɡamburɡʲer]',
+                    beispiel: 'Я хочу гамбургер.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_25', russisch: 'Германия', deutsch: 'Deutschland', aussprache: '[ɡʲɪrˈmanʲɪjə]',
+                    beispiel: 'Я из Германии.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_26', russisch: 'театр', deutsch: 'Theater', aussprache: '[tʲɪˈatr]', beispiel: 'Мы идём в театр.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_27', russisch: 'карта', deutsch: 'Landkarte', aussprache: '[ˈkartə]', beispiel: 'Это карта России.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_28', russisch: 'что', deutsch: 'was', aussprache: '[ʂto]', beispiel: 'Что это?',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_29', russisch: 'самовар', deutsch: 'Samowar', aussprache: '[səmɐˈvar]', beispiel: 'Это самовар.',
+                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_30', russisch: 'балалайка', deutsch: 'Balalaika', aussprache: '[bəɫɐˈɫajkə]',
+                    beispiel: 'Она играет на балалайке.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+                { id: 'u1_31', russisch: 'матрешка', deutsch: 'Matrjoschka', aussprache: '[mɐˈtrʲeʂkə]',
+                    beispiel: 'Это матрёшка.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
+
+                // ---- Урок 2 (aus IMG_5757, IMG_5758) ----
+                { id: 'u2_1', russisch: 'ресторан', deutsch: 'Restaurant', aussprache: '[rʲɪstɐˈran]',
+                    beispiel: 'Мы в ресторане.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_2', russisch: 'метро', deutsch: 'U-Bahn, Metro', aussprache: '[mʲɪˈtro]', beispiel: 'Я еду в метро.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_3', russisch: 'кафе', deutsch: 'Café', aussprache: '[kɐˈfʲe]', beispiel: 'Давай встретимся в кафе.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_4', russisch: 'сцена', deutsch: 'Bühne', aussprache: '[ˈst͡sɛnə]', beispiel: 'Она на сцене.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_5', russisch: 'фото', deutsch: 'Foto', aussprache: '[ˈfotə]', beispiel: 'Это моё фото.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_6', russisch: 'Как дела?', deutsch: 'Wie geht es?', aussprache: '[kak dʲɪˈla]',
+                    beispiel: 'Как дела? – Хорошо, спасибо.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_7', russisch: 'учитель', deutsch: 'Lehrer', aussprache: '[ʊˈt͡ɕitʲɪlʲ]',
+                    beispiel: 'Он учитель.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_8', russisch: 'учительница', deutsch: 'Lehrerin', aussprache: '[ʊˈt͡ɕitʲɪlʲnʲɪt͡sə]',
+                    beispiel: 'Она учительница.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_9', russisch: 'Здравствуй', deutsch: 'Hallo! (du)', aussprache: '[ˈzdrastvuj]',
+                    beispiel: 'Здравствуй, Лёна!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_10', russisch: 'Здравствуйте', deutsch: 'Guten Tag! (Sie)', aussprache: '[ˈzdrastvujtʲe]',
+                    beispiel: 'Здравствуйте!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_11', russisch: 'Добрый день', deutsch: 'Guten Tag', aussprache: '[ˈdobrɨj dʲenʲ]',
+                    beispiel: 'Добрый день!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_12', russisch: 'хорошо', deutsch: 'gut', aussprache: '[xərɐˈʂo]', beispiel: 'Всё хорошо.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_13', russisch: 'спасибо', deutsch: 'danke', aussprache: '[spɐˈsʲibə]', beispiel: 'Спасибо большое!',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_14', russisch: 'До свидания', deutsch: 'Auf Wiedersehen', aussprache: '[də svʲɪˈdanʲɪjə]',
+                    beispiel: 'До свидания!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_15', russisch: 'До завтра', deutsch: 'Bis morgen', aussprache: '[də ˈzavtrə]',
+                    beispiel: 'До завтра!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_16', russisch: 'ты', deutsch: 'du', aussprache: '[tɨ]', beispiel: 'Ты говоришь по-русски?',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_17', russisch: 'нормально', deutsch: 'normal', aussprache: '[nɐrˈmalʲnə]',
+                    beispiel: 'Всё нормально.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_18', russisch: 'одноклассник', deutsch: 'Mitschüler', aussprache: '[ɐdnɐˈklasʲnʲɪk]',
+                    beispiel: 'Это мой одноклассник.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_19', russisch: 'одноклассница', deutsch: 'Mitschülerin', aussprache: '[ɐdnɐˈklasʲnʲɪt͡sə]',
+                    beispiel: 'Это моя одноклассница.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_20', russisch: 'она', deutsch: 'sie (f.)', aussprache: '[ɐˈna]', beispiel: 'Она – одноклассница.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_21', russisch: 'сосед', deutsch: 'Nachbar', aussprache: '[sɐˈsʲet]', beispiel: 'Это мой сосед.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_22', russisch: 'соседка', deutsch: 'Nachbarin', aussprache: '[sɐˈsʲetkə]',
+                    beispiel: 'Это моя соседка.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_23', russisch: 'очень', deutsch: 'sehr', aussprache: '[ˈot͡ɕɪnʲ]', beispiel: 'Очень приятно.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_24', russisch: 'приятно', deutsch: 'angenehm', aussprache: '[prʲɪˈjatnə]',
+                    beispiel: 'Очень приятно!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_25', russisch: 'мне', deutsch: 'mir (Dat.)', aussprache: '[mnʲe]', beispiel: 'Мне нужна помощь.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_26', russisch: 'тоже', deutsch: 'auch', aussprache: '[ˈtoʐɛ]', beispiel: 'Я тоже хочу.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_27', russisch: 'Пока', deutsch: 'Tschüss!', aussprache: '[pɐˈka]', beispiel: 'Пока!',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_28', russisch: 'Добрый вечер', deutsch: 'Guten Abend', aussprache: '[ˈdobrɨj ˈvʲet͡ɕɪr]',
+                    beispiel: 'Добрый вечер!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_29', russisch: 'Доброе утро', deutsch: 'Guten Morgen', aussprache: '[ˈdobrəjə ˈutrə]',
+                    beispiel: 'Доброе утро!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_30', russisch: 'ещё', deutsch: 'noch', aussprache: '[jɪˈɕːo]', beispiel: 'Что ещё?',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_31', russisch: 'не', deutsch: 'nicht', aussprache: '[nʲe]', beispiel: 'Это не ресторан.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_32', russisch: 'он', deutsch: 'er', aussprache: '[on]', beispiel: 'Он – учитель.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_33', russisch: 'далеко', deutsch: 'weit', aussprache: '[dəlʲɪˈko]', beispiel: 'Это очень далеко.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_34', russisch: 'лёгкий', deutsch: 'leicht', aussprache: '[ˈlʲɵxkʲɪj]', beispiel: 'Это лёгкое задание.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_35', russisch: 'Может быть', deutsch: 'Vielleicht', aussprache: '[ˈmoʐɨt bɨtʲ]',
+                    beispiel: 'Может быть, он придёт.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_36', russisch: 'супер', deutsch: 'super', aussprache: '[ˈsupʲer]', beispiel: 'Это супер!',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_37', russisch: 'идея', deutsch: 'Idee', aussprache: '[ɪˈdʲejə]', beispiel: 'Это супер идея.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_38', russisch: 'так', deutsch: 'so, auf diese Weise', aussprache: '[tak]',
+                    beispiel: 'Так говорят.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_39', russisch: 'где', deutsch: 'wo', aussprache: '[ɡdʲe]', beispiel: 'Где кафе?',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_40', russisch: 'оно', deutsch: 'es (neutr.)', aussprache: '[ɐˈno]', beispiel: 'Вот оно!',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_41', russisch: 'вот', deutsch: 'da (ist), hier (ist)', aussprache: '[vot]',
+                    beispiel: 'Вот кафе!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_42', russisch: 'там', deutsch: 'dort (ist)', aussprache: '[tam]', beispiel: 'Там Ира.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_43', russisch: 'пожалуйста', deutsch: 'bitte (als Dank)', aussprache: '[pɐˈʐalʊjstə]',
+                    beispiel: 'Спасибо! – Пожалуйста.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_44', russisch: 'салат', deutsch: 'Salat', aussprache: '[sɐˈlat]', beispiel: 'Мне, пожалуйста, салат.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_45', russisch: 'лимонад', deutsch: 'Limonade', aussprache: '[lʲɪmɐˈnat]',
+                    beispiel: 'Я хочу лимонад.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_46', russisch: 'хлеб', deutsch: 'Brot', aussprache: '[xlʲep]', beispiel: 'У нас есть хлеб.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_47', russisch: 'всё', deutsch: 'alles', aussprache: '[fsʲo]', beispiel: 'Это всё?',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_48', russisch: 'щи', deutsch: 'Schtschi (Kohlsuppe)', aussprache: '[ɕːi]', beispiel: 'Я люблю щи.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_49', russisch: 'и', deutsch: 'und', aussprache: '[i]', beispiel: 'Я и ты.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_50', russisch: 'пельмени', deutsch: 'Pelmeni (gefüllte Teigtaschen)', aussprache: '[pʲɪlʲˈmʲenʲɪ]',
+                    beispiel: 'Мы едим пельмени.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_51', russisch: 'масло', deutsch: 'Butter', aussprache: '[ˈmaslə]', beispiel: 'Мне нужно масло.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_52', russisch: 'квас', deutsch: 'Kwass', aussprache: '[kvas]', beispiel: 'Я пью квас.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_53', russisch: 'пюре', deutsch: 'Püree', aussprache: '[pʲʊˈrɛ]', beispiel: 'Я ем пюре.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_54', russisch: 'сок', deutsch: 'Saft', aussprache: '[sok]', beispiel: 'Я хочу сок.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_55', russisch: 'яблоко', deutsch: 'Apfel', aussprache: '[ˈjabləkə]', beispiel: 'Я ем яблоко.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_56', russisch: 'школа', deutsch: 'Schule', aussprache: '[ˈʂkolə]', beispiel: 'Я в школе.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_57', russisch: 'проблема', deutsch: 'Problem', aussprache: '[prɐˈblʲemə]',
+                    beispiel: 'У меня проблема.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_58', russisch: 'чай', deutsch: 'Tee (m.)', aussprache: '[t͡ɕaj]', beispiel: 'Я пью чай.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_59', russisch: 'Что делать?', deutsch: 'Was tun?', aussprache: '[ʂto ˈdʲelətʲ]',
+                    beispiel: 'Что делать? – Учиться!', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_60', russisch: 'интересно', deutsch: 'interessant', aussprache: '[ɪntʲɪˈrʲesnə]',
+                    beispiel: 'Это интересно.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_61', russisch: 'музыкант', deutsch: 'Musiker', aussprache: '[mʊzɨˈkant]',
+                    beispiel: 'Он музыкант.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_62', russisch: 'газета', deutsch: 'Zeitung', aussprache: '[ɡɐˈzʲetə]', beispiel: 'Я читаю газету.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_63', russisch: 'письмо', deutsch: 'Brief', aussprache: '[pʲɪsʲˈmo]', beispiel: 'Я пишу письмо.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_64', russisch: 'текст', deutsch: 'Text', aussprache: '[tʲekst]', beispiel: 'Это текст.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_65', russisch: 'стратегия', deutsch: 'Strategie', aussprache: '[strɐˈtʲegʲɪjə]',
+                    beispiel: 'Это стратегия.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_66', russisch: 'стадион', deutsch: 'Stadion', aussprache: '[stədʲɪˈon]',
+                    beispiel: 'Мы идём на стадион.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_67', russisch: 'рюкзак', deutsch: 'Rucksack', aussprache: '[rʲʊɡˈzak]', beispiel: 'У меня рюкзак.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_68', russisch: 'автобус', deutsch: 'Autobus', aussprache: '[ɐfˈtobus]',
+                    beispiel: 'Я еду на автобусе.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_69', russisch: 'библиотека', deutsch: 'Bibliothek', aussprache: '[bʲɪblʲɪɐˈtʲekə]',
+                    beispiel: 'Я в библиотеке.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_70', russisch: 'телефон', deutsch: 'Telefon', aussprache: '[tʲɪlʲɪˈfon]',
+                    beispiel: 'У меня есть телефон.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_71', russisch: 'Интернет', deutsch: 'Internet', aussprache: '[ɪntʲɪrˈnʲet]',
+                    beispiel: 'Я в интернете.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_72', russisch: 'кино', deutsch: 'Kino', aussprache: '[kʲɪˈno]', beispiel: 'Мы идём в кино.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_73', russisch: 'президент', deutsch: 'Präsident(in)', aussprache: '[prʲɪzʲɪˈdʲent]',
+                    beispiel: 'Он президент.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_74', russisch: 'журнал', deutsch: 'Zeitschrift', aussprache: '[ʐʊrˈnal]', beispiel: 'Я читаю журнал.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_75', russisch: 'журналист', deutsch: 'Journalist', aussprache: '[ʐʊrnɐˈlʲist]',
+                    beispiel: 'Он журналист.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_76', russisch: 'журналистка', deutsch: 'Journalistin', aussprache: '[ʐʊrnɐˈlʲistkə]',
+                    beispiel: 'Она журналистка.', kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+                { id: 'u2_77', russisch: 'футбол', deutsch: 'Fußball', aussprache: '[fʊdˈbol]', beispiel: 'Я играю в футбол.',
+                    kategorie: 'Урок 2', schwierigkeit: 1, kasten: 1 },
+
+                // ---- Урок 3 (aus IMG_5760, IMG_5761, IMG_5769) ----
+                { id: 'u3_1', russisch: 'коридор', deutsch: 'Korridor, Flur', aussprache: '[kərʲɪˈdor]',
+                    beispiel: 'Мы в коридоре.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_2', russisch: 'в', deutsch: 'in, auf (Präposition)', aussprache: '[v]', beispiel: 'в школе',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_3', russisch: 'сегодня', deutsch: 'heute', aussprache: '[sʲɪˈvodʲnʲə]', beispiel: 'Сегодня урок.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_4', russisch: 'понедельник', deutsch: 'Montag', aussprache: '[pənʲɪˈdʲelʲnʲɪk]',
+                    beispiel: 'В понедельник.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_5', russisch: 'вторник', deutsch: 'Dienstag', aussprache: '[ˈftornʲɪk]', beispiel: 'Во вторник.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_6', russisch: 'среда', deutsch: 'Mittwoch', aussprache: '[srʲɪˈda]', beispiel: 'В среду.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_7', russisch: 'четверг', deutsch: 'Donnerstag', aussprache: '[t͡ɕɪtˈvʲerk]',
+                    beispiel: 'В четверг.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_8', russisch: 'пятница', deutsch: 'Freitag', aussprache: '[ˈpʲætʲnʲɪt͡sə]',
+                    beispiel: 'В пятницу.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_9', russisch: 'суббота', deutsch: 'Samstag', aussprache: '[sʊˈbotə]', beispiel: 'В субботу.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_10', russisch: 'воскресенье', deutsch: 'Sonntag', aussprache: '[vəskrʲɪˈsʲenʲjə]',
+                    beispiel: 'В воскресенье.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_11', russisch: 'стоять', deutsch: 'stehen', aussprache: '[stɐˈjætʲ]', beispiel: 'Я стою.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_12', russisch: 'говорить', deutsch: 'sprechen, sagen', aussprache: '[ɡəvɐˈrʲitʲ]',
+                    beispiel: 'Они говорят по-русски.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_13', russisch: 'о', deutsch: 'über, von (Präposition)', aussprache: '[o]',
+                    beispiel: 'Они говорят о Москве.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_14', russisch: 'идти', deutsch: 'gehen (zu Fuß)', aussprache: '[ɪˈtʲi]', beispiel: 'Я иду в школу.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_15', russisch: 'отдыхать', deutsch: 'sich erholen, ausruhen', aussprache: '[ɐtdɨˈxatʲ]',
+                    beispiel: 'Они отдыхают дома.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_16', russisch: 'но', deutsch: 'aber, jedoch', aussprache: '[no]', beispiel: 'Я устал, но я работаю.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_17', russisch: 'информатика', deutsch: 'Informatik', aussprache: '[ɪnfɐrˈmatʲɪkə]',
+                    beispiel: 'Мы изучаем информатику.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_18', russisch: 'ученик', deutsch: 'Schüler', aussprache: '[ʊt͡ɕɪˈnʲik]', beispiel: 'Он ученик.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_19', russisch: 'ученица', deutsch: 'Schülerin', aussprache: '[ʊt͡ɕɪˈnʲit͡sə]',
+                    beispiel: 'Она ученица.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_20', russisch: 'изучать', deutsch: 'lernen, studieren', aussprache: '[ɪzʊˈt͡ɕætʲ]',
+                    beispiel: 'Мы изучаем русский язык.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_21', russisch: 'реферат', deutsch: 'Referat', aussprache: '[rʲɪfʲɪˈrat]',
+                    beispiel: 'Он делает реферат.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_22', russisch: 'по-русски', deutsch: 'auf Russisch', aussprache: '[pɐ‿ˈruskʲɪ]',
+                    beispiel: 'Они говорят по-русски.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_23', russisch: 'по-немецки', deutsch: 'auf Deutsch', aussprache: '[pə‿nʲɪˈmʲet͡skʲɪ]',
+                    beispiel: 'Они говорят по-немецки.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_24', russisch: 'только', deutsch: 'nur', aussprache: '[ˈtolkə]', beispiel: 'Я только смотрю.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_25', russisch: 'смотреть', deutsch: 'anschauen, schauen', aussprache: '[smɐˈtrʲetʲ]',
+                    beispiel: 'Мы смотрим фильм.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_26', russisch: 'правда', deutsch: 'richtig', aussprache: '[ˈpravdə]', beispiel: 'Это правда.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_27', russisch: 'неправда', deutsch: 'nicht richtig, falsch', aussprache: '[nʲɪˈpravdə]',
+                    beispiel: 'Это неправда.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_28', russisch: 'мой', deutsch: 'mein (mask.)', aussprache: '[moj]', beispiel: 'Это мой друг.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_29', russisch: 'вечером', deutsch: 'abends, am Abend', aussprache: '[ˈvʲet͡ɕɪrəm]',
+                    beispiel: 'Вечером я дома.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_30', russisch: 'играть', deutsch: 'spielen', aussprache: '[ɪˈɡratʲ]', beispiel: 'Я играю в футбол.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_31', russisch: 'музей', deutsch: 'Museum', aussprache: '[mʊˈzʲej]', beispiel: 'Мы в музее.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_32', russisch: 'о ком', deutsch: 'über wen', aussprache: '[o kom]', beispiel: 'О ком они говорят?',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_33', russisch: 'о чём', deutsch: 'über was', aussprache: '[o t͡ɕom]',
+                    beispiel: 'О чём ты говоришь?', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_34', russisch: 'думать', deutsch: 'denken', aussprache: '[ˈdumətʲ]', beispiel: 'Я думаю о тебе.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_35', russisch: 'стихи', deutsch: 'Gedichte', aussprache: '[sʲtʲɪˈxʲi]', beispiel: 'Он пишет стихи.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_36', russisch: 'Ура!', deutsch: 'Hurra!', aussprache: '[ʊˈra]', beispiel: 'Ура! Я выиграл!',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_37', russisch: 'разговор', deutsch: 'Gespräch, Telefongespräch', aussprache: '[rəzɡɐˈvor]',
+                    beispiel: 'У нас разговор.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_38', russisch: 'говорить по телефону', deutsch: 'telefonieren', aussprache: '',
+                    beispiel: 'Я говорю по телефону.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_39', russisch: 'тренер', deutsch: 'Trainer', aussprache: '[ˈtrʲenʲɪr]', beispiel: 'Он тренер.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_40', russisch: 'значит', deutsch: 'das bedeutet, das heißt', aussprache: '[ˈznaʂɪt]',
+                    beispiel: 'Это значит...', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_41', russisch: 'потом', deutsch: 'dann, danach', aussprache: '[pɐˈtom]',
+                    beispiel: 'А потом я иду домой.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_42', russisch: 'тренировка', deutsch: 'Training', aussprache: '[trʲɪnʲɪˈrofkə]',
+                    beispiel: 'У меня тренировка.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_43', russisch: 'жаль', deutsch: 'schade', aussprache: '[ʐalʲ]', beispiel: 'Как жаль!',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_44', russisch: 'окно', deutsch: 'Fenster', aussprache: '[ɐkˈno]', beispiel: 'Окно открыто.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_45', russisch: 'ужас', deutsch: 'entsetzlich, schrecklich', aussprache: '[ˈuʐəs]',
+                    beispiel: 'Это ужас!', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_46', russisch: 'всегда', deutsch: 'immer', aussprache: '[fsʲɪɡˈda]', beispiel: 'Я всегда готов.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_47', russisch: 'помогать', deutsch: 'helfen', aussprache: '[pəmɐˈɡatʲ]',
+                    beispiel: 'Я помогаю другу.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_48', russisch: 'литература', deutsch: 'Literatur', aussprache: '[lʲɪtʲɪrɐˈturə]',
+                    beispiel: 'Я люблю литературу.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_49', russisch: 'любить', deutsch: 'lieben, mögen, gern haben', aussprache: '[lʲʉˈbʲitʲ]',
+                    beispiel: 'Я люблю тебя.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_50', russisch: 'моя', deutsch: 'meine (f.)', aussprache: '[mɐˈja]', beispiel: 'Это моя книга.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_51', russisch: 'сестра', deutsch: 'Schwester', aussprache: '[sʲɪˈstra]', beispiel: 'Это моя сестра.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_52', russisch: 'Минутку', deutsch: 'Augenblick, Moment', aussprache: '[mʲɪˈnutkʊ]',
+                    beispiel: 'Минутку!', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_53', russisch: 'класс', deutsch: 'Klasse; toll!', aussprache: '[klas]', beispiel: 'Это класс!',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_54', russisch: 'решать', deutsch: 'lösen, entscheiden', aussprache: '[rʲɪˈʂatʲ]',
+                    beispiel: 'Я решаю задачу.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_55', russisch: 'внимательный', deutsch: 'aufmerksam', aussprache: '[vnʲɪˈmatʲɪlʲnɨj]',
+                    beispiel: 'Он внимательный.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_56', russisch: 'музыка', deutsch: 'Musik', aussprache: '[ˈmuzɨkə]', beispiel: 'Я слушаю музыку.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_57', russisch: 'дискотека', deutsch: 'Diskothek', aussprache: '[dʲɪskɐˈtʲekə]',
+                    beispiel: 'Мы идём на дискотеку.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_58', russisch: 'особенно', deutsch: 'besonders', aussprache: '[ɐˈsobʲɪnːə]',
+                    beispiel: 'Осенно интересно.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_59', russisch: 'первый', deutsch: 'erste(r)', aussprache: '[ˈpʲervɨj]', beispiel: 'Первый раз.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_60', russisch: 'второй', deutsch: 'zweite(r)', aussprache: '[ftɐˈroj]', beispiel: 'Второй раз.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_61', russisch: 'третий', deutsch: 'dritte(r)', aussprache: '[ˈtrʲetʲɪj]', beispiel: 'Третий урок.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_62', russisch: 'четвёртый', deutsch: 'vierte(r)', aussprache: '[t͡ɕɪtˈvʲortɨj]',
+                    beispiel: 'Четвёртый день.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_63', russisch: 'пятый', deutsch: 'fünfte(r)', aussprache: '[ˈpʲatɨj]', beispiel: 'Пятый элемент.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_64', russisch: 'шестой', deutsch: 'sechste(r)', aussprache: '[ʂɨˈstoj]', beispiel: 'Шестой час.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_65', russisch: 'седьмой', deutsch: 'siebte(r)', aussprache: '[sʲɪdʲˈmoj]',
+                    beispiel: 'Седьмой день.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_66', russisch: 'восьмой', deutsch: 'achte(r)', aussprache: '[vɐsʲˈmoj]', beispiel: 'Восьмое марта.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_67', russisch: 'девятый', deutsch: 'neunte(r)', aussprache: '[dʲɪˈvʲatɨj]',
+                    beispiel: 'Девятый день.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_68', russisch: 'десятый', deutsch: 'zehnte(r)', aussprache: '[dʲɪˈsʲatɨj]',
+                    beispiel: 'Десятый раз.', kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_69', russisch: 'неделя', deutsch: 'Woche', aussprache: '[nʲɪˈdʲelʲə]', beispiel: 'Одна неделя.',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                { id: 'u3_70', russisch: 'когда', deutsch: 'wann', aussprache: '[kɐɡˈda]', beispiel: 'Когда урок?',
+                    kategorie: 'Урок 3', schwierigkeit: 1, kasten: 1 },
+                // ---- Grundzahlen 1–10 (aus Урок 2) ----
+                { id: 'num_1', russisch: 'один', deutsch: '1', aussprache: '[ɐˈdʲin]', beispiel: 'Один, два, три.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_2', russisch: 'два', deutsch: '2', aussprache: '[dva]', beispiel: 'Два друга.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_3', russisch: 'три', deutsch: '3', aussprache: '[trʲi]', beispiel: 'Три кота.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_4', russisch: 'четыре', deutsch: '4', aussprache: '[t͡ɕɪˈtɨrʲe]', beispiel: 'Четыре дома.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_5', russisch: 'пять', deutsch: '5', aussprache: '[pʲatʲ]', beispiel: 'Пять минут.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_6', russisch: 'шесть', deutsch: '6', aussprache: '[ʂɛsʲtʲ]', beispiel: 'Шесть книг.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_7', russisch: 'семь', deutsch: '7', aussprache: '[sʲemʲ]', beispiel: 'Семь дней.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_8', russisch: 'восемь', deutsch: '8', aussprache: '[ˈvosʲɪmʲ]', beispiel: 'Восемь часов.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_9', russisch: 'девять', deutsch: '9', aussprache: '[ˈdʲevʲɪtʲ]', beispiel: 'Девять лет.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_10', russisch: 'десять', deutsch: '10', aussprache: '[ˈdʲesʲɪtʲ]', beispiel: 'Десять рублей.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                // ---- Weitere Zahlen aus den Bildern ----
+                { id: 'num_100', russisch: 'сто', deutsch: '100', aussprache: '[sto]', beispiel: 'Сто рублей.',
+                    kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+                { id: 'num_155', russisch: 'сто пятьдесят пять', deutsch: '155', aussprache: '',
+                    beispiel: 'Сто пятьдесят пять.', kategorie: 'Zahlen', schwierigkeit: 1, kasten: 1 },
+            ];
+
+            // ============================================================
+            //  GRAMMATIK – basierend auf den Bildern
+            // ============================================================
+            const grammatikDaten = {
+                personalpronomen: {
+                    titel: 'Personalpronomen (Личные местоимения)',
+                    inhalt: `
+                    <p>Die Personalpronomen im Russischen – Singular und Plural:</p>
+                    <table>
+                        <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+                        <tr><td>1.</td><td>я (ich)</td><td>мы (wir)</td></tr>
+                        <tr><td>2.</td><td>ты (du)</td><td>вы (ihr / Sie)</td></tr>
+                        <tr><td>3.</td><td>он (er), она (sie), оно (es)</td><td>они (sie)</td></tr>
+                    </table>
+                    <div class="beispiel-box">👤 Пример: <strong>Он</strong> учитель. <strong>Она</strong> ученица.</div>
+                    <p>Die 2. Person Plural <strong>вы</strong> wird auch als Höflichkeitsform verwendet.</p>
+                    `
+                },
+                verben_e_konjugation: {
+                    titel: 'Verben der e-Konjugation (на -ать) – делать',
+                    inhalt: `
+                    <p>Die Verben auf <strong>-ать</strong> werden nach der e-Konjugation gebeugt. Beispiel <strong>делать</strong> (machen):</p>
+                    <table>
+                        <tr><th>Person</th><th>делать</th></tr>
+                        <tr><td>я</td><td>делаю</td></tr>
+                        <tr><td>ты</td><td>делаешь</td></tr>
+                        <tr><td>он / она / оно</td><td>делает</td></tr>
+                        <tr><td>мы</td><td>делаем</td></tr>
+                        <tr><td>вы</td><td>делаете</td></tr>
+                        <tr><td>они</td><td>делают</td></tr>
+                    </table>
+                    <div class="beispiel-box">✏️ Пример: <strong>Я делаю уроки.</strong> (Ich mache Hausaufgaben.)</div>
+                    <p>Weitere Verben dieser Gruppe: <strong>чита́ть</strong> (lesen), <strong>игра́ть</strong> (spielen), <strong>ду́мать</strong> (denken).</p>
+                    `
+                },
+                zahlen: {
+                    titel: 'Grundzahlen 1–10 (Числительные)',
+                    inhalt: `
+                    <table>
+                        <tr><th>Zahl</th><th>Russisch</th><th>Zahl</th><th>Russisch</th></tr>
+                        <tr><td>1</td><td>один</td><td>6</td><td>шесть</td></tr>
+                        <tr><td>2</td><td>два</td><td>7</td><td>семь</td></tr>
+                        <tr><td>3</td><td>три</td><td>8</td><td>восемь</td></tr>
+                        <tr><td>4</td><td>четыре</td><td>9</td><td>девять</td></tr>
+                        <tr><td>5</td><td>пять</td><td>10</td><td>десять</td></tr>
+                    </table>
+                    <p>Zahlen 1–4 verlangen den Nominativ Singular, 5–20 den Genitiv Plural.</p>
+                    <div class="merk-box">💡 100 = сто, 155 = сто пятьдесят пять</div>
+                    `
+                },
+                wochentage: {
+                    titel: 'Wochentage (Дни недели)',
+                    inhalt: `
+                    <table>
+                        <tr><th>Deutsch</th><th>Russisch</th></tr>
+                        <tr><td>Montag</td><td>понедельник</td></tr>
+                        <tr><td>Dienstag</td><td>вторник</td></tr>
+                        <tr><td>Mittwoch</td><td>среда</td></tr>
+                        <tr><td>Donnerstag</td><td>четверг</td></tr>
+                        <tr><td>Freitag</td><td>пятница</td></tr>
+                        <tr><td>Samstag</td><td>суббота</td></tr>
+                        <tr><td>Sonntag</td><td>воскресенье</td></tr>
+                    </table>
+                    <p>Mit der Präposition <strong>в</strong> + Akkusativ: <strong>в понедельник</strong> (am Montag), <strong>во вторник</strong> (am Dienstag) usw.</p>
+                    <div class="beispiel-box">📅 Пример: <strong>В субботу</strong> мы идём в кино.</div>
+                    `
+                },
+                faelle: {
+                    titel: 'Fälle – падежи (Überblick)',
+                    inhalt: `
+                    <p>Im Russischen gibt es sechs Fälle. Sie zeigen die grammatische Funktion eines Nomens im Satz an.</p>
+                    <table>
+                        <tr><th>Fall</th><th>Frage</th><th>Beispiel</th></tr>
+                        <tr><td>Nominativ</td><td>wer? was?</td><td>стол (der Tisch)</td></tr>
+                        <tr><td>Genitiv</td><td>wessen?</td><td>стола (des Tisches)</td></tr>
+                        <tr><td>Dativ</td><td>wem?</td><td>столу (dem Tisch)</td></tr>
+                        <tr><td>Akkusativ</td><td>wen? was?</td><td>стол (den Tisch)</td></tr>
+                        <tr><td>Instrumental</td><td>womit?</td><td>столом (mit dem Tisch)</td></tr>
+                        <tr><td>Präpositiv</td><td>über wen? über was?</td><td>о столе (über den Tisch)</td></tr>
+                    </table>
+                    <div class="merk-box">📌 Die Endungen hängen von Geschlecht und Deklination ab.</div>
+                    `
+                },
+                alphabet: {
+                    titel: 'Алфавит – Alphabet (Кириллица)',
+                    inhalt: `
+                    <p>Das russische Alphabet hat 33 Buchstaben.</p>
+                    <table>
+                        <tr><th>Buchstabe</th><th>Aussprache</th><th>Beispiel</th></tr>
+                        <tr><td>А а</td><td>[a]</td><td>мама</td></tr>
+                        <tr><td>Б б</td><td>[b]</td><td>баба</td></tr>
+                        <tr><td>В в</td><td>[v]</td><td>вода</td></tr>
+                        <tr><td>Г г</td><td>[g]</td><td>год</td></tr>
+                        <tr><td>Д д</td><td>[d]</td><td>дом</td></tr>
+                        <tr><td>Е е</td><td>[je]</td><td>есть</td></tr>
+                        <tr><td>Ё ё</td><td>[jo]</td><td>ёж</td></tr>
+                        <tr><td>Ж ж</td><td>[ʒ]</td><td>жизнь</td></tr>
+                        <tr><td>З з</td><td>[z]</td><td>зима</td></tr>
+                        <tr><td>И и</td><td>[i]</td><td>или</td></tr>
+                        <tr><td>Й й</td><td>[j]</td><td>йогурт</td></tr>
+                        <tr><td>К к</td><td>[k]</td><td>кот</td></tr>
+                        <tr><td>Л л</td><td>[l]</td><td>луна</td></tr>
+                        <tr><td>М м</td><td>[m]</td><td>мама</td></tr>
+                        <tr><td>Н н</td><td>[n]</td><td>нота</td></tr>
+                        <tr><td>О о</td><td>[o]</td><td>окно</td></tr>
+                        <tr><td>П п</td><td>[p]</td><td>папа</td></tr>
+                        <tr><td>Р р</td><td>[r]</td><td>река</td></tr>
+                        <tr><td>С с</td><td>[s]</td><td>сок</td></tr>
+                        <tr><td>Т т</td><td>[t]</td><td>том</td></tr>
+                        <tr><td>У у</td><td>[u]</td><td>утка</td></tr>
+                        <tr><td>Ф ф</td><td>[f]</td><td>факт</td></tr>
+                        <tr><td>Х х</td><td>[x]</td><td>хлеб</td></tr>
+                        <tr><td>Ц ц</td><td>[ts]</td><td>цвет</td></tr>
+                        <tr><td>Ч ч</td><td>[tʃ]</td><td>час</td></tr>
+                        <tr><td>Ш ш</td><td>[ʃ]</td><td>шум</td></tr>
+                        <tr><td>Щ щ</td><td>[ʃtʃ]</td><td>щи</td></tr>
+                        <tr><td>Ъ ъ</td><td>hartes Zeichen</td><td>объезд</td></tr>
+                        <tr><td>Ы ы</td><td>[ɨ]</td><td>мы</td></tr>
+                        <tr><td>Ь ь</td><td>weiches Zeichen</td><td>конь</td></tr>
+                        <tr><td>Э э</td><td>[e]</td><td>это</td></tr>
+                        <tr><td>Ю ю</td><td>[ju]</td><td>юг</td></tr>
+                        <tr><td>Я я</td><td>[ja]</td><td>яблоко</td></tr>
+                    </table>
+                    `
+                },
+                aussprache: {
+                    titel: 'Aussprache – произношение',
+                    inhalt: `
+                    <p>Wichtige Ausspracheregeln:</p>
+                    <ul>
+                        <li><strong>Reduktion</strong>: Unbetonte Vokale werden schwächer (о → а, е → и).</li>
+                        <li><strong>Palatalisierung</strong>: Konsonanten werden weich, wenn ein мыгкий знак (ь) oder bestimmte Vokale folgen.</li>
+                        <li><strong>Stimmhaftigkeit</strong>: Stimmhafte Konsonanten werden am Wortende stimmlos (z.B. год → [got]).</li>
+                    </ul>
+                    <div class="beispiel-box">🔊 Beispiel: <strong>молоко</strong> wird [malaˈko] ausgesprochen.</div>
+                    `
+                }
+            };
+
+            // ============================================================
+            //  APP-LOGIK (unverändert, aber mit neuen Daten)
+            // ============================================================
             let vokabeln = [];
             let stats = {
                 heuteGelernt: 0,
@@ -932,9 +1441,8 @@
                 kasten: 1,
                 startZeit: null
             };
-            let aktuellerGrammatikKapitel = 'alphabet';
+            let aktuellerGrammatikKapitel = 'personalpronomen';
 
-            // ---------- SPEICHERN & LADEN ----------
             function speichern() {
                 try {
                     localStorage.setItem('russischVokabeln', JSON.stringify(vokabeln));
@@ -952,48 +1460,23 @@
                     const e = localStorage.getItem('russischEinstellungen');
                     if (e) einstellungen = JSON.parse(e);
                 } catch (e) {}
-                vokabeln.forEach(v => { if (!v.id) v.id = Date.now() + '_' + Math.random().toString(36).slice(2, 6); });
+                if (!vokabeln || vokabeln.length === 0) {
+                    vokabeln = basisVokabeln.map(v => ({ ...v, id: v.id || generateId() }));
+                }
                 if (!stats.lernHistorie) stats.lernHistorie = {};
-            }
-
-            // ---------- HILFSFUNKTIONEN ----------
-            function heute() {
-                return new Date().toISOString().slice(0, 10);
             }
 
             function generateId() {
                 return Date.now() + '_' + Math.random().toString(36).slice(2, 8);
             }
 
-            function kastenName(k) { return 'Kasten ' + k; }
-
-            // ---------- INIT ----------
-            laden();
-            if (vokabeln.length === 0) {
-                vokabeln = [
-                    { id: generateId(), russisch: 'Привет', deutsch: 'Hallo', aussprache: '[priˈvʲet]',
-                        beispiel: 'Привет, как дела?', kategorie: 'Begrüßung', schwierigkeit: 1, kasten: 1,
-                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
-                    { id: generateId(), russisch: 'Спасибо', deutsch: 'Danke', aussprache: '[spɐˈsʲibə]',
-                        beispiel: 'Спасибо большое!', kategorie: 'Höflichkeit', schwierigkeit: 1, kasten: 2,
-                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
-                    { id: generateId(), russisch: 'Да', deutsch: 'Ja', aussprache: '[da]', beispiel: 'Да, я понимаю.',
-                        kategorie: 'Grundlagen', schwierigkeit: 1, kasten: 1, liebling: false, schwierigMarkiert: false,
-                        zuletztGelernt: null, erstelltAm: Date.now() },
-                    { id: generateId(), russisch: 'Нет', deutsch: 'Nein', aussprache: '[nʲet]',
-                        beispiel: 'Нет, спасибо.', kategorie: 'Grundlagen', schwierigkeit: 1, kasten: 1,
-                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
-                    { id: generateId(), russisch: 'Мама', deutsch: 'Mutter', aussprache: '[ˈmamə]',
-                        beispiel: 'Моя мама дома.', kategorie: 'Familie', schwierigkeit: 2, kasten: 1,
-                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
-                    { id: generateId(), russisch: 'Папа', deutsch: 'Vater', aussprache: '[ˈpapə]',
-                        beispiel: 'Папа на работе.', kategorie: 'Familie', schwierigkeit: 2, kasten: 1,
-                        liebling: false, schwierigMarkiert: false, zuletztGelernt: null, erstelltAm: Date.now() },
-                ];
-                speichern();
+            function heute() {
+                return new Date().toISOString().slice(0, 10);
             }
 
-            // ---------- DOM-REFERENZEN ----------
+            function kastenName(k) { return 'Kasten ' + k; }
+
+            // DOM-Refs
             const $ = (sel) => document.querySelector(sel);
             const $$ = (sel) => document.querySelectorAll(sel);
 
@@ -1057,7 +1540,7 @@
             const backupLadenBtn = $('#backupLadenBtn');
             const backupFileInput = $('#backupFileInput');
 
-            // ---------- RENDER FUNKTIONEN ----------
+            // RENDER
             function renderKastenUebersicht() {
                 const zaehler = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
                 vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) zaehler[v.kasten]++; });
@@ -1111,7 +1594,6 @@
                     `;
                 });
                 vokabelListe.innerHTML = html;
-
                 vokabelListe.querySelectorAll('.editBtn').forEach(b => {
                     b.addEventListener('click', (e) => {
                         e.stopPropagation();
@@ -1157,7 +1639,7 @@
                 const kats = new Set();
                 vokabeln.forEach(v => { if (v.kategorie) kats.add(v.kategorie); });
                 const current = kategorieFilter.value;
-                kategorieFilter.innerHTML = '<option value="">Alle Kategorien</option>';
+                kategorieFilter.innerHTML = '<option value="">Alle Lektionen</option>';
                 kats.forEach(k => {
                     const opt = document.createElement('option');
                     opt.value = k;
@@ -1198,7 +1680,7 @@
                 });
             }
 
-            // ---------- EDITOR ----------
+            // Editor
             function openEditor(vok = null) {
                 if (vok) {
                     editorTitel.textContent = 'Vokabel bearbeiten';
@@ -1268,7 +1750,7 @@
                 renderAll();
             }
 
-            // ---------- LERNMODUS ----------
+            // Lernmodus
             function startLernmodus(kasten = 1) {
                 let karten = vokabeln.filter(v => v.kasten === kasten);
                 if (karten.length === 0) {
@@ -1350,201 +1832,7 @@
                 renderAll();
             }
 
-            // ---------- GRAMMATIK ----------
-            const grammatikDaten = {
-                alphabet: {
-                    titel: 'Алфавит – Alphabet',
-                    inhalt: `
-                    <p>Das russische Alphabet (Кириллица) hat 33 Buchstaben.</p>
-                    <table>
-                        <tr><th>Buchstabe</th><th>Aussprache</th><th>Beispiel</th></tr>
-                        <tr><td>А а</td><td>[a]</td><td>мама</td></tr>
-                        <tr><td>Б б</td><td>[b]</td><td>баба</td></tr>
-                        <tr><td>В в</td><td>[v]</td><td>вода</td></tr>
-                        <tr><td>Г г</td><td>[g]</td><td>год</td></tr>
-                        <tr><td>Д д</td><td>[d]</td><td>дом</td></tr>
-                        <tr><td>Е е</td><td>[je]</td><td>есть</td></tr>
-                        <tr><td>Ё ё</td><td>[jo]</td><td>ёж</td></tr>
-                        <tr><td>Ж ж</td><td>[ʒ]</td><td>жизнь</td></tr>
-                        <tr><td>З з</td><td>[z]</td><td>зима</td></tr>
-                        <tr><td>И и</td><td>[i]</td><td>или</td></tr>
-                        <tr><td>Й й</td><td>[j]</td><td>йогурт</td></tr>
-                        <tr><td>К к</td><td>[k]</td><td>кот</td></tr>
-                        <tr><td>Л л</td><td>[l]</td><td>луна</td></tr>
-                        <tr><td>М м</td><td>[m]</td><td>мама</td></tr>
-                        <tr><td>Н н</td><td>[n]</td><td>нота</td></tr>
-                        <tr><td>О о</td><td>[o]</td><td>окно</td></tr>
-                        <tr><td>П п</td><td>[p]</td><td>папа</td></tr>
-                        <tr><td>Р р</td><td>[r]</td><td>река</td></tr>
-                        <tr><td>С с</td><td>[s]</td><td>сок</td></tr>
-                        <tr><td>Т т</td><td>[t]</td><td>том</td></tr>
-                        <tr><td>У у</td><td>[u]</td><td>утка</td></tr>
-                        <tr><td>Ф ф</td><td>[f]</td><td>факт</td></tr>
-                        <tr><td>Х х</td><td>[x]</td><td>хлеб</td></tr>
-                        <tr><td>Ц ц</td><td>[ts]</td><td>цвет</td></tr>
-                        <tr><td>Ч ч</td><td>[tʃ]</td><td>час</td></tr>
-                        <tr><td>Ш ш</td><td>[ʃ]</td><td>шум</td></tr>
-                        <tr><td>Щ щ</td><td>[ʃtʃ]</td><td>щи</td></tr>
-                        <tr><td>Ъ ъ</td><td>hartes Zeichen</td><td>объезд</td></tr>
-                        <tr><td>Ы ы</td><td>[ɨ]</td><td>мы</td></tr>
-                        <tr><td>Ь ь</td><td>weiches Zeichen</td><td>конь</td></tr>
-                        <tr><td>Э э</td><td>[e]</td><td>это</td></tr>
-                        <tr><td>Ю ю</td><td>[ju]</td><td>юг</td></tr>
-                        <tr><td>Я я</td><td>[ja]</td><td>яблоко</td></tr>
-                    </table>
-                    <div class="merk-box">💡 Merke: Ы ist ein typisch russischer Laut, der im Deutschen nicht vorkommt.</div>
-                    `
-                },
-                aussprache: {
-                    titel: 'Aussprache – произношение',
-                    inhalt: `
-                    <p>Die russische Aussprache folgt bestimmten Regeln.</p>
-                    <ul>
-                        <li><strong>Reduktion</strong>: Unbetonte Vokale werden schwächer ausgesprochen (z.B. о → а).</li>
-                        <li><strong>Palatalisierung</strong>: Konsonanten werden weich ausgesprochen, wenn ein мыгкий знак (ь) oder bestimmte Vokale folgen.</li>
-                        <li><strong>Stimmhaftigkeit</strong>: Stimmhafte Konsonanten werden am Wortende stimmlos (z.B. год → [got]).</li>
-                    </ul>
-                    <div class="beispiel-box">🔊 Beispiel: <strong>молоко</strong> wird [malaˈko] ausgesprochen.</div>
-                    `
-                },
-                faelle: {
-                    titel: 'Fälle – падежи',
-                    inhalt: `
-                    <p>Im Russischen gibt es sechs Fälle. Sie zeigen die grammatische Funktion eines Nomens im Satz an.</p>
-                    <table>
-                        <tr><th>Fall</th><th>Frage</th><th>Beispiel</th></tr>
-                        <tr><td>Nominativ</td><td>wer? was?</td><td>стол (der Tisch)</td></tr>
-                        <tr><td>Genitiv</td><td>wessen?</td><td>стола (des Tisches)</td></tr>
-                        <tr><td>Dativ</td><td>wem?</td><td>столу (dem Tisch)</td></tr>
-                        <tr><td>Akkusativ</td><td>wen? was?</td><td>стол (den Tisch)</td></tr>
-                        <tr><td>Instrumental</td><td>womit?</td><td>столом (mit dem Tisch)</td></tr>
-                        <tr><td>Präpositiv</td><td>über wen? über was?</td><td>о столе (über den Tisch)</td></tr>
-                    </table>
-                    <div class="merk-box">📌 Die Endungen der Nomen hängen von Geschlecht und Deklination ab.</div>
-                    `
-                },
-                nominativ: {
-                    titel: 'Nominativ – именительный падеж',
-                    inhalt: `<p>Der Nominativ ist die Grundform des Nomens. Er beantwortet die Fragen «wer?» oder «was?».</p>
-                    <div class="beispiel-box">👤 Пример: <strong>Мама</strong> читает. (Die Mutter liest.)</div>
-                    <p>Das Subjekt eines Satzes steht immer im Nominativ.</p>`
-                },
-                genitiv: {
-                    titel: 'Genitiv – родительный падеж',
-                    inhalt: `<p>Der Genitiv zeigt Besitz oder Zugehörigkeit an (Frage: wessen?).</p>
-                    <div class="beispiel-box">📖 Пример: <strong>Книга брата</strong> (Das Buch des Bruders.)</div>
-                    <p>Er wird auch bei Verneinung und bei Mengenangaben verwendet.</p>`
-                },
-                dativ: {
-                    titel: 'Dativ – дательный падеж',
-                    inhalt: `<p>Der Dativ beantwortet die Frage «wem?» und zeigt den indirekten Empfänger an.</p>
-                    <div class="beispiel-box">🎁 Пример: Я даю подарок <strong>другу</strong>. (Ich gebe dem Freund ein Geschenk.)</div>`
-                },
-                akkusativ: {
-                    titel: 'Akkusativ – винительный падеж',
-                    inhalt: `<p>Der Akkusativ zeigt das direkte Objekt an (Frage: wen? was?).</p>
-                    <div class="beispiel-box">👀 Пример: Я вижу <strong>дом</strong>. (Ich sehe das Haus.)</div>
-                    <p>Bei belebten Wesen (Maskulinum) ändert sich die Endung.</p>`
-                },
-                instrumental: {
-                    titel: 'Instrumental – творительный падеж',
-                    inhalt: `<p>Der Instrumental beantwortet die Frage «womit?» und zeigt das Mittel oder die Begleitung an.</p>
-                    <div class="beispiel-box">✏️ Пример: Я пишу <strong>ручкой</strong>. (Ich schreibe mit einem Kuli.)</div>`
-                },
-                praepositiv: {
-                    titel: 'Präpositiv – предложный падеж',
-                    inhalt: `<p>Der Präpositiv wird immer mit einer Präposition verwendet (z.B. о, в, на). Er beantwortet die Frage «über wen? über was?».</p>
-                    <div class="beispiel-box">🏠 Пример: Я живу <strong>в доме</strong>. (Ich wohne im Haus.)</div>`
-                },
-                verben: {
-                    titel: 'Verben – глаголы',
-                    inhalt: `<p>Russische Verben werden nach Person und Numerus konjugiert. Es gibt zwei Konjugationsklassen.</p>
-                    <table>
-                        <tr><th>Person</th><th>-ить (z.B. говорить)</th><th>-ать (z.B. читать)</th></tr>
-                        <tr><td>я</td><td>говорю</td><td>читаю</td></tr>
-                        <tr><td>ты</td><td>говоришь</td><td>читаешь</td></tr>
-                        <tr><td>он/она</td><td>говорит</td><td>читает</td></tr>
-                        <tr><td>мы</td><td>говорим</td><td>читаем</td></tr>
-                        <tr><td>вы</td><td>говорите</td><td>читаете</td></tr>
-                        <tr><td>они</td><td>говорят</td><td>читают</td></tr>
-                    </table>
-                    <div class="merk-box">⚡ Unregelmäßige Verben wie <strong>быть</strong> (sein) weichen ab.</div>`
-                },
-                aspekte: {
-                    titel: 'Aspekte – виды глаголов',
-                    inhalt: `<p>Jedes russische Verb hat zwei Aspekte: <strong>imperfektiv</strong> (unvollendet) und <strong>perfektiv</strong> (vollendet).</p>
-                    <ul>
-                        <li><strong>Imperfektiv</strong>: betont den Ablauf oder die Wiederholung (z.B. читать – lesen).</li>
-                        <li><strong>Perfektiv</strong>: betont das Ergebnis oder die Vollendung (z.B. прочитать – (zu Ende) lesen).</li>
-                    </ul>
-                    <div class="beispiel-box">📚 Пример: Я <strong>читал</strong> книгу (ich habe gelesen) vs. Я <strong>прочитал</strong> книгу (ich habe zu Ende gelesen).</div>`
-                },
-                zeitformen: {
-                    titel: 'Zeitformen – времена',
-                    inhalt: `<p>Im Russischen gibt es drei Zeitformen: <strong>Präsens</strong>, <strong>Präteritum</strong> und <strong>Futur</strong>.</p>
-                    <ul>
-                        <li><strong>Präsens</strong>: Nur bei imperfektiven Verben (z.B. я читаю).</li>
-                        <li><strong>Präteritum</strong>: wird mit -л- gebildet (z.B. я читал).</li>
-                        <li><strong>Futur</strong>: bei perfektiven Verben (z.B. я прочитаю) oder mit werden (буду читать).</li>
-                    </ul>`
-                },
-                pronomen: {
-                    titel: 'Pronomen – местоимения',
-                    inhalt: `<p>Die wichtigsten Personalpronomen:</p>
-                    <table>
-                        <tr><th>Person</th><th>Nominativ</th><th>Genitiv</th><th>Dativ</th><th>Akkusativ</th></tr>
-                        <tr><td>ich</td><td>я</td><td>меня</td><td>мне</td><td>меня</td></tr>
-                        <tr><td>du</td><td>ты</td><td>тебя</td><td>тебе</td><td>тебя</td></tr>
-                        <tr><td>er</td><td>он</td><td>его</td><td>ему</td><td>его</td></tr>
-                        <tr><td>sie (f)</td><td>она</td><td>её</td><td>ей</td><td>её</td></tr>
-                        <tr><td>es</td><td>оно</td><td>его</td><td>ему</td><td>его</td></tr>
-                        <tr><td>wir</td><td>мы</td><td>нас</td><td>нам</td><td>нас</td></tr>
-                        <tr><td>ihr</td><td>вы</td><td>вас</td><td>вам</td><td>вас</td></tr>
-                        <tr><td>sie (pl)</td><td>они</td><td>их</td><td>им</td><td>их</td></tr>
-                    </table>`
-                },
-                adjektive: {
-                    titel: 'Adjektive – прилагательные',
-                    inhalt: `<p>Adjektive passen sich in Genus, Numerus und Kasus an das Nomen an.</p>
-                    <div class="beispiel-box">🟢 Пример: <strong>красивый дом</strong> (schönes Haus, mask.), <strong>красивая книга</strong> (schönes Buch, fem.), <strong>красивое окно</strong> (schönes Fenster, neutr.)</div>
-                    <p>Die Endungen: -ый/-ий (mask.), -ая/-яя (fem.), -ое/-ее (neutr.), -ые/-ие (pl.)</p>`
-                },
-                zahlen: {
-                    titel: 'Zahlen – числительные',
-                    inhalt: `<p>Die Grundzahlen 1–10:</p>
-                    <table>
-                        <tr><th>Zahl</th><th>Russisch</th></tr>
-                        <tr><td>1</td><td>один</td></tr>
-                        <tr><td>2</td><td>два</td></tr>
-                        <tr><td>3</td><td>три</td></tr>
-                        <tr><td>4</td><td>четыре</td></tr>
-                        <tr><td>5</td><td>пять</td></tr>
-                        <tr><td>6</td><td>шесть</td></tr>
-                        <tr><td>7</td><td>семь</td></tr>
-                        <tr><td>8</td><td>восемь</td></tr>
-                        <tr><td>9</td><td>девять</td></tr>
-                        <tr><td>10</td><td>десять</td></tr>
-                    </table>
-                    <p>Zahlen 1–4 verlangen den Nominativ Singular, 5–20 den Genitiv Plural.</p>`
-                },
-                praepositionen: {
-                    titel: 'Präpositionen – предлоги',
-                    inhalt: `<p>Wichtige Präpositionen mit den dazugehörigen Fällen:</p>
-                    <ul>
-                        <li><strong>в</strong> + Akkusativ (Richtung) / Präpositiv (Ort): в школу / в школе</li>
-                        <li><strong>на</strong> + Akkusativ / Präpositiv: на стол / на столе</li>
-                        <li><strong>с</strong> + Genitiv (von) / Instrumental (mit): с работы / с другом</li>
-                        <li><strong>о</strong> + Präpositiv: о книге</li>
-                    </ul>`
-                },
-                satzbau: {
-                    titel: 'Satzbau – построение предложений',
-                    inhalt: `<p>Die Grundwortfolge im Russischen ist <strong>Subjekt – Prädikat – Objekt</strong>, aber sie ist flexibel.</p>
-                    <div class="beispiel-box">📝 Пример: <strong>Я читаю книгу.</strong> (Ich lese ein Buch.) – Betonung kann durch Umstellung verändert werden.</div>
-                    <p>Fragen werden oft durch Intonation gebildet, ohne Wortumstellung.</p>`
-                }
-            };
-
+            // Grammatik
             function renderGrammatikToc() {
                 const kapitel = Object.keys(grammatikDaten);
                 let html = '<ul>';
@@ -1569,7 +1857,7 @@
                 grammatikSeite.innerHTML = `<h2>${data.titel}</h2>${data.inhalt}`;
             }
 
-            // ---------- STATISTIKEN ----------
+            // Statistiken
             function renderStats() {
                 const total = vokabeln.length;
                 const heuteStr = heute();
@@ -1582,7 +1870,6 @@
                 for (let i = 1; i <= 6; i++) {
                     kastenText += `K${i}: ${kastenZ[i]} `;
                 }
-
                 statsGrid.innerHTML = `
                     <div class="stats-card"><div class="zahl">${total}</div><div class="label">Gesamt</div></div>
                     <div class="stats-card"><div class="zahl">${heuteGelernt}</div><div class="label">Heute gelernt</div></div>
@@ -1606,7 +1893,6 @@
                 ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
                 const daten = [];
-                const heuteStr = heute();
                 const today = new Date();
                 for (let i = 29; i >= 0; i--) {
                     const d = new Date(today);
@@ -1622,10 +1908,8 @@
                 const barWidth = Math.min(chartWidth / 30, 16);
 
                 ctx.clearRect(0, 0, width, height);
-
                 ctx.fillStyle = '#fcf9f3';
                 ctx.fillRect(0, 0, width, height);
-
                 ctx.strokeStyle = '#D8D4CC';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
@@ -1660,7 +1944,7 @@
                 });
             }
 
-            // ---------- QUIZ ----------
+            // Quiz (einfach)
             const quizOverlay = document.createElement('div');
             quizOverlay.id = 'quizOverlay';
             quizOverlay.style.cssText =
@@ -1698,7 +1982,6 @@
             const quizErgebnis = document.getElementById('quizErgebnis');
             const quizPunkte = document.getElementById('quizPunkte');
             const quizFehler = document.getElementById('quizFehler');
-            const quizTitel = document.getElementById('quizTitel');
 
             let quizFragen = [];
             let quizIndex = 0;
@@ -1862,7 +2145,6 @@
                 quizIndex++;
                 zeigeQuizFrage();
             });
-
             quizBeenden.addEventListener('click', () => {
                 beendeQuiz();
             });
@@ -1889,7 +2171,7 @@
             quizStartBtn.addEventListener('click', starteQuiz);
             document.querySelector('.vokabel-actions').appendChild(quizStartBtn);
 
-            // ---------- EXPORT / IMPORT ----------
+            // Export/Import
             function exportData() {
                 const data = { vokabeln, stats, einstellungen };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1921,7 +2203,7 @@
                 reader.readAsText(file);
             }
 
-            // ---------- EVENT BINDING ----------
+            // Events
             tabNav.addEventListener('click', (e) => {
                 const btn = e.target.closest('button');
                 if (!btn) return;
@@ -1983,7 +2265,6 @@
                 }
             });
 
-            // Toggle Vokabelliste
             let listeSichtbar = false;
             toggleListeBtn.addEventListener('click', () => {
                 listeSichtbar = !listeSichtbar;
@@ -2075,11 +2356,13 @@
                 }
             });
 
+            // INIT
+            laden();
             renderAll();
             renderGrammatikToc();
             renderGrammatikSeite();
 
-            console.log('Russisch lernen – App bereit (ohne Emojis, Liste versteckt)');
+            console.log('Russisch lernen – basierend auf Конечно! 1 (alle Vokabeln aus den Bildern)');
         })();
     </script>
 
