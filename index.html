@@ -824,7 +824,6 @@
                 <button class="active" data-tab="vokabeln">Vokabeln</button>
                 <button data-tab="grammatik">Grammatik</button>
                 <button data-tab="uebungen">Übungen</button>
-                <button data-tab="statistiken">Statistiken</button>
                 <button data-tab="einstellungen">Einstellungen</button>
             </nav>
 
@@ -909,18 +908,6 @@
                         <p id="uebungErgebnisProzent"></p>
                         <button class="btn primär" id="uebungErgebnisWiederholen">Nochmal</button>
                     </div>
-                </div>
-            </section>
-
-            <!-- ===== TAB: STATISTIKEN ===== -->
-            <section class="tab-content" id="tabStatistiken">
-                <div class="stats-grid" id="statsGrid"></div>
-                <div class="diagramm-container">
-                    <h3>Fortschritt der letzten 30 Tage</h3>
-                    <canvas id="statsDiagramm"></canvas>
-                </div>
-                <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
-                    <button class="btn" id="resetStatsBtn">Statistiken zurücksetzen</button>
                 </div>
             </section>
 
@@ -1198,13 +1185,6 @@
             //  APP-LOGIK
             // ============================================================
             let vokabeln = [];
-            let stats = {
-                heuteGelernt: 0,
-                xp: 0,
-                level: 1,
-                lernzeitGesamt: 0,
-                lernHistorie: {}
-            };
             let einstellungen = {
                 papierStil: 'kariert',
                 schriftgroesse: 16,
@@ -1243,7 +1223,6 @@
             function speichern() {
                 try {
                     localStorage.setItem('russischVokabeln', JSON.stringify(vokabeln));
-                    localStorage.setItem('russischStats', JSON.stringify(stats));
                     localStorage.setItem('russischEinstellungen', JSON.stringify(einstellungen));
                 } catch (e) {}
             }
@@ -1252,15 +1231,12 @@
                 try {
                     const v = localStorage.getItem('russischVokabeln');
                     if (v) vokabeln = JSON.parse(v);
-                    const s = localStorage.getItem('russischStats');
-                    if (s) stats = JSON.parse(s);
                     const e = localStorage.getItem('russischEinstellungen');
                     if (e) einstellungen = JSON.parse(e);
                 } catch (e) {}
                 if (!vokabeln || vokabeln.length === 0) {
                     vokabeln = basisVokabeln.map(v => ({ ...v, id: v.id || generateId() }));
                 }
-                if (!stats.lernHistorie) stats.lernHistorie = {};
             }
 
             // --- DOM-Referenzen ---
@@ -1272,7 +1248,6 @@
                 vokabeln: $('#tabVokabeln'),
                 grammatik: $('#tabGrammatik'),
                 uebungen: $('#tabUebungen'),
-                statistiken: $('#tabStatistiken'),
                 einstellungen: $('#tabEinstellungen')
             };
             const vokabelListe = $('#vokabelListe');
@@ -1314,10 +1289,6 @@
 
             const grammatikToc = $('#grammatikToc');
             const grammatikSeite = $('#grammatikSeite');
-
-            const statsGrid = $('#statsGrid');
-            const statsDiagramm = $('#statsDiagramm');
-            const resetStatsBtn = $('#resetStatsBtn');
 
             const papierRadios = document.querySelectorAll('input[name="papier"]');
             const schriftgroesse = $('#schriftgroesse');
@@ -1455,91 +1426,6 @@
                 });
             }
 
-            function renderStats() {
-                const total = vokabeln.length;
-                const heuteStr = heute();
-                const heuteGelernt = stats.lernHistorie[heuteStr] || 0;
-                const erfolge = vokabeln.filter(v => v.kasten >= 6).length;
-                const quote = total > 0 ? Math.round((erfolge / total) * 100) : 0;
-                const kastenZ = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
-                vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) kastenZ[v.kasten]++; });
-                let kastenText = '';
-                for (let i = 1; i <= 6; i++) {
-                    kastenText += `K${i}: ${kastenZ[i]} `;
-                }
-                statsGrid.innerHTML = `
-                    <div class="stats-card"><div class="zahl">${total}</div><div class="label">Gesamt</div></div>
-                    <div class="stats-card"><div class="zahl">${heuteGelernt}</div><div class="label">Heute gelernt</div></div>
-                    <div class="stats-card"><div class="zahl">${quote}%</div><div class="label">Erfolgsquote (Kasten 6)</div></div>
-                    <div class="stats-card"><div class="zahl">${stats.xp || 0}</div><div class="label">XP</div></div>
-                    <div class="stats-card"><div class="zahl">${stats.level || 1}</div><div class="label">Level</div></div>
-                    <div class="stats-card" style="grid-column: span 2;"><div class="zahl" style="font-size:1rem;">${kastenText}</div><div class="label">Verteilung</div></div>
-                `;
-            }
-
-            function renderDiagramm() {
-                const canvas = statsDiagramm;
-                const ctx = canvas.getContext('2d');
-                const width = canvas.parentElement.clientWidth - 40;
-                const height = 180;
-                canvas.width = width * window.devicePixelRatio;
-                canvas.height = height * window.devicePixelRatio;
-                canvas.style.width = width + 'px';
-                canvas.style.height = height + 'px';
-                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-
-                const daten = [];
-                const today = new Date();
-                for (let i = 29; i >= 0; i--) {
-                    const d = new Date(today);
-                    d.setDate(d.getDate() - i);
-                    const key = d.toISOString().slice(0, 10);
-                    const val = stats.lernHistorie[key] || 0;
-                    daten.push({ tag: key, wert: val });
-                }
-                const max = Math.max(1, ...daten.map(d => d.wert));
-                const padding = { top: 10, bottom: 20, left: 20, right: 10 };
-                const chartWidth = width - padding.left - padding.right;
-                const chartHeight = height - padding.top - padding.bottom;
-                const barWidth = Math.min(chartWidth / 30, 16);
-
-                ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = '#fcf9f3';
-                ctx.fillRect(0, 0, width, height);
-                ctx.strokeStyle = '#D8D4CC';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(padding.left, padding.top);
-                ctx.lineTo(padding.left, padding.top + chartHeight);
-                ctx.lineTo(padding.left + chartWidth, padding.top + chartHeight);
-                ctx.stroke();
-
-                daten.forEach((d, i) => {
-                    const x = padding.left + (i / daten.length) * chartWidth;
-                    const barH = (d.wert / max) * chartHeight;
-                    const y = padding.top + chartHeight - barH;
-                    ctx.fillStyle = '#4D83FF';
-                    ctx.fillRect(x - barWidth / 2, y, barWidth, barH);
-                    if (i % 3 === 0) {
-                        ctx.fillStyle = '#8a857b';
-                        ctx.font = '8px sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(d.tag.slice(5), x, padding.top + chartHeight + 14);
-                    }
-                });
-                daten.forEach((d, i) => {
-                    if (d.wert > 0) {
-                        const x = padding.left + (i / daten.length) * chartWidth;
-                        const barH = (d.wert / max) * chartHeight;
-                        const y = padding.top + chartHeight - barH - 4;
-                        ctx.fillStyle = '#2C2C2C';
-                        ctx.font = '8px sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(d.wert, x, y);
-                    }
-                });
-            }
-
             function renderAll() {
                 renderKastenUebersicht();
                 renderKategorieFilter();
@@ -1547,8 +1433,6 @@
                 const filterKat = kategorieFilter.value;
                 const sort = sortierung.value;
                 renderVokabelListe(filterText, filterKat, sort);
-                renderStats();
-                renderDiagramm();
                 schriftgroesse.value = einstellungen.schriftgroesse;
                 schriftgroesseAnzeige.textContent = einstellungen.schriftgroesse + 'px';
                 darkModeToggle.checked = einstellungen.darkMode;
@@ -1680,17 +1564,7 @@
             function beendeLernmodus(abgeschlossen = false) {
                 lernSession.aktiv = false;
                 lernOverlay.classList.remove('open');
-                if (abgeschlossen && lernSession.startZeit) {
-                    const dauer = Math.floor((Date.now() - lernSession.startZeit) / 1000);
-                    stats.lernzeitGesamt = (stats.lernzeitGesamt || 0) + dauer;
-                    const heuteStr = heute();
-                    stats.heuteGelernt = (stats.heuteGelernt || 0) + lernSession.karten.length;
-                    stats.lernHistorie[heuteStr] = (stats.lernHistorie[heuteStr] || 0) + lernSession.karten.length;
-                    stats.xp = (stats.xp || 0) + lernSession.karten.length * 10;
-                    stats.level = Math.floor((stats.xp || 0) / 100) + 1;
-                    speichern();
-                    renderAll();
-                }
+                // Keine Statistiken mehr – nur noch die Karten-Kästen wurden bereits aktualisiert
                 renderAll();
             }
 
@@ -1949,9 +1823,6 @@
                 Object.keys(tabContents).forEach(key => {
                     tabContents[key].classList.toggle('active', key === tab);
                 });
-                if (tab === 'statistiken') {
-                    setTimeout(renderDiagramm, 100);
-                }
                 if (tab === 'grammatik') {
                     renderGrammatikToc();
                     renderGrammatikSeite();
@@ -2038,7 +1909,7 @@
             });
 
             exportBtn.addEventListener('click', () => {
-                const data = { vokabeln, stats, einstellungen };
+                const data = { vokabeln, einstellungen };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2055,9 +1926,8 @@
                     reader.onload = (ev) => {
                         try {
                             const data = JSON.parse(ev.target.result);
-                            if (data.vokabeln && data.stats && data.einstellungen) {
+                            if (data.vokabeln && data.einstellungen) {
                                 vokabeln = data.vokabeln;
-                                stats = data.stats;
                                 einstellungen = data.einstellungen;
                                 speichern();
                                 renderAll();
@@ -2069,14 +1939,6 @@
                     };
                     reader.readAsText(e.target.files[0]);
                     e.target.value = '';
-                }
-            });
-
-            resetStatsBtn.addEventListener('click', () => {
-                if (confirm('Statistiken zurücksetzen? (Vokabeln bleiben erhalten)')) {
-                    stats = { heuteGelernt: 0, xp: 0, level: 1, lernzeitGesamt: 0, lernHistorie: {} };
-                    speichern();
-                    renderAll();
                 }
             });
 
@@ -2110,7 +1972,7 @@
             });
 
             backupErstellenBtn.addEventListener('click', () => {
-                const data = { vokabeln, stats, einstellungen };
+                const data = { vokabeln, einstellungen };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2127,9 +1989,8 @@
                     reader.onload = (ev) => {
                         try {
                             const data = JSON.parse(ev.target.result);
-                            if (data.vokabeln && data.stats && data.einstellungen) {
+                            if (data.vokabeln && data.einstellungen) {
                                 vokabeln = data.vokabeln;
-                                stats = data.stats;
                                 einstellungen = data.einstellungen;
                                 speichern();
                                 renderAll();
@@ -2165,12 +2026,6 @@
 
             exportLektionenBtn.addEventListener('click', exportiereLektionen);
 
-            window.addEventListener('resize', () => {
-                if (document.getElementById('tabStatistiken').classList.contains('active')) {
-                    renderDiagramm();
-                }
-            });
-
             // ============================================================
             //  INIT
             // ============================================================
@@ -2189,7 +2044,7 @@
                 loadExternalVocabularies().then(() => {});
             }
 
-            console.log('✅ Russisch lernen – Statistik ohne Streak, Diagramm funktioniert.');
+            console.log('✅ Russisch lernen – Statistiken wurden entfernt.');
         })();
     </script>
 </body>
