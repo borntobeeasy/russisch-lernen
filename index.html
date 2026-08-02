@@ -996,9 +996,10 @@
             ];
 
             // ============================================================
-            //  GRAMMATIK-REFERENZ (unverändert – hier nur ein Auszug)
+            //  GRAMMATIK-REFERENZ – ERWEITERT UM NEUE THEMEN
             // ============================================================
             const grammatikDaten = {
+                // --- Bestehende Kapitel (bleiben unverändert) ---
                 personalpronomen: {
                     titel: 'Personalpronomen (Личные местоимения)',
                     inhalt: `<p>Die Personalpronomen im Russischen – Singular und Plural:</p>
@@ -1146,13 +1147,109 @@
                                 <tr><td>mit к</td><td>Я иду к Максу.</td><td>Я иду к Ире.</td></tr>
                             </table>
                             <div class="beispiel-box">➡️ Пример: <strong>Я иду к окну.</strong> (Ich gehe zum Fenster.)</div>`
+                },
+
+                // ============================================================
+                //  NEUE GRAMMATIK-KAPITEL (ab hier erweitert)
+                // ============================================================
+                verben_i_konjugation: {
+                    titel: 'Verben der и‑Konjugation (вторая конъюгация)',
+                    inhalt: `<p>Die Verben auf <strong>-ить</strong> (und einige auf <strong>-еть</strong>) werden nach der и‑Konjugation gebeugt. Beispiel <strong>говорить</strong> (sprechen):</p>
+                            <table>
+                                <tr><th>Person</th><th>говорить</th></tr>
+                                <tr><td>я</td><td>говорю</td></tr>
+                                <tr><td>ты</td><td>говоришь</td></tr>
+                                <tr><td>он / она / оно</td><td>говорит</td></tr>
+                                <tr><td>мы</td><td>говорим</td></tr>
+                                <tr><td>вы</td><td>говорите</td></tr>
+                                <tr><td>они</td><td>говорят</td></tr>
+                            </table>
+                            <div class="beispiel-box">🗣️ Пример: <strong>Я говорю по-русски.</strong> (Ich spreche Russisch.)</div>
+                            <p>Weitere Verben dieser Gruppe: <strong>любить</strong> (lieben), <strong>звонить</strong> (anrufen), <strong>писать</strong> (schreiben – Ausnahme: пишу, пишешь ...), <strong>видеть</strong> (sehen).</p>`
+                },
+                adjektive_deklination: {
+                    titel: 'Adjektive – Deklination (прилагательные)',
+                    inhalt: `<p>Adjektive werden im Russischen dekliniert und passen sich in Genus, Numerus und Kasus an das Nomen an.</p>
+                            <p><strong>Harte Deklination</strong> (Beispiel <em>красивый</em> – schön):</p>
+                            <table>
+                                <tr><th>Kasus</th><th>Maskulinum</th><th>Neutrum</th><th>Femininum</th><th>Plural</th></tr>
+                                <tr><td>Nominativ</td><td>красивый</td><td>красивое</td><td>красивая</td><td>красивые</td></tr>
+                                <tr><td>Genitiv</td><td>красивого</td><td>красивого</td><td>красивой</td><td>красивых</td></tr>
+                                <tr><td>Dativ</td><td>красивому</td><td>красивому</td><td>красивой</td><td>красивым</td></tr>
+                                <tr><td>Akkusativ</td><td>красивый / красиво<sup>*</sup></td><td>красивое</td><td>красивую</td><td>красивые / красивых</td></tr>
+                                <tr><td>Instrumental</td><td>красивым</td><td>красивым</td><td>красивой</td><td>красивыми</td></tr>
+                                <tr><td>Präpositiv</td><td>красивом</td><td>красивом</td><td>красивой</td><td>красивых</td></tr>
+                            </table>
+                            <p><sup>*</sup> AKK. m. = unbelebt (красивый) / belebt (красивого)</p>
+                            <div class="merk-box">📌 Adjektive stehen meist vor dem Nomen und stimmen mit ihm überein.</div>
+                            <div class="beispiel-box">🎨 Пример: <strong>Красивая девушка</strong> (ein schönes Mädchen), <strong>красивое платье</strong> (ein schönes Kleid).</div>`
+                },
+                praepositionen_dativ_akkusativ: {
+                    titel: 'Präpositionen mit Dativ und Akkusativ',
+                    inhalt: `<p>Einige Präpositionen verlangen entweder Dativ oder Akkusativ – je nach Bedeutung („wo?“ vs. „wohin?“).</p>
+                            <table>
+                                <tr><th>Präposition</th><th>Dativ (wo?)</th><th>Akkusativ (wohin?)</th></tr>
+                                <tr><td><strong>в</strong></td><td>в комнате (im Zimmer)</td><td>в комнату (ins Zimmer)</td></tr>
+                                <tr><td><strong>на</strong></td><td>на столе (auf dem Tisch)</td><td>на стол (auf den Tisch)</td></tr>
+                                <tr><td><strong>под</strong></td><td>под столом (unter dem Tisch)</td><td>под стол (unter den Tisch)</td></tr>
+                                <tr><td><strong>над</strong></td><td>над столом (über dem Tisch)</td><td>— (keine Bewegung)</td></tr>
+                            </table>
+                            <p>Weitere Präpositionen mit Dativ: <strong>к</strong> (zu), <strong>по</strong> (entlang, gemäß).</p>
+                            <div class="beispiel-box">📍 Пример: <strong>Я кладу книгу на стол.</strong> (Ich lege das Buch auf den Tisch – wohin?)<br>
+                            <strong>Книга лежит на столе.</strong> (Das Buch liegt auf dem Tisch – wo?)</div>`
+                },
+                vergangenheit_verben: {
+                    titel: 'Vergangenheit der Verben (прошедшее время)',
+                    inhalt: `<p>Die Vergangenheit wird mit der Endung <strong>-л</strong> + Genus-Endung gebildet (keine Personalendungen).</p>
+                            <p>Beispiel <strong>делать</strong> (machen):</p>
+                            <table>
+                                <tr><th>Genus / Person</th><th>Endung</th><th>Beispiel</th></tr>
+                                <tr><td>maskulin (er)</td><td>-л</td><td>делал</td></tr>
+                                <tr><td>feminin (sie)</td><td>-ла</td><td>делала</td></tr>
+                                <tr><td>neutrum (es)</td><td>-ло</td><td>делало</td></tr>
+                                <tr><td>Plural (wir, ihr, sie)</td><td>-ли</td><td>делали</td></tr>
+                            </table>
+                            <div class="beispiel-box">⏳ Пример: <strong>Я делал уроки.</strong> (Ich machte Hausaufgaben – m.)<br>
+                            <strong>Она делала уроки.</strong> (Sie machte Hausaufgaben – f.)<br>
+                            <strong>Мы делали уроки.</strong> (Wir machten Hausaufgaben.)</div>
+                            <p>Die Betonung kann bei Verben auf <strong>-ить</strong> auf die Endung fallen (z.B. говори́л, говори́ла).</p>`
+                },
+                zukunft_verben: {
+                    titel: 'Zukunft der Verben (будущее время)',
+                    inhalt: `<p>Die Zukunft wird bei unvollendeten Verben mit dem Hilfsverb <strong>быть</strong> + Infinitiv gebildet.</p>
+                            <p>Beispiel <strong>читать</strong> (lesen) – unvollendet:</p>
+                            <table>
+                                <tr><th>Person</th><th>будущее</th></tr>
+                                <tr><td>я</td><td>буду читать</td></tr>
+                                <tr><td>ты</td><td>будешь читать</td></tr>
+                                <tr><td>он/она/оно</td><td>будет читать</td></tr>
+                                <tr><td>мы</td><td>будем читать</td></tr>
+                                <tr><td>вы</td><td>будете читать</td></tr>
+                                <tr><td>они</td><td>будут читать</td></tr>
+                            </table>
+                            <p><strong>Vollendete Verben</strong> (z.B. <em>прочитать</em>) haben eine eigene Zukunft (wie Präsens): <em>я прочитаю, ты прочитаешь, ...</em></p>
+                            <div class="beispiel-box">🔮 Пример: <strong>Завтра я буду читать книгу.</strong> (Morgen werde ich ein Buch lesen.)<br>
+                            <strong>Он прочитает книгу завтра.</strong> (Er wird das Buch morgen lesen – vollendet.)</div>`
+                },
+                verneinung: {
+                    titel: 'Verneinung (отрицание)',
+                    inhalt: `<p>Die Verneinung wird mit <strong>не</strong> vor dem Verb oder <strong>нет</strong> als Antwort auf „есть“ gebildet.</p>
+                            <ul>
+                                <li><strong>не</strong> + Verb: <em>Я не знаю.</em> (Ich weiß nicht.)</li>
+                                <li><strong>нет</strong> + Genitiv: <em>У меня нет книги.</em> (Ich habe kein Buch.)</li>
+                                <li><strong>ни</strong> für Verstärkung: <em>Никто не знает.</em> (Niemand weiß.)</li>
+                            </ul>
+                            <div class="merk-box">📌 Bei „haben“ (у + Genitiv) wird die Verneinung mit <strong>нет</strong> + Genitiv gebildet.</div>
+                            <div class="beispiel-box">🚫 Пример: <strong>Я не хочу есть.</strong> (Ich will nicht essen.)<br>
+                            <strong>У нас нет времени.</strong> (Wir haben keine Zeit.)</div>`
                 }
             };
 
             // ============================================================
-            //  GRAMMATIK-ÜBUNGEN
+            //  GRAMMATIK-ÜBUNGEN – ERWEITERT (jetzt 24 Übungen)
             // ============================================================
             const grammatikUebungen = [
+                // --- Bestehende Übungen (12) ---
                 { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> учитель. (Er ist Lehrer.)',
                     typ: 'text', antwort: 'он', hinweis: 'Nominativ Singular, maskulin' },
                 { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> ученица. (Sie ist Schülerin.)',
@@ -1178,11 +1275,54 @@
                 { frage: 'Übersetze: <span class="russisch">Я помогаю другу.</span>', typ: 'text',
                     antwort: 'Ich helfe einem Freund.', hinweis: 'Dativ nach помогать' },
                 { frage: 'Setze das richtige Possessivpronomen ein: <span class="russisch">Это ___ книга.</span> (Das ist mein Buch.)',
-                    typ: 'text', antwort: 'моя', hinweis: 'книга ist feminin' }
+                    typ: 'text', antwort: 'моя', hinweis: 'книга ist feminin' },
+
+                // --- Neue Übungen (ab hier) ---
+                // и‑Konjugation
+                { frage: 'Konjugiere <span class="russisch">говорить</span> (sprechen) in der 1. Person Singular:',
+                    typ: 'text', antwort: 'говорю', hinweis: 'и‑Konjugation, Endung -ю' },
+                { frage: 'Konjugiere <span class="russisch">любить</span> (lieben) in der 2. Person Singular:',
+                    typ: 'text', antwort: 'любишь', hinweis: 'и‑Konjugation, Endung -ишь' },
+                { frage: 'Konjugiere <span class="russisch">звонить</span> (anrufen) in der 3. Person Plural:',
+                    typ: 'text', antwort: 'звонят', hinweis: 'и‑Konjugation, Endung -ят' },
+
+                // Adjektive
+                { frage: 'Setze das Adjektiv <span class="russisch">красивый</span> im Nominativ Singular feminin ein:',
+                    typ: 'text', antwort: 'красивая', hinweis: 'Endung -ая' },
+                { frage: 'Setze das Adjektiv <span class="russisch">новый</span> (neu) im Genitiv Singular maskulin ein:',
+                    typ: 'text', antwort: 'нового', hinweis: 'Endung -ого' },
+
+                // Präpositionen
+                { frage: 'Welchen Fall verlangt die Präposition <span class="russisch">в</span> bei der Frage „wohin?“?',
+                    typ: 'choice', antwort: 'Akkusativ', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
+                hinweis: 'Bewegung ins Innere' },
+                { frage: 'Welchen Fall verlangt die Präposition <span class="russisch">на</span> bei der Frage „wo?“?',
+                    typ: 'choice', antwort: 'Präpositiv', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Präpositiv'],
+                hinweis: 'Ort, keine Bewegung' },
+
+                // Vergangenheit
+                { frage: 'Bilde die Vergangenheit (maskulin) von <span class="russisch">делать</span> (machen):',
+                    typ: 'text', antwort: 'делал', hinweis: 'Endung -л' },
+                { frage: 'Bilde die Vergangenheit (feminin) von <span class="russisch">говорить</span> (sprechen):',
+                    typ: 'text', antwort: 'говорила', hinweis: 'Endung -ла' },
+                { frage: 'Bilde die Vergangenheit (Plural) von <span class="russisch">читать</span> (lesen):',
+                    typ: 'text', antwort: 'читали', hinweis: 'Endung -ли' },
+
+                // Zukunft
+                { frage: 'Bilde die Zukunft (1. Pers. Sg.) von <span class="russisch">читать</span> (unvollendet):',
+                    typ: 'text', antwort: 'буду читать', hinweis: 'Hilfsverb быть + Infinitiv' },
+                { frage: 'Bilde die Zukunft (3. Pers. Pl.) von <span class="russisch">делать</span> (unvollendet):',
+                    typ: 'text', antwort: 'будут делать', hinweis: 'Hilfsverb быть + Infinitiv' },
+
+                // Verneinung
+                { frage: 'Übersetze: <span class="russisch">Я не знаю.</span>', typ: 'text', antwort: 'Ich weiß nicht.',
+                    hinweis: 'не + Verb' },
+                { frage: 'Übersetze: <span class="russisch">У меня нет книги.</span>', typ: 'text',
+                    antwort: 'Ich habe kein Buch.', hinweis: 'нет + Genitiv' }
             ];
 
             // ============================================================
-            //  APP-LOGIK
+            //  APP-LOGIK (unverändert bis auf die neuen Daten)
             // ============================================================
             let vokabeln = [];
             let einstellungen = {
@@ -1316,7 +1456,7 @@
             const uebungErgebnisWiederholen = $('#uebungErgebnisWiederholen');
             const exportLektionenBtn = $('#exportLektionenBtn');
 
-            // --- Render-Funktionen ---
+            // --- Render-Funktionen (unverändert) ---
             function renderKastenUebersicht() {
                 const zaehler = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
                 vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) zaehler[v.kasten]++; });
@@ -1564,7 +1704,6 @@
             function beendeLernmodus(abgeschlossen = false) {
                 lernSession.aktiv = false;
                 lernOverlay.classList.remove('open');
-                // Keine Statistiken mehr – nur noch die Karten-Kästen wurden bereits aktualisiert
                 renderAll();
             }
 
@@ -1812,7 +1951,7 @@
                 alert(`${exportCount} JSON-Datei(en) wurden heruntergeladen. Bitte lege sie im Ordner "vokabeln" ab.`);
             }
 
-            // --- Event-Handler ---
+            // --- Event-Handler (unverändert) ---
             tabNav.addEventListener('click', (e) => {
                 const btn = e.target.closest('button');
                 if (!btn) return;
@@ -2044,7 +2183,7 @@
                 loadExternalVocabularies().then(() => {});
             }
 
-            console.log('✅ Russisch lernen – Statistiken wurden entfernt.');
+            console.log('✅ Russisch lernen – Grammatik und Übungen erweitert.');
         })();
     </script>
 </body>
