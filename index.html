@@ -1200,7 +1200,6 @@
             let vokabeln = [];
             let stats = {
                 heuteGelernt: 0,
-                streak: 0,
                 xp: 0,
                 level: 1,
                 lernzeitGesamt: 0,
@@ -1472,7 +1471,6 @@
                     <div class="stats-card"><div class="zahl">${total}</div><div class="label">Gesamt</div></div>
                     <div class="stats-card"><div class="zahl">${heuteGelernt}</div><div class="label">Heute gelernt</div></div>
                     <div class="stats-card"><div class="zahl">${quote}%</div><div class="label">Erfolgsquote (Kasten 6)</div></div>
-                    <div class="stats-card"><div class="zahl">${stats.streak || 0}</div><div class="label">Streak (Tage)</div></div>
                     <div class="stats-card"><div class="zahl">${stats.xp || 0}</div><div class="label">XP</div></div>
                     <div class="stats-card"><div class="zahl">${stats.level || 1}</div><div class="label">Level</div></div>
                     <div class="stats-card" style="grid-column: span 2;"><div class="zahl" style="font-size:1rem;">${kastenText}</div><div class="label">Verteilung</div></div>
@@ -1690,16 +1688,6 @@
                     stats.lernHistorie[heuteStr] = (stats.lernHistorie[heuteStr] || 0) + lernSession.karten.length;
                     stats.xp = (stats.xp || 0) + lernSession.karten.length * 10;
                     stats.level = Math.floor((stats.xp || 0) / 100) + 1;
-                    const gestern = new Date();
-                    gestern.setDate(gestern.getDate() - 1);
-                    const gesternStr = gestern.toISOString().slice(0, 10);
-                    if (stats.lernHistorie[gesternStr] && stats.lernHistorie[gesternStr] > 0) {
-                        stats.streak = (stats.streak || 0) + 1;
-                    } else if (stats.lernHistorie[heuteStr] && stats.lernHistorie[heuteStr] > 0) {
-                        if (!stats.lernHistorie[gesternStr]) stats.streak = 1;
-                    } else {
-                        stats.streak = 0;
-                    }
                     speichern();
                     renderAll();
                 }
@@ -1874,7 +1862,6 @@
                         if (!response.ok) throw new Error(`HTTP ${response.status}`);
                         const data = await response.json();
                         if (Array.isArray(data)) {
-                            // Stelle sicher, dass jedes Element eine kategorie hat
                             const mitKategorie = data.map(v => ({ ...v, kategorie: v.kategorie || lektion.kategorie }));
                             alle = alle.concat(mitKategorie);
                         } else {
@@ -1886,14 +1873,12 @@
                 }
 
                 if (fehler === 0 && alle.length > 0) {
-                    // Alle Dateien erfolgreich geladen
                     vokabeln = alle.map(v => ({ ...v, id: v.id || generateId() }));
                     speichern();
                     renderAll();
                     console.log(`✅ ${vokabeln.length} Vokabeln aus externen JSON-Dateien geladen.`);
                     return true;
                 } else {
-                    // Fallback: hartcodierte Vokabeln verwenden
                     if (basisVokabeln.length > 0) {
                         vokabeln = basisVokabeln.map(v => ({ ...v, id: v.id || generateId() }));
                         speichern();
@@ -1911,7 +1896,6 @@
                     return;
                 }
 
-                // Gruppiere nach Kategorie
                 const gruppen = {};
                 vokabeln.forEach(v => {
                     const kat = v.kategorie || 'Unbekannt';
@@ -1919,7 +1903,6 @@
                     gruppen[kat].push(v);
                 });
 
-                // Für jede Kategorie eine JSON-Datei erstellen
                 const namen = {
                     'Урок 1': 'urok1.json',
                     'Урок 2': 'urok2.json',
@@ -1931,10 +1914,8 @@
 
                 let exportCount = 0;
                 for (const [kat, daten] of Object.entries(gruppen)) {
-                    // Normalisiere den Dateinamen
                     let filename = namen[kat];
                     if (!filename) {
-                        // Fallback: aus Kategorie einen Dateinamen generieren
                         const num = kat.match(/\d+/);
                         if (num) {
                             filename = `urok${num[0]}.json`;
@@ -2093,7 +2074,7 @@
 
             resetStatsBtn.addEventListener('click', () => {
                 if (confirm('Statistiken zurücksetzen? (Vokabeln bleiben erhalten)')) {
-                    stats = { heuteGelernt: 0, streak: 0, xp: 0, level: 1, lernzeitGesamt: 0, lernHistorie: {} };
+                    stats = { heuteGelernt: 0, xp: 0, level: 1, lernzeitGesamt: 0, lernHistorie: {} };
                     speichern();
                     renderAll();
                 }
@@ -2193,30 +2174,22 @@
             // ============================================================
             //  INIT
             // ============================================================
-            laden(); // lädt aus localStorage (falls vorhanden)
+            laden();
 
-            // Wenn keine Vokabeln im localStorage, lade entweder extern oder Fallback
             if (!vokabeln || vokabeln.length === 0) {
-                // Versuche externe JSON zu laden
                 loadExternalVocabularies().then(() => {
-                    // Nach dem Laden alles rendern
                     renderAll();
                     renderGrammatikToc();
                     renderGrammatikSeite();
                 });
             } else {
-                // Bereits vorhandene Vokabeln aus localStorage rendern
                 renderAll();
                 renderGrammatikToc();
                 renderGrammatikSeite();
-                // Im Hintergrund trotzdem versuchen, externe zu laden (um zu aktualisieren)
-                loadExternalVocabularies().then(() => {
-                    // Falls externe geladen wurden, wird renderAll bereits aufgerufen
-                });
+                loadExternalVocabularies().then(() => {});
             }
 
-            console.log('✅ Russisch lernen – Vokabeln werden aus dem Ordner "vokabeln" geladen.');
-            console.log('ℹ️ Nutze den Export-Button in den Einstellungen, um deine Vokabeln als JSON-Dateien zu exportieren.');
+            console.log('✅ Russisch lernen – Statistik ohne Streak, Diagramm funktioniert.');
         })();
     </script>
 </body>
