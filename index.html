@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Russisch lernen – Конечно! 1</title>
     <style>
-        /* ===== RESET & GRUNDLAGEN (unverändert) ===== */
+        /* ===== RESET & GRUNDLAGEN ===== */
         * {
             margin: 0;
             padding: 0;
@@ -603,7 +603,6 @@
             margin-right: 20px;
         }
 
-        /* ===== NEU: Grammatik-Übungen ===== */
         .uebung-container {
             background: #fcf9f3;
             border-radius: 16px;
@@ -707,6 +706,15 @@
             color: #2C2C2C;
         }
 
+        /* Grammatik Jahres-Dropdown */
+        .grammatik-jahr-select {
+            margin-bottom: 16px;
+        }
+        .grammatik-jahr-select select {
+            width: auto;
+            min-width: 200px;
+        }
+
         @media (max-width: 700px) {
             .notizblock {
                 padding: 16px;
@@ -736,6 +744,9 @@
             }
             .uebung-container {
                 padding: 16px;
+            }
+            .grammatik-jahr-select select {
+                width: 100%;
             }
         }
         @media (max-width: 480px) {
@@ -817,7 +828,7 @@
 
             <header class="header">
                 <h1>Russisch lernen</h1>
-                <span class="sub">Конечно! 1 – nach Lektionen</span>
+                <span class="sub">Konechno! 1 – nach Lektionen</span>
             </header>
 
             <nav class="tab-nav" id="tabNav">
@@ -861,7 +872,7 @@
                         <div class="form-group"><label>Aussprache</label><input id="editAussprache" /></div>
                         <div class="form-group"><label>Beispielsatz</label><input id="editBeispiel" /></div>
                         <div class="form-group"><label>Kategorie (Lektion)</label><input id="editKategorie" /></div>
-                        <div class="form-group"><label>Schwierigkeit (1–5)</label><input id="editSchwierigkeit" type="number" min="1" max="5" value="3" /></div>
+                        <div class="form-group"><label>Schwierigkeit (1-5)</label><input id="editSchwierigkeit" type="number" min="1" max="5" value="3" /></div>
                         <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
                             <button class="btn primär" id="editorSpeichern">Speichern</button>
                             <button class="btn" id="editorAbbrechen">Abbrechen</button>
@@ -875,7 +886,13 @@
             <!-- ===== TAB: GRAMMATIK ===== -->
             <section class="tab-content" id="tabGrammatik">
                 <div class="grammatik-layout">
-                    <div class="grammatik-toc" id="grammatikToc"></div>
+                    <div class="grammatik-toc" id="grammatikToc">
+                        <div class="grammatik-jahr-select">
+                            <label for="grammatikJahr">Jahrgang:</label>
+                            <select id="grammatikJahr"></select>
+                        </div>
+                        <ul id="grammatikKapitelListe"></ul>
+                    </div>
                     <div class="grammatik-inhalt">
                         <div class="grammatik-seite" id="grammatikSeite"></div>
                     </div>
@@ -903,7 +920,7 @@
                         </div>
                     </div>
                     <div class="uebung-ergebnis" id="uebungErgebnis" style="display:none;">
-                        <h3>🎉 Übung abgeschlossen!</h3>
+                        <h3>Übung abgeschlossen!</h3>
                         <p><span class="zahl" id="uebungErgebnisRichtig">0</span> richtig von <span id="uebungErgebnisGesamt">12</span></p>
                         <p id="uebungErgebnisProzent"></p>
                         <button class="btn primär" id="uebungErgebnisWiederholen">Nochmal</button>
@@ -937,7 +954,7 @@
                     <button class="btn" id="backupErstellenBtn">Backup erstellen</button>
                     <button class="btn" id="backupLadenBtn">Backup laden</button>
                     <input type="file" id="backupFileInput" accept=".json" style="display:none" />
-                    <button class="btn primär" id="exportLektionenBtn" style="margin-top:10px;">📤 Lektionen als JSON exportieren</button>
+                    <button class="btn primär" id="exportLektionenBtn" style="margin-top:10px;">Lektionen als JSON exportieren</button>
                 </div>
             </section>
 
@@ -952,12 +969,12 @@
                     <div class="karte-lern" id="lernKarte">
                         <div class="karte-lern-inner" id="lernKarteInner">
                             <div class="seite vorderseite">
-                                <div class="russisch" id="lernRussisch">Привет</div>
+                                <div class="russisch" id="lernRussisch">Privet</div>
                                 <div class="aussprache" id="lernAussprache">[priˈvʲet]</div>
                             </div>
                             <div class="seite rueckseite">
                                 <div class="deutsch" id="lernDeutsch">Hallo</div>
-                                <div class="beispiel" id="lernBeispiel">Пример: Привет, как дела?</div>
+                                <div class="beispiel" id="lernBeispiel">Beispiel: Privet, kak dela?</div>
                             </div>
                         </div>
                     </div>
@@ -977,352 +994,569 @@
             'use strict';
 
             // ============================================================
-            //  BASIS-VOKABELN (FALLBACK) – HIER DEINE VOKABELN EINFÜGEN
-            //  Wenn die JSON-Dateien im Ordner "vokabeln" existieren,
-            //  werden sie automatisch geladen und ersetzen dieses Array.
+            //  BASIS-VOKABELN (FALLBACK)
             // ============================================================
             const basisVokabeln = [
-                // Beispiel-Einträge (du kannst sie durch deine eigenen ersetzen)
                 {
                     id: 'beispiel_1',
                     russisch: 'пример',
                     deutsch: 'Beispiel',
                     aussprache: '[prʲɪˈmʲer]',
-                    beispiel: 'Это пример.',
-                    kategorie: 'Урок 1',
+                    beispiel: 'Eto primer.',
+                    kategorie: 'Urok 1',
                     schwierigkeit: 1,
                     kasten: 1
                 }
             ];
 
             // ============================================================
-            //  GRAMMATIK-REFERENZ – ERWEITERT UM NEUE THEMEN
+            //  GRAMMATIK – SORTIERT NACH LEHRJAHREN
             // ============================================================
-            const grammatikDaten = {
-                // --- Bestehende Kapitel (bleiben unverändert) ---
-                personalpronomen: {
-                    titel: 'Personalpronomen (Личные местоимения)',
-                    inhalt: `<p>Die Personalpronomen im Russischen – Singular und Plural:</p>
-                            <table>
-                                <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
-                                <tr><td>1.</td><td>я (ich)</td><td>мы (wir)</td></tr>
-                                <tr><td>2.</td><td>ты (du)</td><td>вы (ihr / Sie)</td></tr>
-                                <tr><td>3.</td><td>он (er), она (sie), оно (es)</td><td>они (sie)</td></tr>
-                            </table>
-                            <div class="beispiel-box">👤 Пример: <strong>Он</strong> учитель. <strong>Она</strong> ученица.</div>
-                            <p>Die 2. Person Plural <strong>вы</strong> wird auch als Höflichkeitsform verwendet.</p>`
-                },
-                verben_e_konjugation: {
-                    titel: 'Verben der e‑Konjugation (на -ать) – делать',
-                    inhalt: `<p>Die Verben auf <strong>-ать</strong> werden nach der e‑Konjugation gebeugt. Beispiel <strong>делать</strong> (machen):</p>
-                            <table>
-                                <tr><th>Person</th><th>делать</th></tr>
-                                <tr><td>я</td><td>делаю</td></tr>
-                                <tr><td>ты</td><td>делаешь</td></tr>
-                                <tr><td>он / она / оно</td><td>делает</td></tr>
-                                <tr><td>мы</td><td>делаем</td></tr>
-                                <tr><td>вы</td><td>делаете</td></tr>
-                                <tr><td>они</td><td>делают</td></tr>
-                            </table>
-                            <div class="beispiel-box">✏️ Пример: <strong>Я делаю уроки.</strong> (Ich mache Hausaufgaben.)</div>
-                            <p>Weitere Verben dieser Gruppe: <strong>чита́ть</strong> (lesen), <strong>игра́ть</strong> (spielen), <strong>ду́мать</strong> (denken).</p>`
-                },
-                zahlen: {
-                    titel: 'Grundzahlen 1–10 (Числительные)',
-                    inhalt: `<table>
-                                <tr><th>Zahl</th><th>Russisch</th><th>Zahl</th><th>Russisch</th></tr>
-                                <tr><td>1</td><td>один</td><td>6</td><td>шесть</td></tr>
-                                <tr><td>2</td><td>два</td><td>7</td><td>семь</td></tr>
-                                <tr><td>3</td><td>три</td><td>8</td><td>восемь</td></tr>
-                                <tr><td>4</td><td>четыре</td><td>9</td><td>девять</td></tr>
-                                <tr><td>5</td><td>пять</td><td>10</td><td>десять</td></tr>
-                            </table>
-                            <div class="merk-box">💡 100 = сто, 155 = сто пятьдесят пять</div>`
-                },
-                wochentage: {
-                    titel: 'Wochentage (Дни недели)',
-                    inhalt: `<table>
-                                <tr><th>Deutsch</th><th>Russisch</th></tr>
-                                <tr><td>Montag</td><td>понедельник</td></tr>
-                                <tr><td>Dienstag</td><td>вторник</td></tr>
-                                <tr><td>Mittwoch</td><td>среда</td></tr>
-                                <tr><td>Donnerstag</td><td>четверг</td></tr>
-                                <tr><td>Freitag</td><td>пятница</td></tr>
-                                <tr><td>Samstag</td><td>суббота</td></tr>
-                                <tr><td>Sonntag</td><td>воскресенье</td></tr>
-                            </table>
-                            <div class="beispiel-box">📅 Пример: <strong>В субботу</strong> мы идём в кино.</div>`
-                },
-                faelle: {
-                    titel: 'Fälle – падежи (Überblick)',
-                    inhalt: `<p>Im Russischen gibt es sechs Fälle. Sie zeigen die grammatische Funktion eines Nomens im Satz an.</p>
-                            <table>
-                                <tr><th>Fall</th><th>Frage</th><th>Beispiel</th></tr>
-                                <tr><td>Nominativ</td><td>wer? was?</td><td>стол (der Tisch)</td></tr>
-                                <tr><td>Genitiv</td><td>wessen?</td><td>стола (des Tisches)</td></tr>
-                                <tr><td>Dativ</td><td>wem?</td><td>столу (dem Tisch)</td></tr>
-                                <tr><td>Akkusativ</td><td>wen? was?</td><td>стол (den Tisch)</td></tr>
-                                <tr><td>Instrumental</td><td>womit?</td><td>столом (mit dem Tisch)</td></tr>
-                                <tr><td>Präpositiv</td><td>über wen? über was?</td><td>о столе (über den Tisch)</td></tr>
-                            </table>
-                            <div class="merk-box">📌 Die Endungen hängen von Geschlecht und Deklination ab.</div>`
-                },
-                alphabet: {
-                    titel: 'Алфавит – Alphabet (Кириллица)',
-                    inhalt: `<p>Das russische Alphabet hat 33 Buchstaben.</p>
+            const grammatikNachJahr = {
+                "grundlagen": {
+                    titel: "Grundlagen (5. Klasse)",
+                    kapitel: {
+                        alphabet: {
+                            titel: "Alphabet (Kirilliza)",
+                            inhalt: `<p>Das russische Alphabet hat 33 Buchstaben.</p>
                             <table>
                                 <tr><th>Buchstabe</th><th>Aussprache</th><th>Beispiel</th></tr>
-                                <tr><td>А а</td><td>[a]</td><td>мама</td></tr>
-                                <tr><td>Б б</td><td>[b]</td><td>баба</td></tr>
-                                <tr><td>В в</td><td>[v]</td><td>вода</td></tr>
-                                <tr><td>Г г</td><td>[g]</td><td>год</td></tr>
-                                <tr><td>Д д</td><td>[d]</td><td>дом</td></tr>
-                                <tr><td>Е е</td><td>[je]</td><td>есть</td></tr>
-                                <tr><td>Ё ё</td><td>[jo]</td><td>ёж</td></tr>
-                                <tr><td>Ж ж</td><td>[ʒ]</td><td>жизнь</td></tr>
-                                <tr><td>З з</td><td>[z]</td><td>зима</td></tr>
-                                <tr><td>И и</td><td>[i]</td><td>или</td></tr>
-                                <tr><td>Й й</td><td>[j]</td><td>йогурт</td></tr>
-                                <tr><td>К к</td><td>[k]</td><td>кот</td></tr>
-                                <tr><td>Л л</td><td>[l]</td><td>луна</td></tr>
-                                <tr><td>М м</td><td>[m]</td><td>мама</td></tr>
-                                <tr><td>Н н</td><td>[n]</td><td>нота</td></tr>
-                                <tr><td>О о</td><td>[o]</td><td>окно</td></tr>
-                                <tr><td>П п</td><td>[p]</td><td>папа</td></tr>
-                                <tr><td>Р р</td><td>[r]</td><td>река</td></tr>
-                                <tr><td>С с</td><td>[s]</td><td>сок</td></tr>
-                                <tr><td>Т т</td><td>[t]</td><td>том</td></tr>
-                                <tr><td>У у</td><td>[u]</td><td>утка</td></tr>
-                                <tr><td>Ф ф</td><td>[f]</td><td>факт</td></tr>
-                                <tr><td>Х х</td><td>[x]</td><td>хлеб</td></tr>
-                                <tr><td>Ц ц</td><td>[ts]</td><td>цвет</td></tr>
-                                <tr><td>Ч ч</td><td>[tʃ]</td><td>час</td></tr>
-                                <tr><td>Ш ш</td><td>[ʃ]</td><td>шум</td></tr>
-                                <tr><td>Щ щ</td><td>[ʃtʃ]</td><td>щи</td></tr>
-                                <tr><td>Ъ ъ</td><td>hartes Zeichen</td><td>объезд</td></tr>
-                                <tr><td>Ы ы</td><td>[ɨ]</td><td>мы</td></tr>
-                                <tr><td>Ь ь</td><td>weiches Zeichen</td><td>конь</td></tr>
-                                <tr><td>Э э</td><td>[e]</td><td>это</td></tr>
-                                <tr><td>Ю ю</td><td>[ju]</td><td>юг</td></tr>
-                                <tr><td>Я я</td><td>[ja]</td><td>яблоко</td></tr>
-                            </table>`
-                },
-                aussprache: {
-                    titel: 'Aussprache – произношение',
-                    inhalt: `<p>Wichtige Ausspracheregeln:</p>
+                                <tr><td>А а</td><td>[a]</td><td>mama</td></tr>
+                                <tr><td>Б б</td><td>[b]</td><td>baba</td></tr>
+                                <tr><td>В в</td><td>[v]</td><td>voda</td></tr>
+                                <tr><td>Г г</td><td>[g]</td><td>god</td></tr>
+                                <tr><td>Д д</td><td>[d]</td><td>dom</td></tr>
+                                <tr><td>Е е</td><td>[je]</td><td>est</td></tr>
+                                <tr><td>Ё ё</td><td>[jo]</td><td>jozh</td></tr>
+                                <tr><td>Ж ж</td><td>[ʒ]</td><td>zhizn</td></tr>
+                                <tr><td>З з</td><td>[z]</td><td>zima</td></tr>
+                                <tr><td>И и</td><td>[i]</td><td>ili</td></tr>
+                                <tr><td>Й й</td><td>[j]</td><td>jogurt</td></tr>
+                                <tr><td>К к</td><td>[k]</td><td>kot</td></tr>
+                                <tr><td>Л л</td><td>[l]</td><td>luna</td></tr>
+                                <tr><td>М м</td><td>[m]</td><td>mama</td></tr>
+                                <tr><td>Н н</td><td>[n]</td><td>nota</td></tr>
+                                <tr><td>О о</td><td>[o]</td><td>okno</td></tr>
+                                <tr><td>П п</td><td>[p]</td><td>papa</td></tr>
+                                <tr><td>Р р</td><td>[r]</td><td>reka</td></tr>
+                                <tr><td>С с</td><td>[s]</td><td>sok</td></tr>
+                                <tr><td>Т т</td><td>[t]</td><td>tom</td></tr>
+                                <tr><td>У у</td><td>[u]</td><td>utka</td></tr>
+                                <tr><td>Ф ф</td><td>[f]</td><td>fakt</td></tr>
+                                <tr><td>Х х</td><td>[x]</td><td>khleb</td></tr>
+                                <tr><td>Ц ц</td><td>[ts]</td><td>tsvet</td></tr>
+                                <tr><td>Ч ч</td><td>[tʃ]</td><td>chas</td></tr>
+                                <tr><td>Ш ш</td><td>[ʃ]</td><td>shum</td></tr>
+                                <tr><td>Щ щ</td><td>[ʃtʃ]</td><td>shchi</td></tr>
+                                <tr><td>Ъ ъ</td><td>hartes Zeichen</td><td>obyedzd</td></tr>
+                                <tr><td>Ы ы</td><td>[ɨ]</td><td>my</td></tr>
+                                <tr><td>Ь ь</td><td>weiches Zeichen</td><td>kon</td></tr>
+                                <tr><td>Э э</td><td>[e]</td><td>eto</td></tr>
+                                <tr><td>Ю ю</td><td>[ju]</td><td>jug</td></tr>
+                                <tr><td>Я я</td><td>[ja]</td><td>yabloko</td></tr>
+                            </table>
+                            <div class="merk-box">Hinweis: Das weiche Zeichen macht den vorherigen Konsonanten weich.</div>`
+                        },
+                        aussprache: {
+                            titel: "Aussprache (proiznoshenie)",
+                            inhalt: `<p>Wichtige Ausspracheregeln:</p>
                             <ul>
-                                <li><strong>Reduktion</strong>: Unbetonte Vokale werden schwächer (о → а, е → и).</li>
-                                <li><strong>Palatalisierung</strong>: Konsonanten werden weich, wenn ein мыгкий знак (ь) oder bestimmte Vokale folgen.</li>
-                                <li><strong>Stimmhaftigkeit</strong>: Stimmhafte Konsonanten werden am Wortende stimmlos (z.B. год → [got]).</li>
+                                <li><strong>Reduktion</strong>: Unbetonte Vokale werden schwächer (o -> a, e -> i).</li>
+                                <li><strong>Palatalisierung</strong>: Konsonanten werden weich, wenn ein myagkiy znak oder bestimmte Vokale folgen.</li>
+                                <li><strong>Stimmhaftigkeit</strong>: Stimmhafte Konsonanten werden am Wortende stimmlos (z.B. god -> [got]).</li>
                             </ul>
-                            <div class="beispiel-box">🔊 Beispiel: <strong>молоко</strong> wird [malaˈko] ausgesprochen.</div>`
-                },
-                wiedergabe_haben: {
-                    titel: 'Die Wiedergabe von „haben“ (§ 20)',
-                    inhalt: `<p>Besitz wird mit <strong>у + Genitiv + есть</strong> ausgedrückt:</p>
+                            <div class="beispiel-box">Beispiel: <strong>moloko</strong> wird [malaˈko] ausgesprochen.</div>`
+                        },
+                        personalpronomen: {
+                            titel: "Personalpronomen (lichnye mestoimeniya)",
+                            inhalt: `<p>Die Personalpronomen im Russischen – Singular und Plural:</p>
+                            <table>
+                                <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+                                <tr><td>1.</td><td>ja (ich)</td><td>my (wir)</td></tr>
+                                <tr><td>2.</td><td>ty (du)</td><td>vy (ihr / Sie)</td></tr>
+                                <tr><td>3.</td><td>on (er), ona (sie), ono (es)</td><td>oni (sie)</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>On</strong> uchitel. <strong>Ona</strong> uchenitsa.</div>
+                            <p>Die 2. Person Plural <strong>vy</strong> wird auch als Höflichkeitsform verwendet.</p>`
+                        },
+                        zahlen: {
+                            titel: "Grundzahlen 1-10 (chislitelnye)",
+                            inhalt: `<table>
+                                <tr><th>Zahl</th><th>Russisch</th><th>Zahl</th><th>Russisch</th></tr>
+                                <tr><td>1</td><td>odin</td><td>6</td><td>shest</td></tr>
+                                <tr><td>2</td><td>dva</td><td>7</td><td>sem</td></tr>
+                                <tr><td>3</td><td>tri</td><td>8</td><td>vosem</td></tr>
+                                <tr><td>4</td><td>chetyre</td><td>9</td><td>devyat</td></tr>
+                                <tr><td>5</td><td>pyat</td><td>10</td><td>desyat</td></tr>
+                            </table>
+                            <div class="merk-box">Hinweis: 100 = sto, 155 = sto pyatdesyat pyat.</div>`
+                        },
+                        wochentage: {
+                            titel: "Wochentage (dni nedeli)",
+                            inhalt: `<table>
+                                <tr><th>Deutsch</th><th>Russisch</th></tr>
+                                <tr><td>Montag</td><td>ponedelnik</td></tr>
+                                <tr><td>Dienstag</td><td>vtornik</td></tr>
+                                <tr><td>Mittwoch</td><td>sreda</td></tr>
+                                <tr><td>Donnerstag</td><td>chetverg</td></tr>
+                                <tr><td>Freitag</td><td>pyatnitsa</td></tr>
+                                <tr><td>Samstag</td><td>subbota</td></tr>
+                                <tr><td>Sonntag</td><td>voskresene</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>V subbotu</strong> my idyom v kino.</div>`
+                        },
+                        verben_e_konjugation: {
+                            titel: "Verben der e-Konjugation (na -at) – delat",
+                            inhalt: `<p>Die Verben auf <strong>-at</strong> werden nach der e-Konjugation gebeugt. Beispiel <strong>delat</strong> (machen):</p>
+                            <table>
+                                <tr><th>Person</th><th>delat</th></tr>
+                                <tr><td>ja</td><td>delayu</td></tr>
+                                <tr><td>ty</td><td>delayesh</td></tr>
+                                <tr><td>on / ona / ono</td><td>delayet</td></tr>
+                                <tr><td>my</td><td>delayem</td></tr>
+                                <tr><td>vy</td><td>delayete</td></tr>
+                                <tr><td>oni</td><td>delayut</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya delayu uroki.</strong> (Ich mache Hausaufgaben.)</div>
+                            <p>Weitere Verben dieser Gruppe: <strong>chitat</strong> (lesen), <strong>igrat</strong> (spielen), <strong>dumat</strong> (denken).</p>`
+                        },
+                        wiedergabe_haben: {
+                            titel: "Die Wiedergabe von 'haben'",
+                            inhalt: `<p>Besitz wird mit <strong>u + Genitiv + est</strong> ausgedrückt:</p>
                             <table>
                                 <tr><th>Russisch</th><th>Deutsch</th></tr>
-                                <tr><td>у меня (есть)</td><td>ich habe</td></tr>
-                                <tr><td>у тебя (есть)</td><td>du hast</td></tr>
+                                <tr><td>u menya (est)</td><td>ich habe</td></tr>
+                                <tr><td>u tebya (est)</td><td>du hast</td></tr>
                             </table>
-                            <div class="merk-box">📌 Formel: <strong>у</strong> + Besitzer (Genitiv) + <strong>есть</strong> + Besitz (Nominativ)</div>
-                            <div class="beispiel-box">👤 Пример: <strong>У тебя есть собака?</strong> – Да, есть.</div>`
-                },
-                possessivpronomen: {
-                    titel: 'Possessivpronomen (§ 20)',
-                    inhalt: `<p>Die Possessivpronomen <strong>мой</strong> (mein) und <strong>твой</strong> (dein) richten sich nach dem Geschlecht des Nomens:</p>
+                            <div class="merk-box">Formel: <strong>u</strong> + Besitzer (Genitiv) + <strong>est</strong> + Besitz (Nominativ)</div>
+                            <div class="beispiel-box">Beispiel: <strong>U tebya est sobaka?</strong> – Da, est.</div>`
+                        },
+                        possessivpronomen: {
+                            titel: "Possessivpronomen (moy/tvoy)",
+                            inhalt: `<p>Die Possessivpronomen <strong>moy</strong> (mein) und <strong>tvoy</strong> (dein) richten sich nach dem Geschlecht des Nomens:</p>
                             <table>
                                 <tr><th></th><th>m.</th><th>n.</th><th>f.</th></tr>
-                                <tr><td>mein</td><td>мой</td><td>моё</td><td>моя</td></tr>
-                                <tr><td>dein</td><td>твой</td><td>твоё</td><td>твоя</td></tr>
+                                <tr><td>mein</td><td>moy</td><td>moyo</td><td>moya</td></tr>
+                                <tr><td>dein</td><td>tvoy</td><td>tvoyo</td><td>tvoya</td></tr>
                             </table>
-                            <div class="beispiel-box">✏️ Пример: <strong>Это твой учебник?</strong> Это не мой карандаш.</div>`
+                            <div class="beispiel-box">Beispiel: <strong>Eto tvoy uchebnik?</strong> Eto ne moy karandash.</div>`
+                        }
+                    }
                 },
-                dativ_substantive: {
-                    titel: 'Der Dativ der Substantive (§ 21)',
-                    inhalt: `<p>Der Dativ steht mit oder ohne die Präposition <strong>к</strong> (zu):</p>
+                "klasse6": {
+                    titel: "6. Klasse",
+                    kapitel: {
+                        erweiterung_e_konjugation: {
+                            titel: "Weitere e-Konjugationsverben",
+                            inhalt: `<p>Weitere Verben auf -at: <strong>chitat</strong> (lesen), <strong>igrat</strong> (spielen), <strong>dumat</strong> (denken).</p>
                             <table>
-                                <tr><th></th><th>m.</th><th>f.</th></tr>
-                                <tr><td>ohne к</td><td>Я помогаю Максу.</td><td>Я помогаю Ире.</td></tr>
-                                <tr><td>mit к</td><td>Я иду к Максу.</td><td>Я иду к Ире.</td></tr>
+                                <tr><th>Person</th><th>chitat</th><th>igrat</th><th>dumat</th></tr>
+                                <tr><td>ja</td><td>chitayu</td><td>igrayu</td><td>dumayu</td></tr>
+                                <tr><td>ty</td><td>chitayesh</td><td>igrayesh</td><td>dumayesh</td></tr>
+                                <tr><td>on/ona/ono</td><td>chitayet</td><td>igrayet</td><td>dumayet</td></tr>
+                                <tr><td>my</td><td>chitayem</td><td>igrayem</td><td>dumayem</td></tr>
+                                <tr><td>vy</td><td>chitayete</td><td>igrayete</td><td>dumayete</td></tr>
+                                <tr><td>oni</td><td>chitayut</td><td>igrayut</td><td>dumayut</td></tr>
                             </table>
-                            <div class="beispiel-box">➡️ Пример: <strong>Я иду к окну.</strong> (Ich gehe zum Fenster.)</div>`
-                },
-
-                // ============================================================
-                //  NEUE GRAMMATIK-KAPITEL (ab hier erweitert)
-                // ============================================================
-                verben_i_konjugation: {
-                    titel: 'Verben der и‑Konjugation (вторая конъюгация)',
-                    inhalt: `<p>Die Verben auf <strong>-ить</strong> (und einige auf <strong>-еть</strong>) werden nach der и‑Konjugation gebeugt. Beispiel <strong>говорить</strong> (sprechen):</p>
+                            <div class="beispiel-box">Beispiel: <strong>Ya chitayu knigu.</strong> (Ich lese ein Buch.)</div>`
+                        },
+                        akkusativ_unbelebt: {
+                            titel: "Akkusativ (unbelebte Substantive)",
+                            inhalt: `<p>Der Akkusativ antwortet auf die Fragen "wen?" und "was?". Bei unbelebten maskulinen Substantiven ist der Akkusativ identisch mit dem Nominativ. Bei femininen Substantiven endet der Akkusativ auf -u.</p>
                             <table>
-                                <tr><th>Person</th><th>говорить</th></tr>
-                                <tr><td>я</td><td>говорю</td></tr>
-                                <tr><td>ты</td><td>говоришь</td></tr>
-                                <tr><td>он / она / оно</td><td>говорит</td></tr>
-                                <tr><td>мы</td><td>говорим</td></tr>
-                                <tr><td>вы</td><td>говорите</td></tr>
-                                <tr><td>они</td><td>говорят</td></tr>
+                                <tr><th>Genus</th><th>Beispiel</th><th>Akkusativ</th></tr>
+                                <tr><td>maskulin (unbelebt)</td><td>stol (Tisch)</td><td>stol</td></tr>
+                                <tr><td>feminin</td><td>kniga (Buch)</td><td>knigu</td></tr>
+                                <tr><td>neutrum</td><td>okno (Fenster)</td><td>okno</td></tr>
                             </table>
-                            <div class="beispiel-box">🗣️ Пример: <strong>Я говорю по-русски.</strong> (Ich spreche Russisch.)</div>
-                            <p>Weitere Verben dieser Gruppe: <strong>любить</strong> (lieben), <strong>звонить</strong> (anrufen), <strong>писать</strong> (schreiben – Ausnahme: пишу, пишешь ...), <strong>видеть</strong> (sehen).</p>`
-                },
-                adjektive_deklination: {
-                    titel: 'Adjektive – Deklination (прилагательные)',
-                    inhalt: `<p>Adjektive werden im Russischen dekliniert und passen sich in Genus, Numerus und Kasus an das Nomen an.</p>
-                            <p><strong>Harte Deklination</strong> (Beispiel <em>красивый</em> – schön):</p>
+                            <div class="beispiel-box">Beispiel: <strong>Ya vizhu stol.</strong> (Ich sehe den Tisch.) <strong>Ya vizhu knigu.</strong></div>`
+                        },
+                        praepositionen_ort_akk: {
+                            titel: "Präpositionen mit Akkusativ (Ort)",
+                            inhalt: `<p>Die Präpositionen <strong>v</strong> und <strong>na</strong> verlangen den Akkusativ, wenn sie eine Bewegung (wohin?) ausdrücken.</p>
                             <table>
-                                <tr><th>Kasus</th><th>Maskulinum</th><th>Neutrum</th><th>Femininum</th><th>Plural</th></tr>
-                                <tr><td>Nominativ</td><td>красивый</td><td>красивое</td><td>красивая</td><td>красивые</td></tr>
-                                <tr><td>Genitiv</td><td>красивого</td><td>красивого</td><td>красивой</td><td>красивых</td></tr>
-                                <tr><td>Dativ</td><td>красивому</td><td>красивому</td><td>красивой</td><td>красивым</td></tr>
-                                <tr><td>Akkusativ</td><td>красивый / красиво<sup>*</sup></td><td>красивое</td><td>красивую</td><td>красивые / красивых</td></tr>
-                                <tr><td>Instrumental</td><td>красивым</td><td>красивым</td><td>красивой</td><td>красивыми</td></tr>
-                                <tr><td>Präpositiv</td><td>красивом</td><td>красивом</td><td>красивой</td><td>красивых</td></tr>
+                                <tr><th>Präposition</th><th>Akkusativ (wohin?)</th></tr>
+                                <tr><td>v</td><td>v komnatu (ins Zimmer)</td></tr>
+                                <tr><td>na</td><td>na stol (auf den Tisch)</td></tr>
                             </table>
-                            <p><sup>*</sup> AKK. m. = unbelebt (красивый) / belebt (красивого)</p>
-                            <div class="merk-box">📌 Adjektive stehen meist vor dem Nomen und stimmen mit ihm überein.</div>
-                            <div class="beispiel-box">🎨 Пример: <strong>Красивая девушка</strong> (ein schönes Mädchen), <strong>красивое платье</strong> (ein schönes Kleid).</div>`
+                            <div class="beispiel-box">Beispiel: <strong>Ya kladu knigu na stol.</strong> (Ich lege das Buch auf den Tisch.)</div>`
+                        },
+                        verneinung_ne: {
+                            titel: "Verneinung mit ne",
+                            inhalt: `<p>Die Verneinung wird mit <strong>ne</strong> vor dem Verb gebildet.</p>
+                            <ul>
+                                <li><strong>ne</strong> + Verb: <em>Ya ne znayu.</em> (Ich weiß nicht.)</li>
+                                <li><strong>net</strong> + Genitiv: <em>U menya net knigi.</em> (Ich habe kein Buch.)</li>
+                            </ul>
+                            <div class="beispiel-box">Beispiel: <strong>Ya ne hochu est.</strong> (Ich will nicht essen.)</div>
+                            <div class="merk-box">Hinweis: Bei "haben" wird die Verneinung mit <strong>net</strong> + Genitiv gebildet.</div>`
+                        }
+                    }
                 },
-                praepositionen_dativ_akkusativ: {
-                    titel: 'Präpositionen mit Dativ und Akkusativ',
-                    inhalt: `<p>Einige Präpositionen verlangen entweder Dativ oder Akkusativ – je nach Bedeutung („wo?“ vs. „wohin?“).</p>
+                "klasse7": {
+                    titel: "7. Klasse",
+                    kapitel: {
+                        verben_i_konjugation: {
+                            titel: "Verben der i-Konjugation (govorit, lyubit)",
+                            inhalt: `<p>Die Verben auf <strong>-it</strong> (und einige auf -et) werden nach der i-Konjugation gebeugt. Beispiel <strong>govorit</strong> (sprechen):</p>
+                            <table>
+                                <tr><th>Person</th><th>govorit</th></tr>
+                                <tr><td>ja</td><td>govoryu</td></tr>
+                                <tr><td>ty</td><td>govorish</td></tr>
+                                <tr><td>on/ona/ono</td><td>govorit</td></tr>
+                                <tr><td>my</td><td>govorim</td></tr>
+                                <tr><td>vy</td><td>govorite</td></tr>
+                                <tr><td>oni</td><td>govoryat</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya govoryu po-russki.</strong> (Ich spreche Russisch.)</div>
+                            <p>Weitere: <strong>lyubit</strong> (lieben), <strong>zvonit</strong> (anrufen), <strong>videt</strong> (sehen).</p>`
+                        },
+                        dativ: {
+                            titel: "Der Dativ",
+                            inhalt: `<p>Der Dativ antwortet auf die Frage "wem?" und wird oft mit der Präposition <strong>k</strong> (zu) verwendet.</p>
+                            <table>
+                                <tr><th>Substantiv (m.)</th><th>Dativ</th><th>Substantiv (f.)</th><th>Dativ</th></tr>
+                                <tr><td>drug (Freund)</td><td>drugu</td><td>Ira</td><td>Ire</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya pomogayu drugu.</strong> (Ich helfe einem Freund.)<br>
+                            <strong>Ya idu k oknu.</strong> (Ich gehe zum Fenster.)</div>`
+                        },
+                        vergangenheit: {
+                            titel: "Vergangenheit (proshedshee vremya)",
+                            inhalt: `<p>Die Vergangenheit wird mit der Endung <strong>-l</strong> + Genus-Endung gebildet.</p>
+                            <table>
+                                <tr><th>Genus / Person</th><th>Endung</th><th>Beispiel (delat)</th></tr>
+                                <tr><td>maskulin (er)</td><td>-l</td><td>delal</td></tr>
+                                <tr><td>feminin (sie)</td><td>-la</td><td>delala</td></tr>
+                                <tr><td>neutrum (es)</td><td>-lo</td><td>delalo</td></tr>
+                                <tr><td>Plural</td><td>-li</td><td>delali</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya delal uroki.</strong> (Ich machte Hausaufgaben.)<br>
+                            <strong>Ona delala uroki.</strong></div>`
+                        },
+                        adjektive_nominativ: {
+                            titel: "Adjektive im Nominativ",
+                            inhalt: `<p>Adjektive im Nominativ passen sich in Genus und Numerus an das Nomen an.</p>
+                            <table>
+                                <tr><th>Genus</th><th>Endung</th><th>Beispiel</th></tr>
+                                <tr><td>maskulin</td><td>-iy / -yy</td><td>krasivyy (schön)</td></tr>
+                                <tr><td>feminin</td><td>-aya</td><td>krasivaya</td></tr>
+                                <tr><td>neutrum</td><td>-oye / -eye</td><td>krasivoye</td></tr>
+                                <tr><td>Plural</td><td>-ye / -iye</td><td>krasivye</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Krasivaya devushka.</strong> (Ein schönes Mädchen.)</div>`
+                        },
+                        reflexive_verben: {
+                            titel: "Reflexive Verben",
+                            inhalt: `<p>Reflexive Verben enden auf <strong>-sya</strong> oder <strong>-s</strong> und zeigen, dass die Handlung auf das Subjekt zurückfällt.</p>
+                            <table>
+                                <tr><th>Verb</th><th>Bedeutung</th></tr>
+                                <tr><td>odevatsya</td><td>sich anziehen</td></tr>
+                                <tr><td>myt</td><td>waschen (nicht reflexiv)</td></tr>
+                                <tr><td>myt</td><td>sich waschen</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya odevayus.</strong> (Ich ziehe mich an.)</div>`
+                        }
+                    }
+                },
+                "klasse8": {
+                    titel: "8. Klasse",
+                    kapitel: {
+                        zukunft_unvollendet: {
+                            titel: "Zukunft (unvollendete Verben)",
+                            inhalt: `<p>Die Zukunft wird bei unvollendeten Verben mit dem Hilfsverb <strong>byt</strong> + Infinitiv gebildet.</p>
+                            <table>
+                                <tr><th>Person</th><th>chitat (unvollendet)</th></tr>
+                                <tr><td>ja</td><td>budu chitat</td></tr>
+                                <tr><td>ty</td><td>budesh chitat</td></tr>
+                                <tr><td>on/ona/ono</td><td>budet chitat</td></tr>
+                                <tr><td>my</td><td>budem chitat</td></tr>
+                                <tr><td>vy</td><td>budete chitat</td></tr>
+                                <tr><td>oni</td><td>budut chitat</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Zavtra ya budu chitat knigu.</strong> (Morgen werde ich ein Buch lesen.)</div>`
+                        },
+                        aspekte_einfuehrung: {
+                            titel: "Aspekte – Einführung",
+                            inhalt: `<p>Im Russischen gibt es zwei Aspekte: unvollendet (nastoyashchee/vbudushchee) und vollendet (proshedshee/budushchee).</p>
+                            <ul>
+                                <li><strong>Unvollendet</strong>: betont den Verlauf (was mache ich?).</li>
+                                <li><strong>Vollendet</strong>: betont das Ergebnis (was habe ich gemacht?).</li>
+                            </ul>
+                            <div class="beispiel-box">Beispiel: <strong>Ya chital knigu.</strong> (Ich las ein Buch – Verlauf.)<br>
+                            <strong>Ya prochital knigu.</strong> (Ich habe das Buch gelesen – Ergebnis.)</div>`
+                        },
+                        praepositionen_dativ_akkusativ: {
+                            titel: "Präpositionen mit Dativ und Akkusativ",
+                            inhalt: `<p>Einige Präpositionen verlangen Dativ (wo?) oder Akkusativ (wohin?).</p>
                             <table>
                                 <tr><th>Präposition</th><th>Dativ (wo?)</th><th>Akkusativ (wohin?)</th></tr>
-                                <tr><td><strong>в</strong></td><td>в комнате (im Zimmer)</td><td>в комнату (ins Zimmer)</td></tr>
-                                <tr><td><strong>на</strong></td><td>на столе (auf dem Tisch)</td><td>на стол (auf den Tisch)</td></tr>
-                                <tr><td><strong>под</strong></td><td>под столом (unter dem Tisch)</td><td>под стол (unter den Tisch)</td></tr>
-                                <tr><td><strong>над</strong></td><td>над столом (über dem Tisch)</td><td>— (keine Bewegung)</td></tr>
+                                <tr><td><strong>v</strong></td><td>v komnate</td><td>v komnatu</td></tr>
+                                <tr><td><strong>na</strong></td><td>na stole</td><td>na stol</td></tr>
+                                <tr><td><strong>pod</strong></td><td>pod stolom</td><td>pod stol</td></tr>
                             </table>
-                            <p>Weitere Präpositionen mit Dativ: <strong>к</strong> (zu), <strong>по</strong> (entlang, gemäß).</p>
-                            <div class="beispiel-box">📍 Пример: <strong>Я кладу книгу на стол.</strong> (Ich lege das Buch auf den Tisch – wohin?)<br>
-                            <strong>Книга лежит на столе.</strong> (Das Buch liegt auf dem Tisch – wo?)</div>`
-                },
-                vergangenheit_verben: {
-                    titel: 'Vergangenheit der Verben (прошедшее время)',
-                    inhalt: `<p>Die Vergangenheit wird mit der Endung <strong>-л</strong> + Genus-Endung gebildet (keine Personalendungen).</p>
-                            <p>Beispiel <strong>делать</strong> (machen):</p>
+                            <div class="beispiel-box">Beispiel: <strong>Kniga lezhit na stole.</strong> (Das Buch liegt auf dem Tisch – wo?)<br>
+                            <strong>Ya kladu knigu na stol.</strong> (Ich lege das Buch auf den Tisch – wohin?)</div>`
+                        },
+                        adjektive_deklination: {
+                            titel: "Adjektive – alle Fälle",
+                            inhalt: `<p>Adjektive werden dekliniert. Hier die harte Deklination von <em>krasivyy</em>:</p>
                             <table>
-                                <tr><th>Genus / Person</th><th>Endung</th><th>Beispiel</th></tr>
-                                <tr><td>maskulin (er)</td><td>-л</td><td>делал</td></tr>
-                                <tr><td>feminin (sie)</td><td>-ла</td><td>делала</td></tr>
-                                <tr><td>neutrum (es)</td><td>-ло</td><td>делало</td></tr>
-                                <tr><td>Plural (wir, ihr, sie)</td><td>-ли</td><td>делали</td></tr>
+                                <tr><th>Kasus</th><th>Maskulinum</th><th>Neutrum</th><th>Femininum</th><th>Plural</th></tr>
+                                <tr><td>Nominativ</td><td>krasivyy</td><td>krasivoye</td><td>krasivaya</td><td>krasivye</td></tr>
+                                <tr><td>Genitiv</td><td>krasivogo</td><td>krasivogo</td><td>krasivoy</td><td>krasivykh</td></tr>
+                                <tr><td>Dativ</td><td>krasivomu</td><td>krasivomu</td><td>krasivoy</td><td>krasivym</td></tr>
+                                <tr><td>Akkusativ</td><td>krasivyy / krasivogo</td><td>krasivoye</td><td>krasivuyu</td><td>krasivye / krasivykh</td></tr>
+                                <tr><td>Instrumental</td><td>krasivym</td><td>krasivym</td><td>krasivoy</td><td>krasivymi</td></tr>
+                                <tr><td>Präpositiv</td><td>krasivom</td><td>krasivom</td><td>krasivoy</td><td>krasivykh</td></tr>
                             </table>
-                            <div class="beispiel-box">⏳ Пример: <strong>Я делал уроки.</strong> (Ich machte Hausaufgaben – m.)<br>
-                            <strong>Она делала уроки.</strong> (Sie machte Hausaufgaben – f.)<br>
-                            <strong>Мы делали уроки.</strong> (Wir machten Hausaufgaben.)</div>
-                            <p>Die Betonung kann bei Verben auf <strong>-ить</strong> auf die Endung fallen (z.B. говори́л, говори́ла).</p>`
-                },
-                zukunft_verben: {
-                    titel: 'Zukunft der Verben (будущее время)',
-                    inhalt: `<p>Die Zukunft wird bei unvollendeten Verben mit dem Hilfsverb <strong>быть</strong> + Infinitiv gebildet.</p>
-                            <p>Beispiel <strong>читать</strong> (lesen) – unvollendet:</p>
+                            <div class="merk-box">Hinweis: Adjektive stehen meist vor dem Nomen und stimmen mit ihm überein.</div>`
+                        },
+                        personalpronomen_dativ_akkusativ: {
+                            titel: "Personalpronomen im Dativ und Akkusativ",
+                            inhalt: `<p>Die Personalpronomen haben unterschiedliche Formen im Dativ und Akkusativ.</p>
                             <table>
-                                <tr><th>Person</th><th>будущее</th></tr>
-                                <tr><td>я</td><td>буду читать</td></tr>
-                                <tr><td>ты</td><td>будешь читать</td></tr>
-                                <tr><td>он/она/оно</td><td>будет читать</td></tr>
-                                <tr><td>мы</td><td>будем читать</td></tr>
-                                <tr><td>вы</td><td>будете читать</td></tr>
-                                <tr><td>они</td><td>будут читать</td></tr>
+                                <tr><th>Nominativ</th><th>Dativ</th><th>Akkusativ</th></tr>
+                                <tr><td>ja</td><td>mne</td><td>menya</td></tr>
+                                <tr><td>ty</td><td>tebe</td><td>tebya</td></tr>
+                                <tr><td>on</td><td>emu</td><td>ego</td></tr>
+                                <tr><td>ona</td><td>ey</td><td>ye</td></tr>
+                                <tr><td>my</td><td>nam</td><td>nas</td></tr>
+                                <tr><td>vy</td><td>vam</td><td>vas</td></tr>
+                                <tr><td>oni</td><td>im</td><td>ikh</td></tr>
                             </table>
-                            <p><strong>Vollendete Verben</strong> (z.B. <em>прочитать</em>) haben eine eigene Zukunft (wie Präsens): <em>я прочитаю, ты прочитаешь, ...</em></p>
-                            <div class="beispiel-box">🔮 Пример: <strong>Завтра я буду читать книгу.</strong> (Morgen werde ich ein Buch lesen.)<br>
-                            <strong>Он прочитает книгу завтра.</strong> (Er wird das Buch morgen lesen – vollendet.)</div>`
+                            <div class="beispiel-box">Beispiel: <strong>On daet mne knigu.</strong> (Er gibt mir das Buch.)<br>
+                            <strong>Ya vizhu ego.</strong> (Ich sehe ihn.)</div>`
+                        }
+                    }
                 },
-                verneinung: {
-                    titel: 'Verneinung (отрицание)',
-                    inhalt: `<p>Die Verneinung wird mit <strong>не</strong> vor dem Verb oder <strong>нет</strong> als Antwort auf „есть“ gebildet.</p>
+                "klasse9": {
+                    titel: "9. Klasse",
+                    kapitel: {
+                        genitiv: {
+                            titel: "Genitiv (roditelnyy padezh)",
+                            inhalt: `<p>Der Genitiv antwortet auf die Frage "wessen?" und wird mit vielen Präpositionen verwendet (bez, dlya, iz, ot, u, okolo).</p>
+                            <table>
+                                <tr><th>Substantiv (m.)</th><th>Genitiv</th><th>Substantiv (f.)</th><th>Genitiv</th></tr>
+                                <tr><td>dom (Haus)</td><td>doma</td><td>kniga</td><td>knigi</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Bez druga</strong> (ohne Freund). <strong>Dlya uchenika</strong> (für den Schüler).</div>`
+                        },
+                        instrumental: {
+                            titel: "Instrumental (tvoritelnyy padezh)",
+                            inhalt: `<p>Der Instrumental antwortet auf die Frage "womit?" und wird mit den Präpositionen s, za, mezhdu, pod verwendet.</p>
+                            <table>
+                                <tr><th>Substantiv (m.)</th><th>Instrumental</th><th>Substantiv (f.)</th><th>Instrumental</th></tr>
+                                <tr><td>stol</td><td>stolom</td><td>kniga</td><td>knigoy</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya pishu ruchkoy.</strong> (Ich schreibe mit einem Kuli.)<br>
+                            <strong>On idet s drugom.</strong> (Er geht mit einem Freund.)</div>`
+                        },
+                        praepositiv: {
+                            titel: "Präpositiv (predlozhnyy padezh)",
+                            inhalt: `<p>Der Präpositiv wird immer mit einer Präposition verwendet (o, na, v, pri) und antwortet auf die Frage "über wen/was?" oder "wo?".</p>
+                            <table>
+                                <tr><th>Substantiv (m.)</th><th>Präpositiv</th><th>Substantiv (f.)</th><th>Präpositiv</th></tr>
+                                <tr><td>stol</td><td>o stole</td><td>kniga</td><td>o knige</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Ya dumayu o druge.</strong> (Ich denke an einen Freund.)</div>`
+                        },
+                        vollendete_verben: {
+                            titel: "Vollendete Verben (sovershennyy vid)",
+                            inhalt: `<p>Vollendete Verben betonen das Ergebnis einer Handlung. Sie werden meist durch Präfixe gebildet.</p>
                             <ul>
-                                <li><strong>не</strong> + Verb: <em>Я не знаю.</em> (Ich weiß nicht.)</li>
-                                <li><strong>нет</strong> + Genitiv: <em>У меня нет книги.</em> (Ich habe kein Buch.)</li>
-                                <li><strong>ни</strong> für Verstärkung: <em>Никто не знает.</em> (Niemand weiß.)</li>
+                                <li><strong>chitat</strong> (unvollendet) -> <strong>prochitat</strong> (vollendet)</li>
+                                <li><strong>delat</strong> -> <strong>sdelat</strong></li>
                             </ul>
-                            <div class="merk-box">📌 Bei „haben“ (у + Genitiv) wird die Verneinung mit <strong>нет</strong> + Genitiv gebildet.</div>
-                            <div class="beispiel-box">🚫 Пример: <strong>Я не хочу есть.</strong> (Ich will nicht essen.)<br>
-                            <strong>У нас нет времени.</strong> (Wir haben keine Zeit.)</div>`
+                            <div class="beispiel-box">Beispiel: <strong>Ya prochital knigu.</strong> (Ich habe das Buch gelesen – Ergebnis.)</div>
+                            <p>Die Zukunft der vollendeten Verben wird wie das Präsens gebildet (kein Hilfsverb).</p>`
+                        },
+                        aspekte_bildung: {
+                            titel: "Aspekte – Bildung",
+                            inhalt: `<p>Unvollendete Verben können durch Präfixe oder Suffixe zu vollendeten Verben werden.</p>
+                            <table>
+                                <tr><th>Unvollendet</th><th>Vollendet</th></tr>
+                                <tr><td>pisat (schreiben)</td><td>napisat</td></tr>
+                                <tr><td>govorit</td><td>skazat</td></tr>
+                                <tr><td>brat</td><td>vzyat</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>On pisal pis'mo.</strong> (Er schrieb einen Brief – unvollendet.)<br>
+                            <strong>On napisal pis'mo.</strong> (Er hat den Brief geschrieben – vollendet.)</div>`
+                        },
+                        komparativ: {
+                            titel: "Komparativ und Superlativ",
+                            inhalt: `<p>Der Komparativ wird mit <strong>boleye</strong> (mehr) oder durch die Endung <strong>-eye</strong> gebildet.</p>
+                            <ul>
+                                <li><strong>krasivyy</strong> (schön) -> <strong>krasiveye</strong> / <strong>boleye krasivyy</strong></li>
+                                <li><strong>bolshoy</strong> (groß) -> <strong>bolshe</strong></li>
+                            </ul>
+                            <div class="beispiel-box">Beispiel: <strong>Eta kniga krasiveye.</strong> (Dieses Buch ist schöner.)</div>`
+                        },
+                        ordinalzahlen: {
+                            titel: "Ordnungszahlen",
+                            inhalt: `<p>Ordnungszahlen werden wie Adjektive dekliniert.</p>
+                            <table>
+                                <tr><th>Zahl</th><th>Ordinal</th></tr>
+                                <tr><td>1</td><td>pervyy</td></tr>
+                                <tr><td>2</td><td>vtoroy</td></tr>
+                                <tr><td>3</td><td>tretiy</td></tr>
+                                <tr><td>4</td><td>chetvertyy</td></tr>
+                                <tr><td>5</td><td>pyatyy</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Pervyy urok</strong> (die erste Lektion).</div>`
+                        }
+                    }
+                },
+                "klasse10": {
+                    titel: "10. Klasse",
+                    kapitel: {
+                        konditional: {
+                            titel: "Konditional (by)",
+                            inhalt: `<p>Der Konditional wird mit der Partikel <strong>by</strong> + Vergangenheitsform gebildet.</p>
+                            <div class="beispiel-box">Beispiel: <strong>Ya by poshel v kino.</strong> (Ich würde ins Kino gehen.)<br>
+                            <strong>Ona by prochitala knigu.</strong> (Sie würde das Buch lesen.)</div>`
+                        },
+                        imperativ: {
+                            titel: "Imperativ (povelitelnoe naklonenie)",
+                            inhalt: `<p>Der Imperativ wird aus der 2. Person Singular/Plural gebildet.</p>
+                            <table>
+                                <tr><th>Verb</th><th>Imperativ Sg.</th><th>Imperativ Pl.</th></tr>
+                                <tr><td>chitat</td><td>chitay</td><td>chitayte</td></tr>
+                                <tr><td>govorit</td><td>govori</td><td>govorite</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>Chitay!</strong> (Lies!) <strong>Govorite!</strong> (Sprechen Sie!)</div>`
+                        },
+                        partizipien_einfuehrung: {
+                            titel: "Partizipien – Einführung",
+                            inhalt: `<p>Partizipien sind Verbformen, die wie Adjektive verwendet werden. Es gibt aktive und passive Partizipien.</p>
+                            <ul>
+                                <li><strong>Aktiv (Präsens)</strong>: chitayushchiy (lesend)</li>
+                                <li><strong>Passiv (Präsens)</strong>: chitayemyy (gelesen werdend)</li>
+                            </ul>
+                            <div class="beispiel-box">Beispiel: <strong>chitayushchiy chelovek</strong> (ein lesender Mensch).</div>`
+                        },
+                        nebensaetze: {
+                            titel: "Nebensätze (weil, dass, ob)",
+                            inhalt: `<p>Nebensätze werden mit Konjunktionen wie <strong>chto</strong> (dass), <strong>potomu chto</strong> (weil), <strong>li</strong> (ob) eingeleitet.</p>
+                            <div class="beispiel-box">Beispiel: <strong>Ya znayu, chto on pridyot.</strong> (Ich weiß, dass er kommt.)<br>
+                            <strong>Ya ne prishol, potomu chto byl bolen.</strong> (Ich bin nicht gekommen, weil ich krank war.)</div>`
+                        },
+                        passiv: {
+                            titel: "Passiv (stradatelnyy zalog)",
+                            inhalt: `<p>Das Passiv wird mit der Vergangenheitsform und dem Partizip II gebildet.</p>
+                            <div class="beispiel-box">Beispiel: <strong>Kniga byla prochitana.</strong> (Das Buch wurde gelesen.)</div>`
+                        }
+                    }
+                },
+                "klasse11_12": {
+                    titel: "11./12. Klasse (Vertiefung)",
+                    kapitel: {
+                        partizipien_detailliert: {
+                            titel: "Partizipien (detailliert)",
+                            inhalt: `<p>Partizipien werden nach Zeit und Aktiv/Passiv unterschieden.</p>
+                            <table>
+                                <tr><th>Partizip</th><th>Beispiel</th><th>Bedeutung</th></tr>
+                                <tr><td>Aktiv Präsens</td><td>chitayushchiy</td><td>lesend</td></tr>
+                                <tr><td>Aktiv Vergangenheit</td><td>chitavshiy</td><td>gelesen habend</td></tr>
+                                <tr><td>Passiv Präsens</td><td>chitayemyy</td><td>gelesen werdend</td></tr>
+                                <tr><td>Passiv Vergangenheit</td><td>prochitannyy</td><td>gelesen worden</td></tr>
+                            </table>
+                            <div class="beispiel-box">Beispiel: <strong>chitayushchiy chelovek</strong> (lesender Mensch), <strong>prochitannaya kniga</strong> (gelesenes Buch).</div>`
+                        },
+                        gerundien: {
+                            titel: "Gerundien (deeprichastiya)",
+                            inhalt: `<p>Gerundien drücken eine begleitende Handlung aus.</p>
+                            <ul>
+                                <li><strong>Unvollendet</strong>: chitaya (lesend)</li>
+                                <li><strong>Vollendet</strong>: prochitav (nachdem gelesen)</li>
+                            </ul>
+                            <div class="beispiel-box">Beispiel: <strong>Chitaya knigu, ya smotrel v okno.</strong> (Während ich das Buch las, schaute ich aus dem Fenster.)</div>`
+                        },
+                        indirekte_rede: {
+                            titel: "Indirekte Rede",
+                            inhalt: `<p>Die indirekte Rede wird mit <strong>chto</strong> eingeleitet und der Zeitform angepasst.</p>
+                            <div class="beispiel-box">Beispiel: <strong>On skazal, chto on pridyot.</strong> (Er sagte, dass er kommt.)</div>`
+                        },
+                        konjunktionen: {
+                            titel: "Konjunktionen und Satzverbindungen",
+                            inhalt: `<p>Wichtige Konjunktionen: <strong>i</strong> (und), <strong>a</strong> (und/aber), <strong>no</strong> (aber), <strong>ili</strong> (oder), <strong>kogda</strong> (wann), <strong>esli</strong> (wenn).</p>
+                            <div class="beispiel-box">Beispiel: <strong>Ya chitayu i pishu.</strong> (Ich lese und schreibe.)</div>`
+                        },
+                        komplexe_saetze: {
+                            titel: "Komplexe Satzstrukturen",
+                            inhalt: `<p>Komplexe Sätze bestehen aus Haupt- und Nebensätzen, die durch Konjunktionen verbunden sind.</p>
+                            <div class="beispiel-box">Beispiel: <strong>Esli budet vremya, ya poydu v kino.</strong> (Wenn ich Zeit habe, gehe ich ins Kino.)</div>`
+                        }
+                    }
                 }
             };
 
             // ============================================================
-            //  GRAMMATIK-ÜBUNGEN – ERWEITERT (jetzt 24 Übungen)
+            //  GRAMMATIK-ÜBUNGEN (erweitert, ohne Emojis)
             // ============================================================
             const grammatikUebungen = [
-                // --- Bestehende Übungen (12) ---
-                { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> учитель. (Er ist Lehrer.)',
-                    typ: 'text', antwort: 'он', hinweis: 'Nominativ Singular, maskulin' },
-                { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> ученица. (Sie ist Schülerin.)',
-                    typ: 'text', antwort: 'она', hinweis: 'Nominativ Singular, feminin' },
-                { frage: 'Konjugiere <span class="russisch">делать</span> (machen) in der 1. Person Singular:',
-                    typ: 'text', antwort: 'делаю', hinweis: 'e‑Konjugation, Endung -ю' },
-                { frage: 'Konjugiere <span class="russisch">читать</span> (lesen) in der 2. Person Singular:',
-                    typ: 'text', antwort: 'читаешь', hinweis: 'e‑Konjugation, Endung -ешь' },
-                { frage: 'Konjugiere <span class="russisch">играть</span> (spielen) in der 3. Person Plural:',
-                    typ: 'text', antwort: 'играют', hinweis: 'e‑Konjugation, Endung -ют' },
-                { frage: 'Welcher Fall steht nach der Präposition <span class="russisch">у</span> ?', typ: 'choice',
+                // Grundlagen
+                { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> uchitel. (Er ist Lehrer.)',
+                    typ: 'text', antwort: 'on', hinweis: 'Nominativ Singular, maskulin' },
+                { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> uchenitsa. (Sie ist Schülerin.)',
+                    typ: 'text', antwort: 'ona', hinweis: 'Nominativ Singular, feminin' },
+                { frage: 'Konjugiere <span class="russisch">delat</span> (machen) in der 1. Person Singular:',
+                    typ: 'text', antwort: 'delayu', hinweis: 'e-Konjugation, Endung -yu' },
+                { frage: 'Konjugiere <span class="russisch">chitat</span> (lesen) in der 2. Person Singular:',
+                    typ: 'text', antwort: 'chitayesh', hinweis: 'e-Konjugation, Endung -esh' },
+                { frage: 'Konjugiere <span class="russisch">igrat</span> (spielen) in der 3. Person Plural:',
+                    typ: 'text', antwort: 'igrayut', hinweis: 'e-Konjugation, Endung -yut' },
+
+                // Klasse 6
+                { frage: 'Welcher Fall steht nach der Präposition <span class="russisch">u</span> ?', typ: 'choice',
                     antwort: 'Genitiv', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
-                hinweis: 'Beispiel: у меня – bei mir' },
-                { frage: 'Welcher Fall steht nach der Präposition <span class="russisch">к</span> ?', typ: 'choice',
-                    antwort: 'Dativ', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
-                hinweis: 'Beispiel: к другу – zu einem Freund' },
-                { frage: 'Bilde den Genitiv Singular von <span class="russisch">стол</span> (Tisch):', typ: 'text',
-                    antwort: 'стола', hinweis: 'maskulin, Endung -а' },
-                { frage: 'Bilde den Dativ Singular von <span class="russisch">книга</span> (Buch):', typ: 'text',
-                    antwort: 'книге', hinweis: 'feminin, Endung -е' },
-                { frage: 'Übersetze: <span class="russisch">У меня есть собака.</span>', typ: 'text',
-                    antwort: 'Ich habe einen Hund.', hinweis: 'wörtlich: Bei mir ist ein Hund.' },
-                { frage: 'Übersetze: <span class="russisch">Я помогаю другу.</span>', typ: 'text',
-                    antwort: 'Ich helfe einem Freund.', hinweis: 'Dativ nach помогать' },
-                { frage: 'Setze das richtige Possessivpronomen ein: <span class="russisch">Это ___ книга.</span> (Das ist mein Buch.)',
-                    typ: 'text', antwort: 'моя', hinweis: 'книга ist feminin' },
+                hinweis: 'Beispiel: u menya – bei mir' },
+                { frage: 'Bilde den Akkusativ von <span class="russisch">kniga</span> (Buch):', typ: 'text',
+                    antwort: 'knigu', hinweis: 'feminin, Endung -u' },
 
-                // --- Neue Übungen (ab hier) ---
-                // и‑Konjugation
-                { frage: 'Konjugiere <span class="russisch">говорить</span> (sprechen) in der 1. Person Singular:',
-                    typ: 'text', antwort: 'говорю', hinweis: 'и‑Konjugation, Endung -ю' },
-                { frage: 'Konjugiere <span class="russisch">любить</span> (lieben) in der 2. Person Singular:',
-                    typ: 'text', antwort: 'любишь', hinweis: 'и‑Konjugation, Endung -ишь' },
-                { frage: 'Konjugiere <span class="russisch">звонить</span> (anrufen) in der 3. Person Plural:',
-                    typ: 'text', antwort: 'звонят', hinweis: 'и‑Konjugation, Endung -ят' },
+                // Klasse 7
+                { frage: 'Konjugiere <span class="russisch">govorit</span> (sprechen) in der 1. Person Singular:',
+                    typ: 'text', antwort: 'govoryu', hinweis: 'i-Konjugation, Endung -yu' },
+                { frage: 'Konjugiere <span class="russisch">lyubit</span> (lieben) in der 2. Person Singular:',
+                    typ: 'text', antwort: 'lyubish', hinweis: 'i-Konjugation, Endung -ish' },
+                { frage: 'Bilde die Vergangenheit (maskulin) von <span class="russisch">delat</span> (machen):',
+                    typ: 'text', antwort: 'delal', hinweis: 'Endung -l' },
+                { frage: 'Setze das Adjektiv <span class="russisch">krasivyy</span> im Nominativ Singular feminin ein:',
+                    typ: 'text', antwort: 'krasivaya', hinweis: 'Endung -aya' },
 
-                // Adjektive
-                { frage: 'Setze das Adjektiv <span class="russisch">красивый</span> im Nominativ Singular feminin ein:',
-                    typ: 'text', antwort: 'красивая', hinweis: 'Endung -ая' },
-                { frage: 'Setze das Adjektiv <span class="russisch">новый</span> (neu) im Genitiv Singular maskulin ein:',
-                    typ: 'text', antwort: 'нового', hinweis: 'Endung -ого' },
-
-                // Präpositionen
-                { frage: 'Welchen Fall verlangt die Präposition <span class="russisch">в</span> bei der Frage „wohin?“?',
+                // Klasse 8
+                { frage: 'Welchen Fall verlangt die Präposition <span class="russisch">v</span> bei der Frage "wohin?"?',
                     typ: 'choice', antwort: 'Akkusativ', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
                 hinweis: 'Bewegung ins Innere' },
-                { frage: 'Welchen Fall verlangt die Präposition <span class="russisch">на</span> bei der Frage „wo?“?',
-                    typ: 'choice', antwort: 'Präpositiv', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Präpositiv'],
-                hinweis: 'Ort, keine Bewegung' },
+                { frage: 'Bilde den Dativ von <span class="russisch">drug</span> (Freund):', typ: 'text', antwort: 'drugu',
+                    hinweis: 'maskulin, Endung -u' },
+                { frage: 'Bilde die Zukunft (1. Pers. Sg.) von <span class="russisch">chitat</span> (unvollendet):',
+                    typ: 'text', antwort: 'budu chitat', hinweis: 'Hilfsverb byt + Infinitiv' },
 
-                // Vergangenheit
-                { frage: 'Bilde die Vergangenheit (maskulin) von <span class="russisch">делать</span> (machen):',
-                    typ: 'text', antwort: 'делал', hinweis: 'Endung -л' },
-                { frage: 'Bilde die Vergangenheit (feminin) von <span class="russisch">говорить</span> (sprechen):',
-                    typ: 'text', antwort: 'говорила', hinweis: 'Endung -ла' },
-                { frage: 'Bilde die Vergangenheit (Plural) von <span class="russisch">читать</span> (lesen):',
-                    typ: 'text', antwort: 'читали', hinweis: 'Endung -ли' },
+                // Klasse 9
+                { frage: 'Welcher Fall steht nach der Präposition <span class="russisch">bez</span> ?', typ: 'choice',
+                    antwort: 'Genitiv', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Instrumental'],
+                hinweis: 'bez (ohne) verlangt Genitiv' },
+                { frage: 'Bilde den Instrumental von <span class="russisch">ruchka</span> (Kuli):', typ: 'text',
+                    antwort: 'ruchkoy', hinweis: 'feminin, Endung -oy' },
+                { frage: 'Vollendetes Verb zu <span class="russisch">pisat</span> (schreiben):', typ: 'text',
+                    antwort: 'napisat', hinweis: 'Präfix na-' },
 
-                // Zukunft
-                { frage: 'Bilde die Zukunft (1. Pers. Sg.) von <span class="russisch">читать</span> (unvollendet):',
-                    typ: 'text', antwort: 'буду читать', hinweis: 'Hilfsverb быть + Infinitiv' },
-                { frage: 'Bilde die Zukunft (3. Pers. Pl.) von <span class="russisch">делать</span> (unvollendet):',
-                    typ: 'text', antwort: 'будут делать', hinweis: 'Hilfsverb быть + Infinitiv' },
+                // Klasse 10
+                { frage: 'Bilde den Konditional (1. Pers. Sg.) von <span class="russisch">poshel</span> (gehen):',
+                    typ: 'text', antwort: 'ya by poshel', hinweis: 'by + Vergangenheit' },
+                { frage: 'Imperativ Sg. von <span class="russisch">govorit</span> (sprechen):', typ: 'text',
+                    antwort: 'govori', hinweis: '2. Person Sg.' },
 
-                // Verneinung
-                { frage: 'Übersetze: <span class="russisch">Я не знаю.</span>', typ: 'text', antwort: 'Ich weiß nicht.',
-                    hinweis: 'не + Verb' },
-                { frage: 'Übersetze: <span class="russisch">У меня нет книги.</span>', typ: 'text',
-                    antwort: 'Ich habe kein Buch.', hinweis: 'нет + Genitiv' }
+                // Klasse 11/12
+                { frage: 'Partizip Aktiv Präsens von <span class="russisch">chitat</span> (lesen):', typ: 'text',
+                    antwort: 'chitayushchiy', hinweis: 'Endung -ushchiy' },
+                { frage: 'Konjunktion für "weil" auf Russisch:', typ: 'text', antwort: 'potomu chto',
+                hinweis: 'zweiteilig' }
             ];
 
             // ============================================================
-            //  APP-LOGIK (unverändert bis auf die neuen Daten)
+            //  APP-LOGIK
             // ============================================================
             let vokabeln = [];
             let einstellungen = {
@@ -1338,7 +1572,8 @@
                 kasten: 1,
                 startZeit: null
             };
-            let aktuellerGrammatikKapitel = 'personalpronomen';
+            let aktuellerGrammatikJahr = 'grundlagen';
+            let aktuellesGrammatikKapitel = 'alphabet';
 
             let uebungStatus = {
                 index: 0,
@@ -1427,7 +1662,8 @@
             const lernNichtGewusst = $('#lernNichtGewusst');
             const lernBeenden = $('#lernBeenden');
 
-            const grammatikToc = $('#grammatikToc');
+            const grammatikJahrSelect = $('#grammatikJahr');
+            const grammatikKapitelListe = $('#grammatikKapitelListe');
             const grammatikSeite = $('#grammatikSeite');
 
             const papierRadios = document.querySelectorAll('input[name="papier"]');
@@ -1438,6 +1674,7 @@
             const backupErstellenBtn = $('#backupErstellenBtn');
             const backupLadenBtn = $('#backupLadenBtn');
             const backupFileInput = $('#backupFileInput');
+            const exportLektionenBtn = $('#exportLektionenBtn');
 
             const uebungContainer = $('#uebungContainer');
             const uebungZaehler = $('#uebungZaehler');
@@ -1454,9 +1691,8 @@
             const uebungErgebnisGesamt = $('#uebungErgebnisGesamt');
             const uebungErgebnisProzent = $('#uebungErgebnisProzent');
             const uebungErgebnisWiederholen = $('#uebungErgebnisWiederholen');
-            const exportLektionenBtn = $('#exportLektionenBtn');
 
-            // --- Render-Funktionen (unverändert) ---
+            // --- Render-Funktionen ---
             function renderKastenUebersicht() {
                 const zaehler = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
                 vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) zaehler[v.kasten]++; });
@@ -1506,20 +1742,20 @@
                 }
                 let html = '';
                 liste.forEach(v => {
-                    const stern = v.liebling ? '⭐' : '☆';
-                    const schwer = v.schwierigMarkiert ? '⚠️' : '';
+                    const fav = v.liebling ? 'F' : ' ';
+                    const schwer = v.schwierigMarkiert ? 'S' : ' ';
                     html += `
                     <div class="eintrag" data-id="${v.id}">
                         <span class="wort">${v.russisch}</span>
                         <span class="uebersetzung">${v.deutsch}</span>
                         <span class="kategorie">${v.kategorie || 'keine'}</span>
                         <span class="kasten-badge">${kastenName(v.kasten)}</span>
-                        <span style="font-size:0.9rem;">${stern} ${schwer}</span>
+                        <span style="font-size:0.9rem;">${fav} ${schwer}</span>
                         <div class="aktionen">
-                            <button class="editBtn" data-id="${v.id}">✏️</button>
-                            <button class="delBtn" data-id="${v.id}">🗑</button>
-                            <button class="toggleLiebling" data-id="${v.id}">${v.liebling ? '⭐' : '☆'}</button>
-                            <button class="toggleSchwer" data-id="${v.id}">${v.schwierigMarkiert ? '⚠️' : '○'}</button>
+                            <button class="editBtn" data-id="${v.id}">Bearbeiten</button>
+                            <button class="delBtn" data-id="${v.id}">Löschen</button>
+                            <button class="toggleLiebling" data-id="${v.id}">${v.liebling ? '★' : '☆'}</button>
+                            <button class="toggleSchwer" data-id="${v.id}">${v.schwierigMarkiert ? '⚠' : '○'}</button>
                         </div>
                     </div>
                     `;
@@ -1726,19 +1962,44 @@
                 renderAll();
             }
 
-            // --- Grammatik ---
-            function renderGrammatikToc() {
-                const kapitel = Object.keys(grammatikDaten);
-                let html = '<ul>';
-                kapitel.forEach(key => {
-                    const aktiv = (key === aktuellerGrammatikKapitel) ? 'aktiv' : '';
-                    html += `<li class="${aktiv}" data-key="${key}">${grammatikDaten[key].titel}</li>`;
+            // --- Grammatik (neu) ---
+            function renderGrammatikJahrSelect() {
+                const jahre = Object.keys(grammatikNachJahr);
+                const current = aktuellerGrammatikJahr;
+                grammatikJahrSelect.innerHTML = '';
+                jahre.forEach(key => {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = grammatikNachJahr[key].titel;
+                    if (key === current) opt.selected = true;
+                    grammatikJahrSelect.appendChild(opt);
                 });
-                html += '</ul>';
-                grammatikToc.innerHTML = html;
-                grammatikToc.querySelectorAll('li').forEach(li => {
+                grammatikJahrSelect.addEventListener('change', (e) => {
+                    aktuellerGrammatikJahr = e.target.value;
+                    // erstes Kapitel des Jahres setzen
+                    const kapitel = Object.keys(grammatikNachJahr[aktuellerGrammatikJahr].kapitel);
+                    if (kapitel.length > 0) {
+                        aktuellesGrammatikKapitel = kapitel[0];
+                    }
+                    renderGrammatikToc();
+                    renderGrammatikSeite();
+                });
+            }
+
+            function renderGrammatikToc() {
+                const jahrData = grammatikNachJahr[aktuellerGrammatikJahr];
+                if (!jahrData) return;
+                const kapitel = jahrData.kapitel;
+                const keys = Object.keys(kapitel);
+                let html = '';
+                keys.forEach(key => {
+                    const aktiv = (key === aktuellesGrammatikKapitel) ? 'aktiv' : '';
+                    html += `<li class="${aktiv}" data-key="${key}">${kapitel[key].titel}</li>`;
+                });
+                grammatikKapitelListe.innerHTML = html;
+                grammatikKapitelListe.querySelectorAll('li').forEach(li => {
                     li.addEventListener('click', () => {
-                        aktuellerGrammatikKapitel = li.dataset.key;
+                        aktuellesGrammatikKapitel = li.dataset.key;
                         renderGrammatikToc();
                         renderGrammatikSeite();
                     });
@@ -1746,9 +2007,11 @@
             }
 
             function renderGrammatikSeite() {
-                const data = grammatikDaten[aktuellerGrammatikKapitel];
-                if (!data) return;
-                grammatikSeite.innerHTML = `<h2>${data.titel}</h2>${data.inhalt}`;
+                const jahrData = grammatikNachJahr[aktuellerGrammatikJahr];
+                if (!jahrData) return;
+                const kapitel = jahrData.kapitel[aktuellesGrammatikKapitel];
+                if (!kapitel) return;
+                grammatikSeite.innerHTML = `<h2>${kapitel.titel}</h2>${kapitel.inhalt}`;
             }
 
             // --- Übungen ---
@@ -1760,15 +2023,15 @@
                     uebungErgebnisRichtig.textContent = status.richtig;
                     uebungErgebnisGesamt.textContent = status.total;
                     const prozent = Math.round((status.richtig / status.total) * 100);
-                    uebungErgebnisProzent.textContent = `${prozent}% richtig`;
+                    uebungErgebnisProzent.textContent = prozent + '% richtig';
                     return;
                 }
                 uebungErgebnis.style.display = 'none';
                 document.getElementById('uebungFrageContainer').style.display = 'block';
 
                 const uebung = grammatikUebungen[status.index];
-                uebungZaehler.textContent = `${status.index + 1} / ${status.total}`;
-                uebungPunkte.textContent = `Punkte: ${status.richtig}`;
+                uebungZaehler.textContent = (status.index + 1) + ' / ' + status.total;
+                uebungPunkte.textContent = 'Punkte: ' + status.richtig;
                 uebungFortschritt.style.width = ((status.index / status.total) * 100) + '%';
 
                 uebungFrage.innerHTML = uebung.frage;
@@ -1794,11 +2057,11 @@
                             if (korrekt) {
                                 btn.classList.add('richtig');
                                 status.richtig++;
-                                uebungPunkte.textContent = `Punkte: ${status.richtig}`;
+                                uebungPunkte.textContent = 'Punkte: ' + status.richtig;
                                 zeigeFeedbackUebung(true, 'Richtig!');
                             } else {
                                 btn.classList.add('falsch');
-                                zeigeFeedbackUebung(false, `Falsch. Richtig wäre: ${uebung.antwort}`);
+                                zeigeFeedbackUebung(false, 'Falsch. Richtig waere: ' + uebung.antwort);
                                 div.querySelectorAll('button').forEach(b => {
                                     if (b.dataset.wert === uebung.antwort) b.classList.add('richtig');
                                 });
@@ -1826,10 +2089,10 @@
                         const istRichtig = (val.toLowerCase() === korrekt.toLowerCase());
                         if (istRichtig) {
                             status.richtig++;
-                            uebungPunkte.textContent = `Punkte: ${status.richtig}`;
+                            uebungPunkte.textContent = 'Punkte: ' + status.richtig;
                             zeigeFeedbackUebung(true, 'Richtig!');
                         } else {
-                            zeigeFeedbackUebung(false, `Falsch. Richtig wäre: ${korrekt}`);
+                            zeigeFeedbackUebung(false, 'Falsch. Richtig waere: ' + korrekt);
                         }
                         status.beantwortet = true;
                         uebungPruefen.disabled = true;
@@ -1845,7 +2108,7 @@
                     const p = document.createElement('p');
                     p.style.fontSize = '0.9rem';
                     p.style.color = '#8a857b';
-                    p.textContent = '💡 ' + uebung.hinweis;
+                    p.textContent = 'Tipp: ' + uebung.hinweis;
                     uebungAntwort.appendChild(p);
                 }
             }
@@ -1856,15 +2119,15 @@
                 uebungFeedback.className = 'uebung-feedback ' + (richtig ? 'richtig' : 'falsch');
             }
 
-            // --- Externen Vokabeln laden ---
+            // --- Externe Vokabeln laden ---
             async function loadExternalVocabularies() {
                 const lektionen = [
-                    { datei: 'vokabeln/urok1.json', kategorie: 'Урок 1' },
-                    { datei: 'vokabeln/urok2.json', kategorie: 'Урок 2' },
-                    { datei: 'vokabeln/urok3.json', kategorie: 'Урок 3' },
-                    { datei: 'vokabeln/urok4.json', kategorie: 'Урок 4' },
-                    { datei: 'vokabeln/urok5.json', kategorie: 'Урок 5' },
-                    { datei: 'vokabeln/urok6.json', kategorie: 'Урок 6' }
+                    { datei: 'vokabeln/urok1.json', kategorie: 'Urok 1' },
+                    { datei: 'vokabeln/urok2.json', kategorie: 'Urok 2' },
+                    { datei: 'vokabeln/urok3.json', kategorie: 'Urok 3' },
+                    { datei: 'vokabeln/urok4.json', kategorie: 'Urok 4' },
+                    { datei: 'vokabeln/urok5.json', kategorie: 'Urok 5' },
+                    { datei: 'vokabeln/urok6.json', kategorie: 'Urok 6' }
                 ];
                 let alle = [];
                 let fehler = 0;
@@ -1872,7 +2135,7 @@
                 for (const lektion of lektionen) {
                     try {
                         const response = await fetch(lektion.datei);
-                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        if (!response.ok) throw new Error('HTTP ' + response.status);
                         const data = await response.json();
                         if (Array.isArray(data)) {
                             const mitKategorie = data.map(v => ({ ...v, kategorie: v.kategorie || lektion.kategorie }));
@@ -1889,14 +2152,14 @@
                     vokabeln = alle.map(v => ({ ...v, id: v.id || generateId() }));
                     speichern();
                     renderAll();
-                    console.log(`✅ ${vokabeln.length} Vokabeln aus externen JSON-Dateien geladen.`);
+                    console.log('Externe Vokabeln geladen: ' + vokabeln.length);
                     return true;
                 } else {
                     if (basisVokabeln.length > 0) {
                         vokabeln = basisVokabeln.map(v => ({ ...v, id: v.id || generateId() }));
                         speichern();
                         renderAll();
-                        console.log(`⚠️ Externe JSON nicht vollständig geladen, verwende Fallback (${vokabeln.length} Vokabeln).`);
+                        console.log('Verwende Fallback-Vokabeln.');
                     }
                     return false;
                 }
@@ -1917,12 +2180,12 @@
                 });
 
                 const namen = {
-                    'Урок 1': 'urok1.json',
-                    'Урок 2': 'urok2.json',
-                    'Урок 3': 'urok3.json',
-                    'Урок 4': 'urok4.json',
-                    'Урок 5': 'urok5.json',
-                    'Урок 6': 'urok6.json'
+                    'Urok 1': 'urok1.json',
+                    'Urok 2': 'urok2.json',
+                    'Urok 3': 'urok3.json',
+                    'Urok 4': 'urok4.json',
+                    'Urok 5': 'urok5.json',
+                    'Urok 6': 'urok6.json'
                 };
 
                 let exportCount = 0;
@@ -1931,9 +2194,9 @@
                     if (!filename) {
                         const num = kat.match(/\d+/);
                         if (num) {
-                            filename = `urok${num[0]}.json`;
+                            filename = 'urok' + num[0] + '.json';
                         } else {
-                            filename = `export_${kat.replace(/\s/g, '_')}.json`;
+                            filename = 'export_' + kat.replace(/\s/g, '_') + '.json';
                         }
                     }
                     const blob = new Blob([JSON.stringify(daten, null, 2)], { type: 'application/json' });
@@ -1948,10 +2211,10 @@
                     exportCount++;
                 }
 
-                alert(`${exportCount} JSON-Datei(en) wurden heruntergeladen. Bitte lege sie im Ordner "vokabeln" ab.`);
+                alert(exportCount + ' JSON-Datei(en) wurden heruntergeladen. Bitte lege sie im Ordner "vokabeln" ab.');
             }
 
-            // --- Event-Handler (unverändert) ---
+            // --- Event-Handler ---
             tabNav.addEventListener('click', (e) => {
                 const btn = e.target.closest('button');
                 if (!btn) return;
@@ -1963,6 +2226,7 @@
                     tabContents[key].classList.toggle('active', key === tab);
                 });
                 if (tab === 'grammatik') {
+                    renderGrammatikJahrSelect();
                     renderGrammatikToc();
                     renderGrammatikSeite();
                 }
@@ -2144,7 +2408,7 @@
                 }
             });
 
-            uebungPruefen.addEventListener('click', () => { /* wird in den Antwort-Buttons behandelt */ });
+            uebungPruefen.addEventListener('click', () => {});
             uebungNaechste.addEventListener('click', () => {
                 if (uebungNaechste.disabled) return;
                 uebungStatus.index++;
@@ -2173,17 +2437,19 @@
             if (!vokabeln || vokabeln.length === 0) {
                 loadExternalVocabularies().then(() => {
                     renderAll();
+                    renderGrammatikJahrSelect();
                     renderGrammatikToc();
                     renderGrammatikSeite();
                 });
             } else {
                 renderAll();
+                renderGrammatikJahrSelect();
                 renderGrammatikToc();
                 renderGrammatikSeite();
                 loadExternalVocabularies().then(() => {});
             }
 
-            console.log('✅ Russisch lernen – Grammatik und Übungen erweitert.');
+            console.log('Russisch lernen – Grammatik nach Lehrjahren sortiert, Emojis entfernt.');
         })();
     </script>
 </body>
