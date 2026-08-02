@@ -1,0 +1,794 @@
+[
+  {
+    "russisch": "лет",
+    "deutsch": "Jahre (Gen. Pl. von год)",
+    "aussprache": "[lʲet]",
+    "beispiel": "Сколько тебе лет? – Мне 13.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "совсем",
+    "deutsch": "überhaupt, ganz, völlig",
+    "aussprache": "[sɐfˈsʲem]",
+    "beispiel": "Это совсем просто.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ведь",
+    "deutsch": "doch, ja",
+    "aussprache": "[vʲetʲ]",
+    "beispiel": "Сегодня суббота, ведь.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "завтра",
+    "deutsch": "morgen",
+    "aussprache": "[ˈzaftrə]",
+    "beispiel": "Сегодня суббота, а завтра воскресенье.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "брат",
+    "deutsch": "Bruder",
+    "aussprache": "[brat]",
+    "beispiel": "У меня есть брат и сестра.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сестра",
+    "deutsch": "Schwester",
+    "aussprache": "[sʲɪˈstra]",
+    "beispiel": "У меня есть брат и сестра.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "город",
+    "deutsch": "Stadt",
+    "aussprache": "[ˈɡorət]",
+    "beispiel": "Это мой город.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "год",
+    "deutsch": "Jahr",
+    "aussprache": "[ɡot]",
+    "beispiel": "Один год.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "минута",
+    "deutsch": "Minute",
+    "aussprache": "[mʲɪˈnutə]",
+    "beispiel": "Одна минута.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "день",
+    "deutsch": "Tag",
+    "aussprache": "[dʲenʲ]",
+    "beispiel": "Мой день.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "вставать",
+    "deutsch": "aufstehen",
+    "aussprache": "[fstɐˈvatʲ]",
+    "beispiel": "Когда ты обычно встаёшь?",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "обычно",
+    "deutsch": "gewöhnlich",
+    "aussprache": "[ɐˈbɨtɕnə]",
+    "beispiel": "Когда ты обычно встаёшь?",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "завтракать",
+    "deutsch": "frühstücken",
+    "aussprache": "[ˈzaftrəkətʲ]",
+    "beispiel": "Я завтракаю в семь часов.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "правило",
+    "deutsch": "Regel",
+    "aussprache": "[ˈpravʲɪlə]",
+    "beispiel": "Как правило.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "как правило",
+    "deutsch": "in der Regel",
+    "aussprache": "",
+    "beispiel": "Как правило, я встаю рано.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "после (+ Gen.)",
+    "deutsch": "nach",
+    "aussprache": "[ˈposlʲe]",
+    "beispiel": "После школы. После урока.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "обедать",
+    "deutsch": "zu Mittag essen",
+    "aussprache": "[ɐˈbʲedətʲ]",
+    "beispiel": "Мы обедаем в школе.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "вечер",
+    "deutsch": "Abend",
+    "aussprache": "[ˈvʲetɕɪr]",
+    "beispiel": "Добрый вечер.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "вечером",
+    "deutsch": "abends, am Abend",
+    "aussprache": "[ˈvʲetɕɪrəm]",
+    "beispiel": "Вечером я гуляю.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "родители",
+    "deutsch": "Eltern",
+    "aussprache": "[rɐˈdʲitʲɪlʲɪ]",
+    "beispiel": "Мои родители.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "бальные танцы",
+    "deutsch": "Standardtänze",
+    "aussprache": "",
+    "beispiel": "Я танцую бальные танцы.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "гулять",
+    "deutsch": "spazieren gehen",
+    "aussprache": "[ɡʊˈlʲatʲ]",
+    "beispiel": "Я гуляю с Чарли.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "спать",
+    "deutsch": "schlafen",
+    "aussprache": "[spatʲ]",
+    "beispiel": "В 22 часа я уже сплю.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "рано",
+    "deutsch": "früh",
+    "aussprache": "[ˈranə]",
+    "beispiel": "Я встаю рано.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "завтрак",
+    "deutsch": "Frühstück",
+    "aussprache": "[ˈzaftrək]",
+    "beispiel": "Мой завтрак.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "обед",
+    "deutsch": "Mittagessen",
+    "aussprache": "[ɐˈbʲet]",
+    "beispiel": "Мой обед.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "кролик",
+    "deutsch": "Kaninchen",
+    "aussprache": "[ˈkrolʲɪk]",
+    "beispiel": "У меня есть кролик.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "свободное время",
+    "deutsch": "Freizeit",
+    "aussprache": "",
+    "beispiel": "Моё свободное время.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "свободный",
+    "deutsch": "frei, Frei-",
+    "aussprache": "[svɐˈbodnɨj]",
+    "beispiel": "Свободное время.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "волейбол",
+    "deutsch": "Volleyball",
+    "aussprache": "[vəlʲɪjˈbol]",
+    "beispiel": "Я играю в волейбол.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "баскетбол",
+    "deutsch": "Basketball",
+    "aussprache": "[bəskʲɪdˈbol]",
+    "beispiel": "Я играю в баскетбол.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "теннис",
+    "deutsch": "Tennis",
+    "aussprache": "[ˈtɛnʲɪs]",
+    "beispiel": "Я играю в теннис.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "гимнастика",
+    "deutsch": "Gymnastik, Turnen",
+    "aussprache": "[ɡʲɪmˈnastʲɪkə]",
+    "beispiel": "Я занимаюсь гимнастикой.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сноубординг",
+    "deutsch": "Snowboarding",
+    "aussprache": "",
+    "beispiel": "Я занимаюсь сноубордингом.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "велоспорт",
+    "deutsch": "Radsport",
+    "aussprache": "",
+    "beispiel": "Я занимаюсь велоспортом.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "имя",
+    "deutsch": "(Vor-)Name",
+    "aussprache": "[ˈimʲə]",
+    "beispiel": "Моё имя – Катя.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "на сегодня",
+    "deutsch": "für heute",
+    "aussprache": "",
+    "beispiel": "На сегодня всё. Уф!",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "с (+ Instr.)",
+    "deutsch": "mit",
+    "aussprache": "[s]",
+    "beispiel": "Я люблю чай с лимоном.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сахар",
+    "deutsch": "Zucker",
+    "aussprache": "[ˈsaxər]",
+    "beispiel": "Кофе с сахаром.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "лимон",
+    "deutsch": "Zitrone",
+    "aussprache": "[lʲɪˈmon]",
+    "beispiel": "Я люблю чай с лимоном.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "варенье",
+    "deutsch": "Konfitüre",
+    "aussprache": "[vɐˈrʲenʲje]",
+    "beispiel": "Ты любишь чай с вареньем?",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "молоко",
+    "deutsch": "Milch",
+    "aussprache": "[məlɐˈko]",
+    "beispiel": "Я люблю кофе с сахаром и с молоком.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "чем? (+ Instr.)",
+    "deutsch": "womit?",
+    "aussprache": "[tɕem]",
+    "beispiel": "Чем ты занимаешься?",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "заниматься",
+    "deutsch": "sich beschäftigen, treiben",
+    "aussprache": "[zənʲɪˈmatsə]",
+    "beispiel": "Она занимается спортом.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "часто",
+    "deutsch": "oft, häufig",
+    "aussprache": "[ˈtɕastə]",
+    "beispiel": "Я часто катаюсь на скейтборде.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "спорт",
+    "deutsch": "Sport",
+    "aussprache": "[sport]",
+    "beispiel": "Дети занимаются спортом.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "кататься (на + Präp.)",
+    "deutsch": "fahren (zum Vergnügen)",
+    "aussprache": "[kɐˈtatsə]",
+    "beispiel": "Мы катаемся на скейтборде.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "капустник",
+    "deutsch": "bunter Abend, hier: Schulkabarett",
+    "aussprache": "[kɐˈpustnʲɪk]",
+    "beispiel": "Мы готовим капустник.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "с кем?",
+    "deutsch": "mit wem?",
+    "aussprache": "",
+    "beispiel": "С кем ты играешь в теннис?",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "раз",
+    "deutsch": "mal",
+    "aussprache": "[ras]",
+    "beispiel": "Ещё раз.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ещё раз",
+    "deutsch": "noch einmal",
+    "aussprache": "",
+    "beispiel": "Скажи ещё раз.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "необычный",
+    "deutsch": "ungewöhnlich",
+    "aussprache": "[nʲɪɐˈbɨtɕnɨj]",
+    "beispiel": "Это необычно.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "грамматика",
+    "deutsch": "Grammatik",
+    "aussprache": "[ɡrɐˈmatʲɪkə]",
+    "beispiel": "Я изучаю грамматику.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "изучать",
+    "deutsch": "lernen, studieren",
+    "aussprache": "[ɪzʊˈtɕatʲ]",
+    "beispiel": "Быстро изучать.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "быстро",
+    "deutsch": "schnell",
+    "aussprache": "[ˈbɨstrə]",
+    "beispiel": "Быстро изучать.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "новый",
+    "deutsch": "neu",
+    "aussprache": "[ˈnovɨj]",
+    "beispiel": "Новый учебник.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "пальто",
+    "deutsch": "Mantel",
+    "aussprache": "[pɐlʲˈto]",
+    "beispiel": "Моё новое пальто.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "беда",
+    "deutsch": "Unglück, Not",
+    "aussprache": "[bʲɪˈda]",
+    "beispiel": "Вот беда.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "лежать",
+    "deutsch": "liegen",
+    "aussprache": "[lʲɪˈʐatʲ]",
+    "beispiel": "Пальто лежит на стуле.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "большой",
+    "deutsch": "groß",
+    "aussprache": "[bɐlʲˈʂoj]",
+    "beispiel": "Большой театр.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сцена",
+    "deutsch": "(Theater-)Szene",
+    "aussprache": "[ˈstsɛnə]",
+    "beispiel": "Она на сцене.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "маленький",
+    "deutsch": "klein (≠ большой)",
+    "aussprache": "[ˈmalʲɪnʲkʲɪj]",
+    "beispiel": "Маленькая собака.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "русский",
+    "deutsch": "russisch",
+    "aussprache": "[ˈruskʲɪj]",
+    "beispiel": "Русский язык.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "кого?",
+    "deutsch": "wen? (Akk. = Gen.)",
+    "aussprache": "[kɐˈvo]",
+    "beispiel": "Кого ты видишь?",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сюрприз",
+    "deutsch": "Überraschung",
+    "aussprache": "[sʲʊrˈprʲis]",
+    "beispiel": "Какой сюрприз!",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "рэпер",
+    "deutsch": "Rapper",
+    "aussprache": "",
+    "beispiel": "Он рэпер.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "модный",
+    "deutsch": "modisch",
+    "aussprache": "[ˈmodnɨj]",
+    "beispiel": "Модная одежда.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "хор",
+    "deutsch": "Chor",
+    "aussprache": "[xor]",
+    "beispiel": "Школьный хор.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "скетч",
+    "deutsch": "Sketch",
+    "aussprache": "[skɛtɕ]",
+    "beispiel": "Смешной скетч.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "комикс",
+    "deutsch": "Comic",
+    "aussprache": "[ˈkomʲɪks]",
+    "beispiel": "Читать комикс.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "актовый зал",
+    "deutsch": "Aula",
+    "aussprache": "",
+    "beispiel": "Мы идём в актовый зал.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "белый",
+    "deutsch": "weiß",
+    "aussprache": "[ˈbʲelɨj]",
+    "beispiel": "Белый цвет.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "голубой",
+    "deutsch": "hellblau",
+    "aussprache": "[ɡəlʊˈboj]",
+    "beispiel": "Голубое небо.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "жёлтый",
+    "deutsch": "gelb",
+    "aussprache": "[ˈʐoltɨj]",
+    "beispiel": "Жёлтое солнце.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "зелёный",
+    "deutsch": "grün",
+    "aussprache": "[zʲɪˈlʲonɨj]",
+    "beispiel": "Зелёная трава.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "коричневый",
+    "deutsch": "braun",
+    "aussprache": "[kɐˈrʲitɕnʲɪvɨj]",
+    "beispiel": "Коричневые туфли.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "красный",
+    "deutsch": "rot",
+    "aussprache": "[ˈkrasnɨj]",
+    "beispiel": "Красная площадь.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "розовый",
+    "deutsch": "rosa",
+    "aussprache": "[ˈrozəvɨj]",
+    "beispiel": "Розовая рубашка.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "чёрный",
+    "deutsch": "schwarz",
+    "aussprache": "[ˈtɕornɨj]",
+    "beispiel": "Чёрные брюки.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "брюки",
+    "deutsch": "Hose (nur Pl.)",
+    "aussprache": "[ˈbrʲukʲɪ]",
+    "beispiel": "Чёрные брюки.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "широкий",
+    "deutsch": "weit, breit",
+    "aussprache": "[ʂɨˈrokʲɪj]",
+    "beispiel": "Широкая улица.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "рэп",
+    "deutsch": "Rap",
+    "aussprache": "[rɛp]",
+    "beispiel": "Слушать рэп.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "репетиция",
+    "deutsch": "Probe, Theaterprobe",
+    "aussprache": "[rʲɪpʲɪˈtʲitsɨjə]",
+    "beispiel": "Репетиция капустника.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "директор",
+    "deutsch": "Direktor(in)",
+    "aussprache": "[dʲɪˈrʲektər]",
+    "beispiel": "Наш директор.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "класс",
+    "deutsch": "Klasse",
+    "aussprache": "[klas]",
+    "beispiel": "Мой класс.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "какой?",
+    "deutsch": "was für ein?, welcher?",
+    "aussprache": "[kɐˈkoj]",
+    "beispiel": "Какой такой классный костюм!",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "красивый",
+    "deutsch": "schön, hübsch",
+    "aussprache": "[krɐˈsʲivɨj]",
+    "beispiel": "Красивый костюм.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "костюм",
+    "deutsch": "Kostüm, Anzug",
+    "aussprache": "[kɐˈstʲum]",
+    "beispiel": "Красивый костюм.",
+    "kategorie": "Урок 5",
+    "schwierigkeit": 1,
+    "kasten": 1
+  }
+]

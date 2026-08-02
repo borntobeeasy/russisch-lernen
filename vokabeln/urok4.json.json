@@ -1,0 +1,605 @@
+[
+  {
+    "russisch": "семья",
+    "deutsch": "Familie",
+    "aussprache": "[sʲɪmʲˈja]",
+    "beispiel": "У Ирины большая семья.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "собака",
+    "deutsch": "Hund",
+    "aussprache": "[sɐˈbakə]",
+    "beispiel": "У тебя есть собака?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "много",
+    "deutsch": "viel",
+    "aussprache": "[ˈmnoɡə]",
+    "beispiel": "У меня много друзей.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "трудно",
+    "deutsch": "schwierig, schwer",
+    "aussprache": "[ˈtrudnə]",
+    "beispiel": "Это трудно.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "просто",
+    "deutsch": "leicht, einfach (≠ трудно)",
+    "aussprache": "[ˈprostə]",
+    "beispiel": "Это совсем просто.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ничего",
+    "deutsch": "hier: das macht nichts",
+    "aussprache": "[nʲɪtɕɪˈvo]",
+    "beispiel": "Ничего страшного.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "у (+ Gen.)",
+    "deutsch": "bei",
+    "aussprache": "[u]",
+    "beispiel": "У школы.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "есть",
+    "deutsch": "es gibt, es ist vorhanden",
+    "aussprache": "[jesʲtʲ]",
+    "beispiel": "У тебя есть собака? – Да, есть.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "задание",
+    "deutsch": "Aufgabe",
+    "aussprache": "[zɐˈdanʲɪjə]",
+    "beispiel": "Это задание.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "учебник",
+    "deutsch": "Lehrbuch",
+    "aussprache": "[ʊˈtɕebnʲɪk]",
+    "beispiel": "Это твой учебник?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ученик / ученица",
+    "deutsch": "Schüler(in)",
+    "aussprache": "",
+    "beispiel": "Он ученик.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "учить",
+    "deutsch": "lernen",
+    "aussprache": "",
+    "beispiel": "Я учу русский.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "папка",
+    "deutsch": "Schnellhefter, Aktenordner",
+    "aussprache": "[ˈpapkə]",
+    "beispiel": "Где моя папка?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "карандаш",
+    "deutsch": "Bleistift",
+    "aussprache": "[kərɐnˈdaʂ]",
+    "beispiel": "Это не мой карандаш.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "линейка",
+    "deutsch": "Lineal",
+    "aussprache": "[lʲɪˈnʲejkə]",
+    "beispiel": "Где твоя линейка?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "пенал",
+    "deutsch": "Federmappe",
+    "aussprache": "[pʲɪˈnal]",
+    "beispiel": "У меня в пенале есть карандаши и линейка.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ручка",
+    "deutsch": "Füller",
+    "aussprache": "[ˈrutɕkə]",
+    "beispiel": "У меня есть и карандаш и ручка.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "даже",
+    "deutsch": "sogar",
+    "aussprache": "[ˈdaʐɨ]",
+    "beispiel": "Даже я это знаю.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "и ... и",
+    "deutsch": "sowohl ... als auch",
+    "aussprache": "",
+    "beispiel": "У меня есть и карандаш и ручка.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "прекрасно",
+    "deutsch": "hervorragend, super",
+    "aussprache": "[prʲɪˈkrasnə]",
+    "beispiel": "Прекрасно! = Супер!",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "теперь",
+    "deutsch": "jetzt",
+    "aussprache": "[tʲɪˈpʲerʲ]",
+    "beispiel": "Теперь я иду в школу.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "давай! / давайте!",
+    "deutsch": "Los/Auf geht's! (Sg./Pl.)",
+    "aussprache": "",
+    "beispiel": "Давай делать реферат! – Ну, давай!",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "модель",
+    "deutsch": "Modell",
+    "aussprache": "",
+    "beispiel": "Это новая модель.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "система",
+    "deutsch": "System",
+    "aussprache": "",
+    "beispiel": "Это система.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "дизайнер",
+    "deutsch": "Designer(in)",
+    "aussprache": "",
+    "beispiel": "Он дизайнер.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "коллекция",
+    "deutsch": "Kollektion",
+    "aussprache": "",
+    "beispiel": "Новая коллекция.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "машина",
+    "deutsch": "Auto",
+    "aussprache": "[mɐˈʂɨnə]",
+    "beispiel": "Это машина папы.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "пробка",
+    "deutsch": "Stau",
+    "aussprache": "[ˈpropkə]",
+    "beispiel": "На улице пробка.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "опаздывать",
+    "deutsch": "sich verspäten",
+    "aussprache": "[ɐˈpazdɨvətʲ]",
+    "beispiel": "Я опаздываю.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ясно",
+    "deutsch": "klar",
+    "aussprache": "[ˈjasnə]",
+    "beispiel": "Всё ясно.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "звонить (+ Dat.)",
+    "deutsch": "anrufen, telefonieren",
+    "aussprache": "[zvɐˈnʲitʲ]",
+    "beispiel": "Я звоню маме.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "вместе",
+    "deutsch": "zusammen",
+    "aussprache": "[ˈvmʲesʲtʲe]",
+    "beispiel": "Мы делаем уроки вместе.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "замечательно",
+    "deutsch": "hervorragend, ausgezeichnet",
+    "aussprache": "[zəmʲɪˈtɕatʲɪlʲnə]",
+    "beispiel": "Замечательно!",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "садик",
+    "deutsch": "Kindergarten",
+    "aussprache": "",
+    "beispiel": "Мой садик.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "балет",
+    "deutsch": "Ballett",
+    "aussprache": "[bɐˈlʲet]",
+    "beispiel": "Мы идём на балет.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "открытие",
+    "deutsch": "Eröffnung",
+    "aussprache": "",
+    "beispiel": "Открытие бутика.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "бутик",
+    "deutsch": "Boutique",
+    "aussprache": "[buˈtʲik]",
+    "beispiel": "Новый бутик.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "показ",
+    "deutsch": "Schau, Vorführung",
+    "aussprache": "",
+    "beispiel": "Показ моды.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "к (+ Dat.)",
+    "deutsch": "zu",
+    "aussprache": "[k]",
+    "beispiel": "К школе. К дому.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "честно",
+    "deutsch": "ehrlich, hier: fair",
+    "aussprache": "[ˈtɕesnə]",
+    "beispiel": "Честно говоря.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "няня",
+    "deutsch": "Kindermädchen",
+    "aussprache": "[ˈnʲanʲə]",
+    "beispiel": "Она няня.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "для (+ Gen.)",
+    "deutsch": "für",
+    "aussprache": "[dlʲa]",
+    "beispiel": "Это для тебя.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "время",
+    "deutsch": "Zeit",
+    "aussprache": "[ˈvrʲemʲə]",
+    "beispiel": "У меня есть время.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "забирать",
+    "deutsch": "abholen",
+    "aussprache": "[zəbʲɪˈratʲ]",
+    "beispiel": "Мама забирает меня.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "домой",
+    "deutsch": "nach Hause",
+    "aussprache": "[dɐˈmoj]",
+    "beispiel": "Я иду домой.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "настоящий друг",
+    "deutsch": "echter Freund",
+    "aussprache": "",
+    "beispiel": "Он настоящий друг.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "подруга",
+    "deutsch": "Freundin",
+    "aussprache": "[pɐˈdruɡə]",
+    "beispiel": "Это моя подруга.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "кому?",
+    "deutsch": "wem?",
+    "aussprache": "[kɐˈmu]",
+    "beispiel": "Кому ты помогаешь? – Ире.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "кошка",
+    "deutsch": "Katze",
+    "aussprache": "[ˈkoʂkə]",
+    "beispiel": "У меня есть кошка.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "чат",
+    "deutsch": "Chat",
+    "aussprache": "",
+    "beispiel": "Мы пишем в чате.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "бинго",
+    "deutsch": "Bingo",
+    "aussprache": "",
+    "beispiel": "Играть в бинго.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "техно",
+    "deutsch": "Techno",
+    "aussprache": "",
+    "beispiel": "Слушать техно.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "йогурт",
+    "deutsch": "Joghurt",
+    "aussprache": "[ˈjoɡurt]",
+    "beispiel": "Я ем йогурт.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "майонез",
+    "deutsch": "Mayonnaise",
+    "aussprache": "",
+    "beispiel": "Салат с майонезом.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "буфет",
+    "deutsch": "Büfett, Imbiss",
+    "aussprache": "[buˈfʲet]",
+    "beispiel": "Мы идём в буфет.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "цифра",
+    "deutsch": "Ziffer, Zahl",
+    "aussprache": "[ˈtsɨfrə]",
+    "beispiel": "Какая это цифра?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "таксист",
+    "deutsch": "Taxifahrer",
+    "aussprache": "[tɐkˈsʲist]",
+    "beispiel": "Он работает таксистом.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "голова",
+    "deutsch": "Kopf",
+    "aussprache": "[ɡɐlɐˈva]",
+    "beispiel": "У меня болит голова.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "дети",
+    "deutsch": "Kinder",
+    "aussprache": "[ˈdʲetʲɪ]",
+    "beispiel": "У них есть дети.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ужинать",
+    "deutsch": "zu Abend essen",
+    "aussprache": "[ˈuʐɨnətʲ]",
+    "beispiel": "Что сегодня на ужин?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сметана",
+    "deutsch": "saure Sahne",
+    "aussprache": "[smʲɪˈtanə]",
+    "beispiel": "Суп со сметаной.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "к сожалению",
+    "deutsch": "leider",
+    "aussprache": "",
+    "beispiel": "Мороженое есть? – К сожалению, нет.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "приятного аппетита!",
+    "deutsch": "Guten Appetit!",
+    "aussprache": "",
+    "beispiel": "Приятного аппетита!",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "час",
+    "deutsch": "Stunde, Uhr",
+    "aussprache": "[tɕas]",
+    "beispiel": "Уже час!",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "который час?",
+    "deutsch": "wie viel Uhr ist es?",
+    "aussprache": "",
+    "beispiel": "Ты знаешь, который час? – Не знаю.",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "извини(те) меня!",
+    "deutsch": "Entschuldigung! (entschuldige mich)",
+    "aussprache": "",
+    "beispiel": "Извини меня!",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сколько",
+    "deutsch": "wie viel",
+    "aussprache": "[ˈskolʲkə]",
+    "beispiel": "Сколько это стоит?",
+    "kategorie": "Урок 4",
+    "schwierigkeit": 1,
+    "kasten": 1
+  }
+]

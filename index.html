@@ -823,12 +823,12 @@
             <nav class="tab-nav" id="tabNav">
                 <button class="active" data-tab="vokabeln">Vokabeln</button>
                 <button data-tab="grammatik">Grammatik</button>
-                <button data-tab="uebungen">Übungen</button>   <!-- NEU -->
+                <button data-tab="uebungen">Übungen</button>
                 <button data-tab="statistiken">Statistiken</button>
                 <button data-tab="einstellungen">Einstellungen</button>
             </nav>
 
-            <!-- ===== TAB: VOKABELN (unverändert) ===== -->
+            <!-- ===== TAB: VOKABELN ===== -->
             <section class="tab-content active" id="tabVokabeln">
                 <div class="vokabel-actions">
                     <div class="suche">
@@ -873,7 +873,7 @@
                 </div>
             </section>
 
-            <!-- ===== TAB: GRAMMATIK (unverändert) ===== -->
+            <!-- ===== TAB: GRAMMATIK ===== -->
             <section class="tab-content" id="tabGrammatik">
                 <div class="grammatik-layout">
                     <div class="grammatik-toc" id="grammatikToc"></div>
@@ -883,7 +883,7 @@
                 </div>
             </section>
 
-            <!-- ===== NEU: TAB: ÜBUNGEN (Grammatik-Übungen) ===== -->
+            <!-- ===== TAB: ÜBUNGEN ===== -->
             <section class="tab-content" id="tabUebungen">
                 <div class="uebung-container" id="uebungContainer">
                     <div class="fortschritt">
@@ -912,7 +912,7 @@
                 </div>
             </section>
 
-            <!-- ===== TAB: STATISTIKEN (unverändert) ===== -->
+            <!-- ===== TAB: STATISTIKEN ===== -->
             <section class="tab-content" id="tabStatistiken">
                 <div class="stats-grid" id="statsGrid"></div>
                 <div class="diagramm-container">
@@ -924,7 +924,7 @@
                 </div>
             </section>
 
-            <!-- ===== TAB: EINSTELLUNGEN (unverändert) ===== -->
+            <!-- ===== TAB: EINSTELLUNGEN ===== -->
             <section class="tab-content" id="tabEinstellungen">
                 <div class="einstellungen-group">
                     <h3>Papierstil</h3>
@@ -950,10 +950,11 @@
                     <button class="btn" id="backupErstellenBtn">Backup erstellen</button>
                     <button class="btn" id="backupLadenBtn">Backup laden</button>
                     <input type="file" id="backupFileInput" accept=".json" style="display:none" />
+                    <button class="btn primär" id="exportLektionenBtn" style="margin-top:10px;">📤 Lektionen als JSON exportieren</button>
                 </div>
             </section>
 
-            <!-- ===== LERNMODUS OVERLAY (unverändert) ===== -->
+            <!-- ===== LERNMODUS OVERLAY ===== -->
             <div class="lernmodus-overlay" id="lernOverlay">
                 <div class="lernmodus-card">
                     <div class="fortschritt">
@@ -989,128 +990,212 @@
             'use strict';
 
             // ============================================================
-            //  VOKABELN – unverändert (aus den Bildern)
+            //  BASIS-VOKABELN (FALLBACK) – HIER DEINE VOKABELN EINFÜGEN
+            //  Wenn die JSON-Dateien im Ordner "vokabeln" existieren,
+            //  werden sie automatisch geladen und ersetzen dieses Array.
             // ============================================================
             const basisVokabeln = [
-                // ---- Урок 1 ----
-                { id: 'u1_1', russisch: 'конечно', deutsch: 'natürlich; Na klar!', aussprache: '[=ешно-]',
-                    beispiel: 'Конечно, я помогу.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_2', russisch: 'урок', deutsch: 'Lektion, Unterrichtsstunde', aussprache: '',
-                    beispiel: 'Урок 1', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_3', russisch: 'Привет', deutsch: 'Hallo!', aussprache: '[priˈvʲet]', beispiel: 'Привет, Россия!',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_4', russisch: 'Россия', deutsch: 'Russland', aussprache: '[rɐˈsʲijə]', beispiel: 'Я из России.',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_5', russisch: 'кто', deutsch: 'wer', aussprache: '[kto]', beispiel: 'Кто это?',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_6', russisch: 'это', deutsch: 'das ist, dies ist', aussprache: '[ˈɛtə]', beispiel: 'Кто это?',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_7', russisch: 'ребята', deutsch: 'Jugendliche', aussprache: '[rʲɪˈbʲatə]', beispiel: 'Это ребята.',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_8', russisch: 'нет', deutsch: 'nein', aussprache: '[nʲet]', beispiel: 'Нет, спасибо.',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_9', russisch: 'да', deutsch: 'ja', aussprache: '[da]', beispiel: 'Да, я понимаю.',
-                    kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                { id: 'u1_10', russisch: 'меня зовут', deutsch: 'ich heiße (wörtl.: mich nennt man)', aussprache: '',
-                    beispiel: 'Меня зовут Мышка.', kategorie: 'Урок 1', schwierigkeit: 1, kasten: 1 },
-                // ... (alle weiteren Vokabeln aus der ursprünglichen Datei, hier aus Platzgründen gekürzt)
-                // Bitte in der vollständigen Implementierung alle Vokabeln aus der ursprünglichen Datei übernehmen.
-                // Ich füge nur einen repräsentativen Ausschnitt ein, um die Struktur zu zeigen.
-            ];
-
-            // ============================================================
-            //  GRAMMATIK – unverändert
-            // ============================================================
-            const grammatikDaten = {
-                personalpronomen: {
-                    titel: 'Personalpronomen (Личные местоимения)',
-                    inhalt: `<p>... (wie gehabt) ...</p>`
-                },
-                // ... alle anderen Kapitel
-            };
-
-            // ============================================================
-            //  NEU: GRAMMATIK-ÜBUNGEN
-            // ============================================================
-            const grammatikUebungen = [
+                // Beispiel-Einträge (du kannst sie durch deine eigenen ersetzen)
                 {
-                    frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> учитель. (Er ist Lehrer.)',
-                    typ: 'text',
-                    antwort: 'он',
-                    hinweis: 'Nominativ Singular, maskulin'
-                },
-                {
-                    frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> ученица. (Sie ist Schülerin.)',
-                    typ: 'text',
-                    antwort: 'она',
-                    hinweis: 'Nominativ Singular, feminin'
-                },
-                {
-                    frage: 'Konjugiere <span class="russisch">делать</span> (machen) in der 1. Person Singular:',
-                    typ: 'text',
-                    antwort: 'делаю',
-                    hinweis: 'e-Konjugation, Endung -ю'
-                },
-                {
-                    frage: 'Konjugiere <span class="russisch">читать</span> (lesen) in der 2. Person Singular:',
-                    typ: 'text',
-                    antwort: 'читаешь',
-                    hinweis: 'e-Konjugation, Endung -ешь'
-                },
-                {
-                    frage: 'Konjugiere <span class="russisch">играть</span> (spielen) in der 3. Person Plural:',
-                    typ: 'text',
-                    antwort: 'играют',
-                    hinweis: 'e-Konjugation, Endung -ют'
-                },
-                {
-                    frage: 'Welcher Fall steht nach der Präposition <span class="russisch">у</span> ?',
-                    typ: 'choice',
-                    antwort: 'Genitiv',
-                    optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
-                    hinweis: 'Beispiel: у меня – bei mir'
-                },
-                {
-                    frage: 'Welcher Fall steht nach der Präposition <span class="russisch">к</span> ?',
-                    typ: 'choice',
-                    antwort: 'Dativ',
-                    optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
-                    hinweis: 'Beispiel: к другу – zu einem Freund'
-                },
-                {
-                    frage: 'Bilde den Genitiv Singular von <span class="russisch">стол</span> (Tisch):',
-                    typ: 'text',
-                    antwort: 'стола',
-                    hinweis: 'maskulin, Endung -а'
-                },
-                {
-                    frage: 'Bilde den Dativ Singular von <span class="russisch">книга</span> (Buch):',
-                    typ: 'text',
-                    antwort: 'книге',
-                    hinweis: 'feminin, Endung -е'
-                },
-                {
-                    frage: 'Übersetze: <span class="russisch">У меня есть собака.</span>',
-                    typ: 'text',
-                    antwort: 'Ich habe einen Hund.',
-                    hinweis: 'wörtlich: Bei mir ist ein Hund.'
-                },
-                {
-                    frage: 'Übersetze: <span class="russisch">Я помогаю другу.</span>',
-                    typ: 'text',
-                    antwort: 'Ich helfe einem Freund.',
-                    hinweis: 'Dativ nach помогать'
-                },
-                {
-                    frage: 'Setze das richtige Possessivpronomen ein: <span class="russisch">Это ___ книга.</span> (Das ist mein Buch.)',
-                    typ: 'text',
-                    antwort: 'моя',
-                    hinweis: 'книга ist feminin'
+                    id: 'beispiel_1',
+                    russisch: 'пример',
+                    deutsch: 'Beispiel',
+                    aussprache: '[prʲɪˈmʲer]',
+                    beispiel: 'Это пример.',
+                    kategorie: 'Урок 1',
+                    schwierigkeit: 1,
+                    kasten: 1
                 }
             ];
 
             // ============================================================
-            //  APP-LOGIK (angepasst)
+            //  GRAMMATIK-REFERENZ (unverändert – hier nur ein Auszug)
+            // ============================================================
+            const grammatikDaten = {
+                personalpronomen: {
+                    titel: 'Personalpronomen (Личные местоимения)',
+                    inhalt: `<p>Die Personalpronomen im Russischen – Singular und Plural:</p>
+                            <table>
+                                <tr><th>Person</th><th>Singular</th><th>Plural</th></tr>
+                                <tr><td>1.</td><td>я (ich)</td><td>мы (wir)</td></tr>
+                                <tr><td>2.</td><td>ты (du)</td><td>вы (ihr / Sie)</td></tr>
+                                <tr><td>3.</td><td>он (er), она (sie), оно (es)</td><td>они (sie)</td></tr>
+                            </table>
+                            <div class="beispiel-box">👤 Пример: <strong>Он</strong> учитель. <strong>Она</strong> ученица.</div>
+                            <p>Die 2. Person Plural <strong>вы</strong> wird auch als Höflichkeitsform verwendet.</p>`
+                },
+                verben_e_konjugation: {
+                    titel: 'Verben der e‑Konjugation (на -ать) – делать',
+                    inhalt: `<p>Die Verben auf <strong>-ать</strong> werden nach der e‑Konjugation gebeugt. Beispiel <strong>делать</strong> (machen):</p>
+                            <table>
+                                <tr><th>Person</th><th>делать</th></tr>
+                                <tr><td>я</td><td>делаю</td></tr>
+                                <tr><td>ты</td><td>делаешь</td></tr>
+                                <tr><td>он / она / оно</td><td>делает</td></tr>
+                                <tr><td>мы</td><td>делаем</td></tr>
+                                <tr><td>вы</td><td>делаете</td></tr>
+                                <tr><td>они</td><td>делают</td></tr>
+                            </table>
+                            <div class="beispiel-box">✏️ Пример: <strong>Я делаю уроки.</strong> (Ich mache Hausaufgaben.)</div>
+                            <p>Weitere Verben dieser Gruppe: <strong>чита́ть</strong> (lesen), <strong>игра́ть</strong> (spielen), <strong>ду́мать</strong> (denken).</p>`
+                },
+                zahlen: {
+                    titel: 'Grundzahlen 1–10 (Числительные)',
+                    inhalt: `<table>
+                                <tr><th>Zahl</th><th>Russisch</th><th>Zahl</th><th>Russisch</th></tr>
+                                <tr><td>1</td><td>один</td><td>6</td><td>шесть</td></tr>
+                                <tr><td>2</td><td>два</td><td>7</td><td>семь</td></tr>
+                                <tr><td>3</td><td>три</td><td>8</td><td>восемь</td></tr>
+                                <tr><td>4</td><td>четыре</td><td>9</td><td>девять</td></tr>
+                                <tr><td>5</td><td>пять</td><td>10</td><td>десять</td></tr>
+                            </table>
+                            <div class="merk-box">💡 100 = сто, 155 = сто пятьдесят пять</div>`
+                },
+                wochentage: {
+                    titel: 'Wochentage (Дни недели)',
+                    inhalt: `<table>
+                                <tr><th>Deutsch</th><th>Russisch</th></tr>
+                                <tr><td>Montag</td><td>понедельник</td></tr>
+                                <tr><td>Dienstag</td><td>вторник</td></tr>
+                                <tr><td>Mittwoch</td><td>среда</td></tr>
+                                <tr><td>Donnerstag</td><td>четверг</td></tr>
+                                <tr><td>Freitag</td><td>пятница</td></tr>
+                                <tr><td>Samstag</td><td>суббота</td></tr>
+                                <tr><td>Sonntag</td><td>воскресенье</td></tr>
+                            </table>
+                            <div class="beispiel-box">📅 Пример: <strong>В субботу</strong> мы идём в кино.</div>`
+                },
+                faelle: {
+                    titel: 'Fälle – падежи (Überblick)',
+                    inhalt: `<p>Im Russischen gibt es sechs Fälle. Sie zeigen die grammatische Funktion eines Nomens im Satz an.</p>
+                            <table>
+                                <tr><th>Fall</th><th>Frage</th><th>Beispiel</th></tr>
+                                <tr><td>Nominativ</td><td>wer? was?</td><td>стол (der Tisch)</td></tr>
+                                <tr><td>Genitiv</td><td>wessen?</td><td>стола (des Tisches)</td></tr>
+                                <tr><td>Dativ</td><td>wem?</td><td>столу (dem Tisch)</td></tr>
+                                <tr><td>Akkusativ</td><td>wen? was?</td><td>стол (den Tisch)</td></tr>
+                                <tr><td>Instrumental</td><td>womit?</td><td>столом (mit dem Tisch)</td></tr>
+                                <tr><td>Präpositiv</td><td>über wen? über was?</td><td>о столе (über den Tisch)</td></tr>
+                            </table>
+                            <div class="merk-box">📌 Die Endungen hängen von Geschlecht und Deklination ab.</div>`
+                },
+                alphabet: {
+                    titel: 'Алфавит – Alphabet (Кириллица)',
+                    inhalt: `<p>Das russische Alphabet hat 33 Buchstaben.</p>
+                            <table>
+                                <tr><th>Buchstabe</th><th>Aussprache</th><th>Beispiel</th></tr>
+                                <tr><td>А а</td><td>[a]</td><td>мама</td></tr>
+                                <tr><td>Б б</td><td>[b]</td><td>баба</td></tr>
+                                <tr><td>В в</td><td>[v]</td><td>вода</td></tr>
+                                <tr><td>Г г</td><td>[g]</td><td>год</td></tr>
+                                <tr><td>Д д</td><td>[d]</td><td>дом</td></tr>
+                                <tr><td>Е е</td><td>[je]</td><td>есть</td></tr>
+                                <tr><td>Ё ё</td><td>[jo]</td><td>ёж</td></tr>
+                                <tr><td>Ж ж</td><td>[ʒ]</td><td>жизнь</td></tr>
+                                <tr><td>З з</td><td>[z]</td><td>зима</td></tr>
+                                <tr><td>И и</td><td>[i]</td><td>или</td></tr>
+                                <tr><td>Й й</td><td>[j]</td><td>йогурт</td></tr>
+                                <tr><td>К к</td><td>[k]</td><td>кот</td></tr>
+                                <tr><td>Л л</td><td>[l]</td><td>луна</td></tr>
+                                <tr><td>М м</td><td>[m]</td><td>мама</td></tr>
+                                <tr><td>Н н</td><td>[n]</td><td>нота</td></tr>
+                                <tr><td>О о</td><td>[o]</td><td>окно</td></tr>
+                                <tr><td>П п</td><td>[p]</td><td>папа</td></tr>
+                                <tr><td>Р р</td><td>[r]</td><td>река</td></tr>
+                                <tr><td>С с</td><td>[s]</td><td>сок</td></tr>
+                                <tr><td>Т т</td><td>[t]</td><td>том</td></tr>
+                                <tr><td>У у</td><td>[u]</td><td>утка</td></tr>
+                                <tr><td>Ф ф</td><td>[f]</td><td>факт</td></tr>
+                                <tr><td>Х х</td><td>[x]</td><td>хлеб</td></tr>
+                                <tr><td>Ц ц</td><td>[ts]</td><td>цвет</td></tr>
+                                <tr><td>Ч ч</td><td>[tʃ]</td><td>час</td></tr>
+                                <tr><td>Ш ш</td><td>[ʃ]</td><td>шум</td></tr>
+                                <tr><td>Щ щ</td><td>[ʃtʃ]</td><td>щи</td></tr>
+                                <tr><td>Ъ ъ</td><td>hartes Zeichen</td><td>объезд</td></tr>
+                                <tr><td>Ы ы</td><td>[ɨ]</td><td>мы</td></tr>
+                                <tr><td>Ь ь</td><td>weiches Zeichen</td><td>конь</td></tr>
+                                <tr><td>Э э</td><td>[e]</td><td>это</td></tr>
+                                <tr><td>Ю ю</td><td>[ju]</td><td>юг</td></tr>
+                                <tr><td>Я я</td><td>[ja]</td><td>яблоко</td></tr>
+                            </table>`
+                },
+                aussprache: {
+                    titel: 'Aussprache – произношение',
+                    inhalt: `<p>Wichtige Ausspracheregeln:</p>
+                            <ul>
+                                <li><strong>Reduktion</strong>: Unbetonte Vokale werden schwächer (о → а, е → и).</li>
+                                <li><strong>Palatalisierung</strong>: Konsonanten werden weich, wenn ein мыгкий знак (ь) oder bestimmte Vokale folgen.</li>
+                                <li><strong>Stimmhaftigkeit</strong>: Stimmhafte Konsonanten werden am Wortende stimmlos (z.B. год → [got]).</li>
+                            </ul>
+                            <div class="beispiel-box">🔊 Beispiel: <strong>молоко</strong> wird [malaˈko] ausgesprochen.</div>`
+                },
+                wiedergabe_haben: {
+                    titel: 'Die Wiedergabe von „haben“ (§ 20)',
+                    inhalt: `<p>Besitz wird mit <strong>у + Genitiv + есть</strong> ausgedrückt:</p>
+                            <table>
+                                <tr><th>Russisch</th><th>Deutsch</th></tr>
+                                <tr><td>у меня (есть)</td><td>ich habe</td></tr>
+                                <tr><td>у тебя (есть)</td><td>du hast</td></tr>
+                            </table>
+                            <div class="merk-box">📌 Formel: <strong>у</strong> + Besitzer (Genitiv) + <strong>есть</strong> + Besitz (Nominativ)</div>
+                            <div class="beispiel-box">👤 Пример: <strong>У тебя есть собака?</strong> – Да, есть.</div>`
+                },
+                possessivpronomen: {
+                    titel: 'Possessivpronomen (§ 20)',
+                    inhalt: `<p>Die Possessivpronomen <strong>мой</strong> (mein) und <strong>твой</strong> (dein) richten sich nach dem Geschlecht des Nomens:</p>
+                            <table>
+                                <tr><th></th><th>m.</th><th>n.</th><th>f.</th></tr>
+                                <tr><td>mein</td><td>мой</td><td>моё</td><td>моя</td></tr>
+                                <tr><td>dein</td><td>твой</td><td>твоё</td><td>твоя</td></tr>
+                            </table>
+                            <div class="beispiel-box">✏️ Пример: <strong>Это твой учебник?</strong> Это не мой карандаш.</div>`
+                },
+                dativ_substantive: {
+                    titel: 'Der Dativ der Substantive (§ 21)',
+                    inhalt: `<p>Der Dativ steht mit oder ohne die Präposition <strong>к</strong> (zu):</p>
+                            <table>
+                                <tr><th></th><th>m.</th><th>f.</th></tr>
+                                <tr><td>ohne к</td><td>Я помогаю Максу.</td><td>Я помогаю Ире.</td></tr>
+                                <tr><td>mit к</td><td>Я иду к Максу.</td><td>Я иду к Ире.</td></tr>
+                            </table>
+                            <div class="beispiel-box">➡️ Пример: <strong>Я иду к окну.</strong> (Ich gehe zum Fenster.)</div>`
+                }
+            };
+
+            // ============================================================
+            //  GRAMMATIK-ÜBUNGEN
+            // ============================================================
+            const grammatikUebungen = [
+                { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> учитель. (Er ist Lehrer.)',
+                    typ: 'text', antwort: 'он', hinweis: 'Nominativ Singular, maskulin' },
+                { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> ученица. (Sie ist Schülerin.)',
+                    typ: 'text', antwort: 'она', hinweis: 'Nominativ Singular, feminin' },
+                { frage: 'Konjugiere <span class="russisch">делать</span> (machen) in der 1. Person Singular:',
+                    typ: 'text', antwort: 'делаю', hinweis: 'e‑Konjugation, Endung -ю' },
+                { frage: 'Konjugiere <span class="russisch">читать</span> (lesen) in der 2. Person Singular:',
+                    typ: 'text', antwort: 'читаешь', hinweis: 'e‑Konjugation, Endung -ешь' },
+                { frage: 'Konjugiere <span class="russisch">играть</span> (spielen) in der 3. Person Plural:',
+                    typ: 'text', antwort: 'играют', hinweis: 'e‑Konjugation, Endung -ют' },
+                { frage: 'Welcher Fall steht nach der Präposition <span class="russisch">у</span> ?', typ: 'choice',
+                    antwort: 'Genitiv', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
+                hinweis: 'Beispiel: у меня – bei mir' },
+                { frage: 'Welcher Fall steht nach der Präposition <span class="russisch">к</span> ?', typ: 'choice',
+                    antwort: 'Dativ', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'],
+                hinweis: 'Beispiel: к другу – zu einem Freund' },
+                { frage: 'Bilde den Genitiv Singular von <span class="russisch">стол</span> (Tisch):', typ: 'text',
+                    antwort: 'стола', hinweis: 'maskulin, Endung -а' },
+                { frage: 'Bilde den Dativ Singular von <span class="russisch">книга</span> (Buch):', typ: 'text',
+                    antwort: 'книге', hinweis: 'feminin, Endung -е' },
+                { frage: 'Übersetze: <span class="russisch">У меня есть собака.</span>', typ: 'text',
+                    antwort: 'Ich habe einen Hund.', hinweis: 'wörtlich: Bei mir ist ein Hund.' },
+                { frage: 'Übersetze: <span class="russisch">Я помогаю другу.</span>', typ: 'text',
+                    antwort: 'Ich helfe einem Freund.', hinweis: 'Dativ nach помогать' },
+                { frage: 'Setze das richtige Possessivpronomen ein: <span class="russisch">Это ___ книга.</span> (Das ist mein Buch.)',
+                    typ: 'text', antwort: 'моя', hinweis: 'книга ist feminin' }
+            ];
+
+            // ============================================================
+            //  APP-LOGIK
             // ============================================================
             let vokabeln = [];
             let stats = {
@@ -1136,7 +1221,6 @@
             };
             let aktuellerGrammatikKapitel = 'personalpronomen';
 
-            // --- Übungs-Status ---
             let uebungStatus = {
                 index: 0,
                 richtig: 0,
@@ -1145,6 +1229,18 @@
                 gestartet: false
             };
 
+            // --- Hilfsfunktionen ---
+            function generateId() {
+                return Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+            }
+
+            function heute() {
+                return new Date().toISOString().slice(0, 10);
+            }
+
+            function kastenName(k) { return 'Kasten ' + k; }
+
+            // --- localStorage ---
             function speichern() {
                 try {
                     localStorage.setItem('russischVokabeln', JSON.stringify(vokabeln));
@@ -1168,17 +1264,7 @@
                 if (!stats.lernHistorie) stats.lernHistorie = {};
             }
 
-            function generateId() {
-                return Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-            }
-
-            function heute() {
-                return new Date().toISOString().slice(0, 10);
-            }
-
-            function kastenName(k) { return 'Kasten ' + k; }
-
-            // DOM-Refs (wie gehabt, plus neue)
+            // --- DOM-Referenzen ---
             const $ = (sel) => document.querySelector(sel);
             const $$ = (sel) => document.querySelectorAll(sel);
 
@@ -1190,7 +1276,59 @@
                 statistiken: $('#tabStatistiken'),
                 einstellungen: $('#tabEinstellungen')
             };
-            // ... alle anderen Ref's (hier aus Platzgründen nur die neuen)
+            const vokabelListe = $('#vokabelListe');
+            const kastenUebersicht = $('#kastenUebersicht');
+            const vokabelSuche = $('#vokabelSuche');
+            const kategorieFilter = $('#kategorieFilter');
+            const sortierung = $('#sortierung');
+            const neueVokabelBtn = $('#neueVokabelBtn');
+            const lernmodusStartenBtn = $('#lernmodusStartenBtn');
+            const toggleListeBtn = $('#toggleListeBtn');
+            const exportBtn = $('#exportBtn');
+            const importBtn = $('#importBtn');
+            const importFileInput = $('#importFileInput');
+            const editorModal = $('#editorModal');
+            const editorTitel = $('#editorTitel');
+            const editRussisch = $('#editRussisch');
+            const editDeutsch = $('#editDeutsch');
+            const editAussprache = $('#editAussprache');
+            const editBeispiel = $('#editBeispiel');
+            const editKategorie = $('#editKategorie');
+            const editSchwierigkeit = $('#editSchwierigkeit');
+            const editId = $('#editId');
+            const editorSpeichern = $('#editorSpeichern');
+            const editorAbbrechen = $('#editorAbbrechen');
+            const editorLoeschen = $('#editorLoeschen');
+
+            const lernOverlay = $('#lernOverlay');
+            const lernKastenInfo = $('#lernKastenInfo');
+            const lernZaehler = $('#lernZaehler');
+            const lernFortschritt = $('#lernFortschritt');
+            const lernKarteInner = $('#lernKarteInner');
+            const lernRussisch = $('#lernRussisch');
+            const lernAussprache = $('#lernAussprache');
+            const lernDeutsch = $('#lernDeutsch');
+            const lernBeispiel = $('#lernBeispiel');
+            const lernGewusst = $('#lernGewusst');
+            const lernNichtGewusst = $('#lernNichtGewusst');
+            const lernBeenden = $('#lernBeenden');
+
+            const grammatikToc = $('#grammatikToc');
+            const grammatikSeite = $('#grammatikSeite');
+
+            const statsGrid = $('#statsGrid');
+            const statsDiagramm = $('#statsDiagramm');
+            const resetStatsBtn = $('#resetStatsBtn');
+
+            const papierRadios = document.querySelectorAll('input[name="papier"]');
+            const schriftgroesse = $('#schriftgroesse');
+            const schriftgroesseAnzeige = $('#schriftgroesseAnzeige');
+            const darkModeToggle = $('#darkModeToggle');
+            const animationenToggle = $('#animationenToggle');
+            const backupErstellenBtn = $('#backupErstellenBtn');
+            const backupLadenBtn = $('#backupLadenBtn');
+            const backupFileInput = $('#backupFileInput');
+
             const uebungContainer = $('#uebungContainer');
             const uebungZaehler = $('#uebungZaehler');
             const uebungPunkte = $('#uebungPunkte');
@@ -1206,12 +1344,416 @@
             const uebungErgebnisGesamt = $('#uebungErgebnisGesamt');
             const uebungErgebnisProzent = $('#uebungErgebnisProzent');
             const uebungErgebnisWiederholen = $('#uebungErgebnisWiederholen');
+            const exportLektionenBtn = $('#exportLektionenBtn');
 
-            // --- Render-Funktionen für Übungen ---
+            // --- Render-Funktionen ---
+            function renderKastenUebersicht() {
+                const zaehler = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+                vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) zaehler[v.kasten]++; });
+                let html = '';
+                for (let i = 1; i <= 6; i++) {
+                    html +=
+                        `<div class="kasten-box"><div class="nummer">Kasten ${i}</div><div class="anzahl">${zaehler[i]} Karten</div></div>`;
+                }
+                kastenUebersicht.innerHTML = html;
+            }
+
+            function renderKategorieFilter() {
+                const kats = new Set();
+                vokabeln.forEach(v => { if (v.kategorie) kats.add(v.kategorie); });
+                const current = kategorieFilter.value;
+                kategorieFilter.innerHTML = '<option value="">Alle Lektionen</option>';
+                kats.forEach(k => {
+                    const opt = document.createElement('option');
+                    opt.value = k;
+                    opt.textContent = k;
+                    kategorieFilter.appendChild(opt);
+                });
+                kategorieFilter.value = current;
+            }
+
+            function renderVokabelListe(filterText = '', filterKat = '', sort = 'alphabetisch') {
+                let liste = [...vokabeln];
+                if (filterText.trim()) {
+                    const t = filterText.trim().toLowerCase();
+                    liste = liste.filter(v => v.russisch.toLowerCase().includes(t) || v.deutsch.toLowerCase().includes(t) || (
+                        v.kategorie && v.kategorie.toLowerCase().includes(t)));
+                }
+                if (filterKat) {
+                    liste = liste.filter(v => v.kategorie === filterKat);
+                }
+                if (sort === 'alphabetisch') {
+                    liste.sort((a, b) => a.russisch.localeCompare(b.russisch));
+                } else if (sort === 'kasten') {
+                    liste.sort((a, b) => a.kasten - b.kasten || a.russisch.localeCompare(b.russisch));
+                } else if (sort === 'datum') {
+                    liste.sort((a, b) => (b.erstelltAm || 0) - (a.erstelltAm || 0));
+                }
+                if (liste.length === 0) {
+                    vokabelListe.innerHTML =
+                        '<div style="padding:30px;text-align:center;color:#8a857b;">Keine Vokabeln gefunden.</div>';
+                    return;
+                }
+                let html = '';
+                liste.forEach(v => {
+                    const stern = v.liebling ? '⭐' : '☆';
+                    const schwer = v.schwierigMarkiert ? '⚠️' : '';
+                    html += `
+                    <div class="eintrag" data-id="${v.id}">
+                        <span class="wort">${v.russisch}</span>
+                        <span class="uebersetzung">${v.deutsch}</span>
+                        <span class="kategorie">${v.kategorie || 'keine'}</span>
+                        <span class="kasten-badge">${kastenName(v.kasten)}</span>
+                        <span style="font-size:0.9rem;">${stern} ${schwer}</span>
+                        <div class="aktionen">
+                            <button class="editBtn" data-id="${v.id}">✏️</button>
+                            <button class="delBtn" data-id="${v.id}">🗑</button>
+                            <button class="toggleLiebling" data-id="${v.id}">${v.liebling ? '⭐' : '☆'}</button>
+                            <button class="toggleSchwer" data-id="${v.id}">${v.schwierigMarkiert ? '⚠️' : '○'}</button>
+                        </div>
+                    </div>
+                    `;
+                });
+                vokabelListe.innerHTML = html;
+                vokabelListe.querySelectorAll('.editBtn').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        const vok = vokabeln.find(v => v.id === id);
+                        if (vok) openEditor(vok);
+                    });
+                });
+                vokabelListe.querySelectorAll('.delBtn').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        if (confirm('Vokabel wirklich löschen?')) {
+                            vokabeln = vokabeln.filter(v => v.id !== id);
+                            speichern();
+                            renderAll();
+                        }
+                    });
+                });
+                vokabelListe.querySelectorAll('.toggleLiebling').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        const vok = vokabeln.find(v => v.id === id);
+                        if (vok) { vok.liebling = !vok.liebling;
+                            speichern();
+                            renderAll(); }
+                    });
+                });
+                vokabelListe.querySelectorAll('.toggleSchwer').forEach(b => {
+                    b.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = b.dataset.id;
+                        const vok = vokabeln.find(v => v.id === id);
+                        if (vok) { vok.schwierigMarkiert = !vok.schwierigMarkiert;
+                            speichern();
+                            renderAll(); }
+                    });
+                });
+            }
+
+            function renderStats() {
+                const total = vokabeln.length;
+                const heuteStr = heute();
+                const heuteGelernt = stats.lernHistorie[heuteStr] || 0;
+                const erfolge = vokabeln.filter(v => v.kasten >= 6).length;
+                const quote = total > 0 ? Math.round((erfolge / total) * 100) : 0;
+                const kastenZ = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+                vokabeln.forEach(v => { if (v.kasten >= 1 && v.kasten <= 6) kastenZ[v.kasten]++; });
+                let kastenText = '';
+                for (let i = 1; i <= 6; i++) {
+                    kastenText += `K${i}: ${kastenZ[i]} `;
+                }
+                statsGrid.innerHTML = `
+                    <div class="stats-card"><div class="zahl">${total}</div><div class="label">Gesamt</div></div>
+                    <div class="stats-card"><div class="zahl">${heuteGelernt}</div><div class="label">Heute gelernt</div></div>
+                    <div class="stats-card"><div class="zahl">${quote}%</div><div class="label">Erfolgsquote (Kasten 6)</div></div>
+                    <div class="stats-card"><div class="zahl">${stats.streak || 0}</div><div class="label">Streak (Tage)</div></div>
+                    <div class="stats-card"><div class="zahl">${stats.xp || 0}</div><div class="label">XP</div></div>
+                    <div class="stats-card"><div class="zahl">${stats.level || 1}</div><div class="label">Level</div></div>
+                    <div class="stats-card" style="grid-column: span 2;"><div class="zahl" style="font-size:1rem;">${kastenText}</div><div class="label">Verteilung</div></div>
+                `;
+            }
+
+            function renderDiagramm() {
+                const canvas = statsDiagramm;
+                const ctx = canvas.getContext('2d');
+                const width = canvas.parentElement.clientWidth - 40;
+                const height = 180;
+                canvas.width = width * window.devicePixelRatio;
+                canvas.height = height * window.devicePixelRatio;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+                const daten = [];
+                const today = new Date();
+                for (let i = 29; i >= 0; i--) {
+                    const d = new Date(today);
+                    d.setDate(d.getDate() - i);
+                    const key = d.toISOString().slice(0, 10);
+                    const val = stats.lernHistorie[key] || 0;
+                    daten.push({ tag: key, wert: val });
+                }
+                const max = Math.max(1, ...daten.map(d => d.wert));
+                const padding = { top: 10, bottom: 20, left: 20, right: 10 };
+                const chartWidth = width - padding.left - padding.right;
+                const chartHeight = height - padding.top - padding.bottom;
+                const barWidth = Math.min(chartWidth / 30, 16);
+
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = '#fcf9f3';
+                ctx.fillRect(0, 0, width, height);
+                ctx.strokeStyle = '#D8D4CC';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, padding.top);
+                ctx.lineTo(padding.left, padding.top + chartHeight);
+                ctx.lineTo(padding.left + chartWidth, padding.top + chartHeight);
+                ctx.stroke();
+
+                daten.forEach((d, i) => {
+                    const x = padding.left + (i / daten.length) * chartWidth;
+                    const barH = (d.wert / max) * chartHeight;
+                    const y = padding.top + chartHeight - barH;
+                    ctx.fillStyle = '#4D83FF';
+                    ctx.fillRect(x - barWidth / 2, y, barWidth, barH);
+                    if (i % 3 === 0) {
+                        ctx.fillStyle = '#8a857b';
+                        ctx.font = '8px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(d.tag.slice(5), x, padding.top + chartHeight + 14);
+                    }
+                });
+                daten.forEach((d, i) => {
+                    if (d.wert > 0) {
+                        const x = padding.left + (i / daten.length) * chartWidth;
+                        const barH = (d.wert / max) * chartHeight;
+                        const y = padding.top + chartHeight - barH - 4;
+                        ctx.fillStyle = '#2C2C2C';
+                        ctx.font = '8px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(d.wert, x, y);
+                    }
+                });
+            }
+
+            function renderAll() {
+                renderKastenUebersicht();
+                renderKategorieFilter();
+                const filterText = vokabelSuche.value;
+                const filterKat = kategorieFilter.value;
+                const sort = sortierung.value;
+                renderVokabelListe(filterText, filterKat, sort);
+                renderStats();
+                renderDiagramm();
+                schriftgroesse.value = einstellungen.schriftgroesse;
+                schriftgroesseAnzeige.textContent = einstellungen.schriftgroesse + 'px';
+                darkModeToggle.checked = einstellungen.darkMode;
+                animationenToggle.checked = einstellungen.animationen;
+                document.body.classList.toggle('dark', einstellungen.darkMode);
+                document.querySelectorAll('input[name="papier"]').forEach(r => {
+                    r.checked = (r.value === einstellungen.papierStil);
+                });
+                const papier = document.getElementById('papierStil');
+                papier.className = 'papier ' + einstellungen.papierStil;
+                document.querySelectorAll('.notizblock, .papier, input, select, textarea, button, .btn').forEach(el => {
+                    el.style.fontSize = einstellungen.schriftgroesse + 'px';
+                });
+                document.querySelectorAll('.karte-lern-inner, .tab-content, .btn').forEach(el => {
+                    if (einstellungen.animationen) {
+                        el.style.transition = '';
+                    } else {
+                        el.style.transition = 'none !important';
+                    }
+                });
+            }
+
+            // --- Editor ---
+            function openEditor(vok = null) {
+                if (vok) {
+                    editorTitel.textContent = 'Vokabel bearbeiten';
+                    editId.value = vok.id;
+                    editRussisch.value = vok.russisch || '';
+                    editDeutsch.value = vok.deutsch || '';
+                    editAussprache.value = vok.aussprache || '';
+                    editBeispiel.value = vok.beispiel || '';
+                    editKategorie.value = vok.kategorie || '';
+                    editSchwierigkeit.value = vok.schwierigkeit || 3;
+                    editorLoeschen.style.display = 'inline-block';
+                } else {
+                    editorTitel.textContent = 'Neue Vokabel';
+                    editId.value = '';
+                    editRussisch.value = '';
+                    editDeutsch.value = '';
+                    editAussprache.value = '';
+                    editBeispiel.value = '';
+                    editKategorie.value = '';
+                    editSchwierigkeit.value = 3;
+                    editorLoeschen.style.display = 'none';
+                }
+                editorModal.style.display = 'flex';
+                editRussisch.focus();
+            }
+
+            function closeEditor() { editorModal.style.display = 'none'; }
+
+            function saveEditor() {
+                const id = editId.value;
+                const russisch = editRussisch.value.trim();
+                const deutsch = editDeutsch.value.trim();
+                if (!russisch || !deutsch) { alert('Bitte Russisch und Deutsch ausfüllen.'); return; }
+                const aussprache = editAussprache.value.trim();
+                const beispiel = editBeispiel.value.trim();
+                const kategorie = editKategorie.value.trim();
+                const schwierigkeit = parseInt(editSchwierigkeit.value) || 3;
+                if (id) {
+                    const vok = vokabeln.find(v => v.id === id);
+                    if (vok) {
+                        vok.russisch = russisch;
+                        vok.deutsch = deutsch;
+                        vok.aussprache = aussprache;
+                        vok.beispiel = beispiel;
+                        vok.kategorie = kategorie;
+                        vok.schwierigkeit = schwierigkeit;
+                    }
+                } else {
+                    const neu = {
+                        id: generateId(),
+                        russisch,
+                        deutsch,
+                        aussprache,
+                        beispiel,
+                        kategorie,
+                        schwierigkeit,
+                        kasten: 1,
+                        liebling: false,
+                        schwierigMarkiert: false,
+                        zuletztGelernt: null,
+                        erstelltAm: Date.now()
+                    };
+                    vokabeln.push(neu);
+                }
+                speichern();
+                closeEditor();
+                renderAll();
+            }
+
+            // --- Lernmodus ---
+            function startLernmodus(kasten = 1) {
+                let karten = vokabeln.filter(v => v.kasten === kasten);
+                if (karten.length === 0) {
+                    alert('In diesem Kasten sind keine Karten. Versuche einen anderen Kasten.');
+                    return;
+                }
+                karten = karten.sort(() => Math.random() - 0.5);
+                lernSession.aktiv = true;
+                lernSession.karten = karten;
+                lernSession.index = 0;
+                lernSession.kasten = kasten;
+                lernSession.startZeit = Date.now();
+                lernOverlay.classList.add('open');
+                lernKarteInner.classList.remove('gewendet');
+                zeigeLernKarte();
+            }
+
+            function zeigeLernKarte() {
+                const karten = lernSession.karten;
+                const idx = lernSession.index;
+                if (idx >= karten.length) {
+                    beendeLernmodus(true);
+                    return;
+                }
+                const vok = karten[idx];
+                lernRussisch.textContent = vok.russisch;
+                lernAussprache.textContent = vok.aussprache || '';
+                lernDeutsch.textContent = vok.deutsch;
+                lernBeispiel.textContent = vok.beispiel ? 'Beispiel: ' + vok.beispiel : '';
+                lernKastenInfo.textContent = 'Kasten ' + vok.kasten;
+                lernZaehler.textContent = (idx + 1) + ' / ' + karten.length;
+                lernFortschritt.style.width = ((idx / karten.length) * 100) + '%';
+                lernKarteInner.classList.remove('gewendet');
+            }
+
+            function beendeLernmodus(abgeschlossen = false) {
+                lernSession.aktiv = false;
+                lernOverlay.classList.remove('open');
+                if (abgeschlossen && lernSession.startZeit) {
+                    const dauer = Math.floor((Date.now() - lernSession.startZeit) / 1000);
+                    stats.lernzeitGesamt = (stats.lernzeitGesamt || 0) + dauer;
+                    const heuteStr = heute();
+                    stats.heuteGelernt = (stats.heuteGelernt || 0) + lernSession.karten.length;
+                    stats.lernHistorie[heuteStr] = (stats.lernHistorie[heuteStr] || 0) + lernSession.karten.length;
+                    stats.xp = (stats.xp || 0) + lernSession.karten.length * 10;
+                    stats.level = Math.floor((stats.xp || 0) / 100) + 1;
+                    const gestern = new Date();
+                    gestern.setDate(gestern.getDate() - 1);
+                    const gesternStr = gestern.toISOString().slice(0, 10);
+                    if (stats.lernHistorie[gesternStr] && stats.lernHistorie[gesternStr] > 0) {
+                        stats.streak = (stats.streak || 0) + 1;
+                    } else if (stats.lernHistorie[heuteStr] && stats.lernHistorie[heuteStr] > 0) {
+                        if (!stats.lernHistorie[gesternStr]) stats.streak = 1;
+                    } else {
+                        stats.streak = 0;
+                    }
+                    speichern();
+                    renderAll();
+                }
+                renderAll();
+            }
+
+            function lernAntwort(gewusst) {
+                if (!lernSession.aktiv) return;
+                const karten = lernSession.karten;
+                const idx = lernSession.index;
+                if (idx >= karten.length) return;
+                const vok = karten[idx];
+                if (gewusst) {
+                    if (vok.kasten < 6) vok.kasten++;
+                    vok.zuletztGelernt = Date.now();
+                } else {
+                    vok.kasten = 1;
+                    vok.zuletztGelernt = Date.now();
+                }
+                speichern();
+                lernSession.index++;
+                zeigeLernKarte();
+                renderAll();
+            }
+
+            // --- Grammatik ---
+            function renderGrammatikToc() {
+                const kapitel = Object.keys(grammatikDaten);
+                let html = '<ul>';
+                kapitel.forEach(key => {
+                    const aktiv = (key === aktuellerGrammatikKapitel) ? 'aktiv' : '';
+                    html += `<li class="${aktiv}" data-key="${key}">${grammatikDaten[key].titel}</li>`;
+                });
+                html += '</ul>';
+                grammatikToc.innerHTML = html;
+                grammatikToc.querySelectorAll('li').forEach(li => {
+                    li.addEventListener('click', () => {
+                        aktuellerGrammatikKapitel = li.dataset.key;
+                        renderGrammatikToc();
+                        renderGrammatikSeite();
+                    });
+                });
+            }
+
+            function renderGrammatikSeite() {
+                const data = grammatikDaten[aktuellerGrammatikKapitel];
+                if (!data) return;
+                grammatikSeite.innerHTML = `<h2>${data.titel}</h2>${data.inhalt}`;
+            }
+
+            // --- Übungen ---
             function renderUebung() {
                 const status = uebungStatus;
                 if (status.index >= status.total) {
-                    // Übung beendet
                     uebungErgebnis.style.display = 'block';
                     document.getElementById('uebungFrageContainer').style.display = 'none';
                     uebungErgebnisRichtig.textContent = status.richtig;
@@ -1233,7 +1775,6 @@
                 uebungFeedback.textContent = '';
                 uebungFeedback.className = 'uebung-feedback';
 
-                // Antwortfeld generieren
                 uebungAntwort.innerHTML = '';
                 status.beantwortet = false;
                 uebungPruefen.disabled = false;
@@ -1253,11 +1794,10 @@
                                 btn.classList.add('richtig');
                                 status.richtig++;
                                 uebungPunkte.textContent = `Punkte: ${status.richtig}`;
-                                zeigeFeedback(true, 'Richtig!');
+                                zeigeFeedbackUebung(true, 'Richtig!');
                             } else {
                                 btn.classList.add('falsch');
-                                zeigeFeedback(false, `Falsch. Richtig wäre: ${uebung.antwort}`);
-                                // Markiere die richtige Antwort
+                                zeigeFeedbackUebung(false, `Falsch. Richtig wäre: ${uebung.antwort}`);
                                 div.querySelectorAll('button').forEach(b => {
                                     if (b.dataset.wert === uebung.antwort) b.classList.add('richtig');
                                 });
@@ -1270,7 +1810,6 @@
                     });
                     uebungAntwort.appendChild(div);
                 } else {
-                    // Text-Eingabe
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.placeholder = 'Deine Antwort ...';
@@ -1282,16 +1821,14 @@
                         if (status.beantwortet) return;
                         const val = input.value.trim();
                         if (!val) return;
-                        // Normalisiere (Groß-/Kleinschreibung ignorieren, aber wichtig: bei russischen Wörtern exakt)
                         const korrekt = uebung.antwort.trim();
-                        // Einfacher Vergleich (kann später erweitert werden)
                         const istRichtig = (val.toLowerCase() === korrekt.toLowerCase());
                         if (istRichtig) {
                             status.richtig++;
                             uebungPunkte.textContent = `Punkte: ${status.richtig}`;
-                            zeigeFeedback(true, 'Richtig!');
+                            zeigeFeedbackUebung(true, 'Richtig!');
                         } else {
-                            zeigeFeedback(false, `Falsch. Richtig wäre: ${korrekt}`);
+                            zeigeFeedbackUebung(false, `Falsch. Richtig wäre: ${korrekt}`);
                         }
                         status.beantwortet = true;
                         uebungPruefen.disabled = true;
@@ -1299,13 +1836,10 @@
                     });
                     uebungAntwort.appendChild(input);
                     uebungAntwort.appendChild(btn);
-                    // Enter-Taste
                     input.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter') btn.click();
                     });
                 }
-
-                // Hinweis anzeigen
                 if (uebung.hinweis) {
                     const p = document.createElement('p');
                     p.style.fontSize = '0.9rem';
@@ -1315,40 +1849,115 @@
                 }
             }
 
-            function zeigeFeedback(richtig, text) {
+            function zeigeFeedbackUebung(richtig, text) {
                 uebungFeedback.style.display = 'block';
                 uebungFeedback.textContent = text;
                 uebungFeedback.className = 'uebung-feedback ' + (richtig ? 'richtig' : 'falsch');
             }
 
-            // --- Event-Handler für Übungen ---
-            uebungPruefen.addEventListener('click', () => {
-                // Wird bereits in den spezifischen Antwort-Buttons behandelt
-                // Dieser generische Aufruf ist nur für den Fall, dass jemand drauf klickt
-                // aber wir haben die Logik in den Antwort-Buttons.
-            });
+            // --- Externen Vokabeln laden ---
+            async function loadExternalVocabularies() {
+                const lektionen = [
+                    { datei: 'vokabeln/urok1.json', kategorie: 'Урок 1' },
+                    { datei: 'vokabeln/urok2.json', kategorie: 'Урок 2' },
+                    { datei: 'vokabeln/urok3.json', kategorie: 'Урок 3' },
+                    { datei: 'vokabeln/urok4.json', kategorie: 'Урок 4' },
+                    { datei: 'vokabeln/urok5.json', kategorie: 'Урок 5' },
+                    { datei: 'vokabeln/urok6.json', kategorie: 'Урок 6' }
+                ];
+                let alle = [];
+                let fehler = 0;
 
-            uebungNaechste.addEventListener('click', () => {
-                if (uebungNaechste.disabled) return;
-                uebungStatus.index++;
-                renderUebung();
-            });
+                for (const lektion of lektionen) {
+                    try {
+                        const response = await fetch(lektion.datei);
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        const data = await response.json();
+                        if (Array.isArray(data)) {
+                            // Stelle sicher, dass jedes Element eine kategorie hat
+                            const mitKategorie = data.map(v => ({ ...v, kategorie: v.kategorie || lektion.kategorie }));
+                            alle = alle.concat(mitKategorie);
+                        } else {
+                            fehler++;
+                        }
+                    } catch (e) {
+                        fehler++;
+                    }
+                }
 
-            uebungReset.addEventListener('click', () => {
-                uebungStatus.index = 0;
-                uebungStatus.richtig = 0;
-                uebungStatus.beantwortet = false;
-                renderUebung();
-            });
+                if (fehler === 0 && alle.length > 0) {
+                    // Alle Dateien erfolgreich geladen
+                    vokabeln = alle.map(v => ({ ...v, id: v.id || generateId() }));
+                    speichern();
+                    renderAll();
+                    console.log(`✅ ${vokabeln.length} Vokabeln aus externen JSON-Dateien geladen.`);
+                    return true;
+                } else {
+                    // Fallback: hartcodierte Vokabeln verwenden
+                    if (basisVokabeln.length > 0) {
+                        vokabeln = basisVokabeln.map(v => ({ ...v, id: v.id || generateId() }));
+                        speichern();
+                        renderAll();
+                        console.log(`⚠️ Externe JSON nicht vollständig geladen, verwende Fallback (${vokabeln.length} Vokabeln).`);
+                    }
+                    return false;
+                }
+            }
 
-            uebungErgebnisWiederholen.addEventListener('click', () => {
-                uebungStatus.index = 0;
-                uebungStatus.richtig = 0;
-                uebungStatus.beantwortet = false;
-                renderUebung();
-            });
+            // --- Export aller Lektionen als JSON ---
+            function exportiereLektionen() {
+                if (vokabeln.length === 0) {
+                    alert('Keine Vokabeln zum Exportieren vorhanden.');
+                    return;
+                }
 
-            // --- Tab-Wechsel (erweitert) ---
+                // Gruppiere nach Kategorie
+                const gruppen = {};
+                vokabeln.forEach(v => {
+                    const kat = v.kategorie || 'Unbekannt';
+                    if (!gruppen[kat]) gruppen[kat] = [];
+                    gruppen[kat].push(v);
+                });
+
+                // Für jede Kategorie eine JSON-Datei erstellen
+                const namen = {
+                    'Урок 1': 'urok1.json',
+                    'Урок 2': 'urok2.json',
+                    'Урок 3': 'urok3.json',
+                    'Урок 4': 'urok4.json',
+                    'Урок 5': 'urok5.json',
+                    'Урок 6': 'urok6.json'
+                };
+
+                let exportCount = 0;
+                for (const [kat, daten] of Object.entries(gruppen)) {
+                    // Normalisiere den Dateinamen
+                    let filename = namen[kat];
+                    if (!filename) {
+                        // Fallback: aus Kategorie einen Dateinamen generieren
+                        const num = kat.match(/\d+/);
+                        if (num) {
+                            filename = `urok${num[0]}.json`;
+                        } else {
+                            filename = `export_${kat.replace(/\s/g, '_')}.json`;
+                        }
+                    }
+                    const blob = new Blob([JSON.stringify(daten, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    exportCount++;
+                }
+
+                alert(`${exportCount} JSON-Datei(en) wurden heruntergeladen. Bitte lege sie im Ordner "vokabeln" ab.`);
+            }
+
+            // --- Event-Handler ---
             tabNav.addEventListener('click', (e) => {
                 const btn = e.target.closest('button');
                 if (!btn) return;
@@ -1367,38 +1976,248 @@
                     renderGrammatikSeite();
                 }
                 if (tab === 'uebungen') {
-                    // Initialisiere Übungen, falls noch nicht geschehen
                     if (!uebungStatus.gestartet) {
                         uebungStatus.gestartet = true;
                         renderUebung();
                     } else {
-                        renderUebung(); // aktualisieren
+                        renderUebung();
                     }
                 }
             });
 
-            // ... alle anderen Funktionen (Vokabeln, Lernmodus, Grammatik, Statistiken, Einstellungen) bleiben unverändert.
-            // Hier nur noch die wichtigsten, die bereits vorhanden sind – ich füge sie der Kürze halber nicht erneut ein.
-            // In der Praxis wird der gesamte Code aus der ursprünglichen Datei übernommen, abzüglich des Quiz-Teils, und um die Übungen ergänzt.
+            vokabelSuche.addEventListener('input', renderAll);
+            kategorieFilter.addEventListener('change', renderAll);
+            sortierung.addEventListener('change', renderAll);
+
+            neueVokabelBtn.addEventListener('click', () => openEditor(null));
+            editorAbbrechen.addEventListener('click', closeEditor);
+            editorSpeichern.addEventListener('click', saveEditor);
+            editorLoeschen.addEventListener('click', () => {
+                const id = editId.value;
+                if (id && confirm('Wirklich löschen?')) {
+                    vokabeln = vokabeln.filter(v => v.id !== id);
+                    speichern();
+                    closeEditor();
+                    renderAll();
+                }
+            });
+            document.querySelectorAll('#editorModal input').forEach(inp => {
+                inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') saveEditor(); });
+            });
+
+            lernmodusStartenBtn.addEventListener('click', () => {
+                const k = prompt('Welcher Kasten? (1-6, oder 0 für alle)', '1');
+                if (k === null) return;
+                let kasten = parseInt(k);
+                if (isNaN(kasten) || kasten < 0 || kasten > 6) { alert('Bitte 0-6 eingeben.'); return; }
+                if (kasten === 0) {
+                    const alle = vokabeln.filter(v => v.kasten >= 1 && v.kasten <= 6);
+                    if (alle.length === 0) { alert('Keine Karten vorhanden.'); return; }
+                    lernSession.karten = alle.sort(() => Math.random() - 0.5);
+                    lernSession.index = 0;
+                    lernSession.kasten = 0;
+                    lernSession.aktiv = true;
+                    lernSession.startZeit = Date.now();
+                    lernOverlay.classList.add('open');
+                    lernKastenInfo.textContent = 'Alle Kästen';
+                    zeigeLernKarte();
+                } else {
+                    startLernmodus(kasten);
+                }
+            });
+
+            let listeSichtbar = false;
+            toggleListeBtn.addEventListener('click', () => {
+                listeSichtbar = !listeSichtbar;
+                vokabelListe.classList.toggle('sichtbar', listeSichtbar);
+                toggleListeBtn.textContent = listeSichtbar ? 'Vokabeln ausblenden' : 'Vokabeln verwalten';
+            });
+
+            lernGewusst.addEventListener('click', () => lernAntwort(true));
+            lernNichtGewusst.addEventListener('click', () => lernAntwort(false));
+            lernBeenden.addEventListener('click', () => beendeLernmodus(false));
+
+            lernKarteInner.addEventListener('click', () => {
+                if (!lernSession.aktiv) return;
+                lernKarteInner.classList.toggle('gewendet');
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lernSession.aktiv) return;
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    lernKarteInner.classList.toggle('gewendet');
+                } else if (e.key === 'y' || e.key === 'Y') {
+                    lernAntwort(true);
+                } else if (e.key === 'n' || e.key === 'N') {
+                    lernAntwort(false);
+                } else if (e.key === 'Escape') {
+                    beendeLernmodus(false);
+                }
+            });
+
+            exportBtn.addEventListener('click', () => {
+                const data = { vokabeln, stats, einstellungen };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'russisch_lernen_backup_' + heute() + '.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+            importBtn.addEventListener('click', () => importFileInput.click());
+            importFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        try {
+                            const data = JSON.parse(ev.target.result);
+                            if (data.vokabeln && data.stats && data.einstellungen) {
+                                vokabeln = data.vokabeln;
+                                stats = data.stats;
+                                einstellungen = data.einstellungen;
+                                speichern();
+                                renderAll();
+                                alert('Import erfolgreich!');
+                            } else {
+                                alert('Ungültige Datei.');
+                            }
+                        } catch (err) { alert('Fehler beim Import: ' + err.message); }
+                    };
+                    reader.readAsText(e.target.files[0]);
+                    e.target.value = '';
+                }
+            });
+
+            resetStatsBtn.addEventListener('click', () => {
+                if (confirm('Statistiken zurücksetzen? (Vokabeln bleiben erhalten)')) {
+                    stats = { heuteGelernt: 0, streak: 0, xp: 0, level: 1, lernzeitGesamt: 0, lernHistorie: {} };
+                    speichern();
+                    renderAll();
+                }
+            });
+
+            papierRadios.forEach(r => {
+                r.addEventListener('change', () => {
+                    if (r.checked) {
+                        einstellungen.papierStil = r.value;
+                        speichern();
+                        renderAll();
+                    }
+                });
+            });
+
+            schriftgroesse.addEventListener('input', () => {
+                einstellungen.schriftgroesse = parseInt(schriftgroesse.value);
+                schriftgroesseAnzeige.textContent = einstellungen.schriftgroesse + 'px';
+                speichern();
+                renderAll();
+            });
+
+            darkModeToggle.addEventListener('change', () => {
+                einstellungen.darkMode = darkModeToggle.checked;
+                speichern();
+                renderAll();
+            });
+
+            animationenToggle.addEventListener('change', () => {
+                einstellungen.animationen = animationenToggle.checked;
+                speichern();
+                renderAll();
+            });
+
+            backupErstellenBtn.addEventListener('click', () => {
+                const data = { vokabeln, stats, einstellungen };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'russisch_backup_' + heute() + '.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+            backupLadenBtn.addEventListener('click', () => backupFileInput.click());
+            backupFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        try {
+                            const data = JSON.parse(ev.target.result);
+                            if (data.vokabeln && data.stats && data.einstellungen) {
+                                vokabeln = data.vokabeln;
+                                stats = data.stats;
+                                einstellungen = data.einstellungen;
+                                speichern();
+                                renderAll();
+                                alert('Backup geladen!');
+                            } else {
+                                alert('Ungültiges Backup.');
+                            }
+                        } catch (err) { alert('Fehler: ' + err.message); }
+                    };
+                    reader.readAsText(e.target.files[0]);
+                    e.target.value = '';
+                }
+            });
+
+            uebungPruefen.addEventListener('click', () => { /* wird in den Antwort-Buttons behandelt */ });
+            uebungNaechste.addEventListener('click', () => {
+                if (uebungNaechste.disabled) return;
+                uebungStatus.index++;
+                renderUebung();
+            });
+            uebungReset.addEventListener('click', () => {
+                uebungStatus.index = 0;
+                uebungStatus.richtig = 0;
+                uebungStatus.beantwortet = false;
+                renderUebung();
+            });
+            uebungErgebnisWiederholen.addEventListener('click', () => {
+                uebungStatus.index = 0;
+                uebungStatus.richtig = 0;
+                uebungStatus.beantwortet = false;
+                renderUebung();
+            });
+
+            exportLektionenBtn.addEventListener('click', exportiereLektionen);
+
+            window.addEventListener('resize', () => {
+                if (document.getElementById('tabStatistiken').classList.contains('active')) {
+                    renderDiagramm();
+                }
+            });
 
             // ============================================================
             //  INIT
             // ============================================================
-            laden();
-            // Stelle sicher, dass die Basisdaten geladen sind (hier nur als Platzhalter)
-            // In der echten Datei werden alle Vokabeln aus basisVokabeln geladen.
-            // Da wir die vollständige Liste hier nicht wiederholen, nehmen wir an, dass sie existiert.
-            // Für die Funktionalität der Übungen ist das nicht notwendig, da sie unabhängig sind.
-            renderAll();
-            renderGrammatikToc();
-            renderGrammatikSeite();
+            laden(); // lädt aus localStorage (falls vorhanden)
 
-            // Übungen beim ersten Aufruf initialisieren (wenn der Tab aktiv ist)
-            // aber wir warten bis der Benutzer den Tab öffnet.
+            // Wenn keine Vokabeln im localStorage, lade entweder extern oder Fallback
+            if (!vokabeln || vokabeln.length === 0) {
+                // Versuche externe JSON zu laden
+                loadExternalVocabularies().then(() => {
+                    // Nach dem Laden alles rendern
+                    renderAll();
+                    renderGrammatikToc();
+                    renderGrammatikSeite();
+                });
+            } else {
+                // Bereits vorhandene Vokabeln aus localStorage rendern
+                renderAll();
+                renderGrammatikToc();
+                renderGrammatikSeite();
+                // Im Hintergrund trotzdem versuchen, externe zu laden (um zu aktualisieren)
+                loadExternalVocabularies().then(() => {
+                    // Falls externe geladen wurden, wird renderAll bereits aufgerufen
+                });
+            }
 
-            console.log('Russisch lernen – mit Grammatik-Übungen (Quiz entfernt)');
+            console.log('✅ Russisch lernen – Vokabeln werden aus dem Ordner "vokabeln" geladen.');
+            console.log('ℹ️ Nutze den Export-Button in den Einstellungen, um deine Vokabeln als JSON-Dateien zu exportieren.');
         })();
     </script>
-
 </body>
 </html>

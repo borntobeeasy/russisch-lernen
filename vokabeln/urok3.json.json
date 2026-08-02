@@ -1,0 +1,632 @@
+[
+  {
+    "russisch": "коридор",
+    "deutsch": "Korridor, Flur",
+    "aussprache": "[kərʲɪˈdor]",
+    "beispiel": "Мы в коридоре.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "в",
+    "deutsch": "in, auf (Präposition)",
+    "aussprache": "[v]",
+    "beispiel": "в школе",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сегодня",
+    "deutsch": "heute",
+    "aussprache": "[sʲɪˈvodʲnʲə]",
+    "beispiel": "Сегодня урок.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "понедельник",
+    "deutsch": "Montag",
+    "aussprache": "[pənʲɪˈdʲelʲnʲɪk]",
+    "beispiel": "В понедельник.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "вторник",
+    "deutsch": "Dienstag",
+    "aussprache": "[ˈftornʲɪk]",
+    "beispiel": "Во вторник.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "среда",
+    "deutsch": "Mittwoch",
+    "aussprache": "[srʲɪˈda]",
+    "beispiel": "В среду.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "четверг",
+    "deutsch": "Donnerstag",
+    "aussprache": "[t͡ɕɪtˈvʲerk]",
+    "beispiel": "В четверг.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "пятница",
+    "deutsch": "Freitag",
+    "aussprache": "[ˈpʲætʲnʲɪt͡sə]",
+    "beispiel": "В пятницу.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "суббота",
+    "deutsch": "Samstag",
+    "aussprache": "[sʊˈbotə]",
+    "beispiel": "В субботу.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "воскресенье",
+    "deutsch": "Sonntag",
+    "aussprache": "[vəskrʲɪˈsʲenʲjə]",
+    "beispiel": "В воскресенье.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "стоять",
+    "deutsch": "stehen",
+    "aussprache": "[stɐˈjætʲ]",
+    "beispiel": "Я стою.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "говорить",
+    "deutsch": "sprechen, sagen",
+    "aussprache": "[ɡəvɐˈrʲitʲ]",
+    "beispiel": "Они говорят по-русски.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "о",
+    "deutsch": "über, von (Präposition)",
+    "aussprache": "[o]",
+    "beispiel": "Они говорят о Москве.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "идти",
+    "deutsch": "gehen (zu Fuß)",
+    "aussprache": "[ɪˈtʲi]",
+    "beispiel": "Я иду в школу.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "отдыхать",
+    "deutsch": "sich erholen, ausruhen",
+    "aussprache": "[ɐtdɨˈxatʲ]",
+    "beispiel": "Они отдыхают дома.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "но",
+    "deutsch": "aber, jedoch",
+    "aussprache": "[no]",
+    "beispiel": "Я устал, но я работаю.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "информатика",
+    "deutsch": "Informatik",
+    "aussprache": "[ɪnfɐrˈmatʲɪkə]",
+    "beispiel": "Мы изучаем информатику.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ученик",
+    "deutsch": "Schüler",
+    "aussprache": "[ʊt͡ɕɪˈnʲik]",
+    "beispiel": "Он ученик.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ученица",
+    "deutsch": "Schülerin",
+    "aussprache": "[ʊt͡ɕɪˈnʲit͡sə]",
+    "beispiel": "Она ученица.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "изучать",
+    "deutsch": "lernen, studieren",
+    "aussprache": "[ɪzʊˈt͡ɕætʲ]",
+    "beispiel": "Мы изучаем русский язык.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "реферат",
+    "deutsch": "Referat",
+    "aussprache": "[rʲɪfʲɪˈrat]",
+    "beispiel": "Он делает реферат.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "по-русски",
+    "deutsch": "auf Russisch",
+    "aussprache": "[pɐ‿ˈruskʲɪ]",
+    "beispiel": "Они говорят по-русски.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "по-немецки",
+    "deutsch": "auf Deutsch",
+    "aussprache": "[pə‿nʲɪˈmʲet͡skʲɪ]",
+    "beispiel": "Они говорят по-немецки.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "только",
+    "deutsch": "nur",
+    "aussprache": "[ˈtolkə]",
+    "beispiel": "Я только смотрю.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "смотреть",
+    "deutsch": "anschauen, schauen",
+    "aussprache": "[smɐˈtrʲetʲ]",
+    "beispiel": "Мы смотрим фильм.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "правда",
+    "deutsch": "richtig",
+    "aussprache": "[ˈpravdə]",
+    "beispiel": "Это правда.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "неправда",
+    "deutsch": "nicht richtig, falsch",
+    "aussprache": "[nʲɪˈpravdə]",
+    "beispiel": "Это неправда.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "мой",
+    "deutsch": "mein (mask.)",
+    "aussprache": "[moj]",
+    "beispiel": "Это мой друг.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "вечером",
+    "deutsch": "abends, am Abend",
+    "aussprache": "[ˈvʲet͡ɕɪrəm]",
+    "beispiel": "Вечером я дома.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "играть",
+    "deutsch": "spielen",
+    "aussprache": "[ɪˈɡratʲ]",
+    "beispiel": "Я играю в футбол.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "музей",
+    "deutsch": "Museum",
+    "aussprache": "[mʊˈzʲej]",
+    "beispiel": "Мы в музее.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "о ком",
+    "deutsch": "über wen",
+    "aussprache": "[o kom]",
+    "beispiel": "О ком они говорят?",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "о чём",
+    "deutsch": "über was",
+    "aussprache": "[o t͡ɕom]",
+    "beispiel": "О чём ты говоришь?",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "думать",
+    "deutsch": "denken",
+    "aussprache": "[ˈdumətʲ]",
+    "beispiel": "Я думаю о тебе.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "стихи",
+    "deutsch": "Gedichte",
+    "aussprache": "[sʲtʲɪˈxʲi]",
+    "beispiel": "Он пишет стихи.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "Ура!",
+    "deutsch": "Hurra!",
+    "aussprache": "[ʊˈra]",
+    "beispiel": "Ура! Я выиграл!",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "разговор",
+    "deutsch": "Gespräch, Telefongespräch",
+    "aussprache": "[rəzɡɐˈvor]",
+    "beispiel": "У нас разговор.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "говорить по телефону",
+    "deutsch": "telefonieren",
+    "aussprache": "",
+    "beispiel": "Я говорю по телефону.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "тренер",
+    "deutsch": "Trainer",
+    "aussprache": "[ˈtrʲenʲɪr]",
+    "beispiel": "Он тренер.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "значит",
+    "deutsch": "das bedeutet, das heißt",
+    "aussprache": "[ˈznaʂɪt]",
+    "beispiel": "Это значит...",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "потом",
+    "deutsch": "dann, danach",
+    "aussprache": "[pɐˈtom]",
+    "beispiel": "А потом я иду домой.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "тренировка",
+    "deutsch": "Training",
+    "aussprache": "[trʲɪnʲɪˈrofkə]",
+    "beispiel": "У меня тренировка.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "жаль",
+    "deutsch": "schade",
+    "aussprache": "[ʐalʲ]",
+    "beispiel": "Как жаль!",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "окно",
+    "deutsch": "Fenster",
+    "aussprache": "[ɐkˈno]",
+    "beispiel": "Окно открыто.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ужас",
+    "deutsch": "entsetzlich, schrecklich",
+    "aussprache": "[ˈuʐəs]",
+    "beispiel": "Это ужас!",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "всегда",
+    "deutsch": "immer",
+    "aussprache": "[fsʲɪɡˈda]",
+    "beispiel": "Я всегда готов.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "помогать",
+    "deutsch": "helfen",
+    "aussprache": "[pəmɐˈɡatʲ]",
+    "beispiel": "Я помогаю другу.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "литература",
+    "deutsch": "Literatur",
+    "aussprache": "[lʲɪtʲɪrɐˈturə]",
+    "beispiel": "Я люблю литературу.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "любить",
+    "deutsch": "lieben, mögen, gern haben",
+    "aussprache": "[lʲʉˈbʲitʲ]",
+    "beispiel": "Я люблю тебя.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "моя",
+    "deutsch": "meine (f.)",
+    "aussprache": "[mɐˈja]",
+    "beispiel": "Это моя книга.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "сестра",
+    "deutsch": "Schwester",
+    "aussprache": "[sʲɪˈstra]",
+    "beispiel": "Это моя сестра.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "Минутку",
+    "deutsch": "Augenblick, Moment",
+    "aussprache": "[mʲɪˈnutkʊ]",
+    "beispiel": "Минутку!",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "класс",
+    "deutsch": "Klasse; toll!",
+    "aussprache": "[klas]",
+    "beispiel": "Это класс!",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "решать",
+    "deutsch": "lösen, entscheiden",
+    "aussprache": "[rʲɪˈʂatʲ]",
+    "beispiel": "Я решаю задачу.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "внимательный",
+    "deutsch": "aufmerksam",
+    "aussprache": "[vnʲɪˈmatʲɪlʲnɨj]",
+    "beispiel": "Он внимательный.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "музыка",
+    "deutsch": "Musik",
+    "aussprache": "[ˈmuzɨkə]",
+    "beispiel": "Я слушаю музыку.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "дискотека",
+    "deutsch": "Diskothek",
+    "aussprache": "[dʲɪskɐˈtʲekə]",
+    "beispiel": "Мы идём на дискотеку.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "особенно",
+    "deutsch": "besonders",
+    "aussprache": "[ɐˈsobʲɪnːə]",
+    "beispiel": "Осенно интересно.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "первый",
+    "deutsch": "erste(r)",
+    "aussprache": "[ˈpʲervɨj]",
+    "beispiel": "Первый раз.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "второй",
+    "deutsch": "zweite(r)",
+    "aussprache": "[ftɐˈroj]",
+    "beispiel": "Второй раз.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "третий",
+    "deutsch": "dritte(r)",
+    "aussprache": "[ˈtrʲetʲɪj]",
+    "beispiel": "Третий урок.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "четвёртый",
+    "deutsch": "vierte(r)",
+    "aussprache": "[t͡ɕɪtˈvʲortɨj]",
+    "beispiel": "Четвёртый день.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "пятый",
+    "deutsch": "fünfte(r)",
+    "aussprache": "[ˈpʲatɨj]",
+    "beispiel": "Пятый элемент.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "шестой",
+    "deutsch": "sechste(r)",
+    "aussprache": "[ʂɨˈstoj]",
+    "beispiel": "Шестой час.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "седьмой",
+    "deutsch": "siebte(r)",
+    "aussprache": "[sʲɪdʲˈmoj]",
+    "beispiel": "Седьмой день.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "восьмой",
+    "deutsch": "achte(r)",
+    "aussprache": "[vɐsʲˈmoj]",
+    "beispiel": "Восьмое марта.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "девятый",
+    "deutsch": "neunte(r)",
+    "aussprache": "[dʲɪˈvʲatɨj]",
+    "beispiel": "Девятый день.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "десятый",
+    "deutsch": "zehnte(r)",
+    "aussprache": "[dʲɪˈsʲatɨj]",
+    "beispiel": "Десятый раз.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "неделя",
+    "deutsch": "Woche",
+    "aussprache": "[nʲɪˈdʲelʲə]",
+    "beispiel": "Одна неделя.",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "когда",
+    "deutsch": "wann",
+    "aussprache": "[kɐɡˈda]",
+    "beispiel": "Когда урок?",
+    "kategorie": "Урок 3",
+    "schwierigkeit": 1,
+    "kasten": 1
+  }
+]

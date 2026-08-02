@@ -1,0 +1,281 @@
+[
+  {
+    "russisch": "конечно",
+    "deutsch": "natürlich; Na klar!",
+    "aussprache": "[=ешно-]",
+    "beispiel": "Конечно, я помогу.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "урок",
+    "deutsch": "Lektion, Unterrichtsstunde",
+    "aussprache": "",
+    "beispiel": "Урок 1",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "Привет",
+    "deutsch": "Hallo!",
+    "aussprache": "[priˈvʲet]",
+    "beispiel": "Привет, Россия!",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "Россия",
+    "deutsch": "Russland",
+    "aussprache": "[rɐˈsʲijə]",
+    "beispiel": "Я из России.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "кто",
+    "deutsch": "wer",
+    "aussprache": "[kto]",
+    "beispiel": "Кто это?",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "это",
+    "deutsch": "das ist, dies ist",
+    "aussprache": "[ˈɛtə]",
+    "beispiel": "Кто это?",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "ребята",
+    "deutsch": "Jugendliche",
+    "aussprache": "[rʲɪˈbʲatə]",
+    "beispiel": "Это ребята.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "нет",
+    "deutsch": "nein",
+    "aussprache": "[nʲet]",
+    "beispiel": "Нет, спасибо.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "да",
+    "deutsch": "ja",
+    "aussprache": "[da]",
+    "beispiel": "Да, я понимаю.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "меня зовут",
+    "deutsch": "ich heiße (wörtl.: mich nennt man)",
+    "aussprache": "",
+    "beispiel": "Меня зовут Мышка.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "как",
+    "deutsch": "wie",
+    "aussprache": "[kak]",
+    "beispiel": "Как тебя зовут?",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "тебя",
+    "deutsch": "dich (Gen./Akk. von ты)",
+    "aussprache": "[tʲɪˈbʲa]",
+    "beispiel": "Как тебя зовут?",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "или",
+    "deutsch": "oder",
+    "aussprache": "[ˈilʲi]",
+    "beispiel": "Чай или кофе?",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "хобби",
+    "deutsch": "Hobby",
+    "aussprache": "[ˈxobʲɪ]",
+    "beispiel": "Моё хобби – музыка.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "гитара",
+    "deutsch": "Gitarre",
+    "aussprache": "[ɡʲɪˈtarə]",
+    "beispiel": "Я играю на гитаре.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "скейтборд",
+    "deutsch": "Skateboard",
+    "aussprache": "[skʲeɪtˈbort]",
+    "beispiel": "Скейтборд – это круто.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "компьютер",
+    "deutsch": "Computer",
+    "aussprache": "[kɐmˈpʲjutɛr]",
+    "beispiel": "У меня есть компьютер.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "мода",
+    "deutsch": "Mode",
+    "aussprache": "[ˈmodə]",
+    "beispiel": "Она интересуется модой.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "фитнес",
+    "deutsch": "Fitness",
+    "aussprache": "[ˈfʲitnʲes]",
+    "beispiel": "Я занимаюсь фитнесом.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "мороженое",
+    "deutsch": "Speiseeis",
+    "aussprache": "[mɐˈroʐɨnəjə]",
+    "beispiel": "Я люблю мороженое.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "пианино",
+    "deutsch": "Klavier",
+    "aussprache": "[pʲɪɐˈnʲinə]",
+    "beispiel": "Она играет на пианино.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "лошади",
+    "deutsch": "Pferde",
+    "aussprache": "[lɐˈʂadʲɪ]",
+    "beispiel": "Она любит лошадей.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "спагетти",
+    "deutsch": "Spaghetti",
+    "aussprache": "[spɐˈɡʲetʲɪ]",
+    "beispiel": "Я ем спагетти.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "гамбургер",
+    "deutsch": "Hamburger",
+    "aussprache": "[ˈɡamburɡʲer]",
+    "beispiel": "Я хочу гамбургер.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "Германия",
+    "deutsch": "Deutschland",
+    "aussprache": "[ɡʲɪrˈmanʲɪjə]",
+    "beispiel": "Я из Германии.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "театр",
+    "deutsch": "Theater",
+    "aussprache": "[tʲɪˈatr]",
+    "beispiel": "Мы идём в театр.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "карта",
+    "deutsch": "Landkarte",
+    "aussprache": "[ˈkartə]",
+    "beispiel": "Это карта России.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "что",
+    "deutsch": "was",
+    "aussprache": "[ʂto]",
+    "beispiel": "Что это?",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "самовар",
+    "deutsch": "Samowar",
+    "aussprache": "[səmɐˈvar]",
+    "beispiel": "Это самовар.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "балалайка",
+    "deutsch": "Balalaika",
+    "aussprache": "[bəɫɐˈɫajkə]",
+    "beispiel": "Она играет на балалайке.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  },
+  {
+    "russisch": "матрешка",
+    "deutsch": "Matrjoschka",
+    "aussprache": "[mɐˈtrʲeʂkə]",
+    "beispiel": "Это матрёшка.",
+    "kategorie": "Урок 1",
+    "schwierigkeit": 1,
+    "kasten": 1
+  }
+]
