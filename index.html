@@ -545,15 +545,18 @@
             width: 100%;
             border-collapse: collapse;
             margin: 12px 0;
+            font-size: 0.95rem;
         }
         .grammatik-seite th,
         .grammatik-seite td {
             border: 1px solid #D8D4CC;
-            padding: 8px 12px;
+            padding: 6px 10px;
             text-align: left;
+            vertical-align: top;
         }
         .grammatik-seite th {
             background: #ECE7DD;
+            font-weight: 600;
         }
 
         .stats-grid {
@@ -1012,6 +1015,7 @@
             // ============================================================
             //  GRAMMATIK – SORTIERT NACH STUFEN (von Noob bis God)
             //  Alle russischen Wörter in kyrillischen Buchstaben
+            //  NEU: Kapitel "Alle Deklinationen & Konjugationen" in "God"
             // ============================================================
             const grammatikNachStufe = {
                 noob: {
@@ -1487,6 +1491,119 @@
                             titel: "Сложные предложения (Komplexe Satzstrukturen)",
                             inhalt: `<p>Komplexe Sätze bestehen aus Haupt- und Nebensätzen, die durch Konjunktionen verbunden sind.</p>
                             <div class="beispiel-box">Beispiel: <strong>Если будет время, я пойду в кино.</strong> (Wenn ich Zeit habe, gehe ich ins Kino.)</div>`
+                        },
+                        // ===== NEU: ALLE DEKLINATIONEN & KONJUGATIONEN – ÜBERSICHT =====
+                        alle_deklinationen_konjugationen: {
+                            titel: "Все склонения и спряжения – Übersicht",
+                            inhalt: `
+                            <h3>Склонение существительных (Substantivdeklination)</h3>
+                            <p>Hartes und weiches Deklinationsmuster – Beispiele: <strong>стол</strong> (m., hart), <strong>книга</strong> (f., hart), <strong>окно</strong> (n., hart).</p>
+                            <table>
+                                <tr><th>Kasus</th><th>стол (m.)</th><th>книга (f.)</th><th>окно (n.)</th></tr>
+                                <tr><td>Nominativ</td><td>стол</td><td>книга</td><td>окно</td></tr>
+                                <tr><td>Genitiv</td><td>стола</td><td>книги</td><td>окна</td></tr>
+                                <tr><td>Dativ</td><td>столу</td><td>книге</td><td>окну</td></tr>
+                                <tr><td>Akkusativ</td><td>стол</td><td>книгу</td><td>окно</td></tr>
+                                <tr><td>Instrumental</td><td>столом</td><td>книгой</td><td>окном</td></tr>
+                                <tr><td>Präpositiv</td><td>о столе</td><td>о книге</td><td>об окне</td></tr>
+                            </table>
+                            <p>Weiches Muster (z.B. <strong>конь</strong> m., <strong>песня</strong> f., <strong>море</strong> n.):</p>
+                            <table>
+                                <tr><th>Kasus</th><th>конь (m.)</th><th>песня (f.)</th><th>море (n.)</th></tr>
+                                <tr><td>Nominativ</td><td>конь</td><td>песня</td><td>море</td></tr>
+                                <tr><td>Genitiv</td><td>коня</td><td>песни</td><td>моря</td></tr>
+                                <tr><td>Dativ</td><td>коню</td><td>песне</td><td>морю</td></tr>
+                                <tr><td>Akkusativ</td><td>коня</td><td>песню</td><td>море</td></tr>
+                                <tr><td>Instrumental</td><td>конём</td><td>песней</td><td>морем</td></tr>
+                                <tr><td>Präpositiv</td><td>о коне</td><td>о песне</td><td>о море</td></tr>
+                            </table>
+
+                            <h3>Склонение прилагательных (Adjektivdeklination)</h3>
+                            <p>Harte Deklination von <strong>красивый</strong> (schön):</p>
+                            <table>
+                                <tr><th>Kasus</th><th>m.</th><th>n.</th><th>f.</th><th>Pl.</th></tr>
+                                <tr><td>Nominativ</td><td>красивый</td><td>красивое</td><td>красивая</td><td>красивые</td></tr>
+                                <tr><td>Genitiv</td><td>красивого</td><td>красивого</td><td>красивой</td><td>красивых</td></tr>
+                                <tr><td>Dativ</td><td>красивому</td><td>красивому</td><td>красивой</td><td>красивым</td></tr>
+                                <tr><td>Akkusativ</td><td>красивый / красивого</td><td>красивое</td><td>красивую</td><td>красивые / красивых</td></tr>
+                                <tr><td>Instrumental</td><td>красивым</td><td>красивым</td><td>красивой</td><td>красивыми</td></tr>
+                                <tr><td>Präpositiv</td><td>красивом</td><td>красивом</td><td>красивой</td><td>красивых</td></tr>
+                            </table>
+                            <p>Weiche Deklination (z.B. <strong>синий</strong>):</p>
+                            <table>
+                                <tr><th>Kasus</th><th>m.</th><th>n.</th><th>f.</th><th>Pl.</th></tr>
+                                <tr><td>Nominativ</td><td>синий</td><td>синее</td><td>синяя</td><td>синие</td></tr>
+                                <tr><td>Genitiv</td><td>синего</td><td>синего</td><td>синей</td><td>синих</td></tr>
+                                <tr><td>Dativ</td><td>синему</td><td>синему</td><td>синей</td><td>синим</td></tr>
+                                <tr><td>Akkusativ</td><td>синий / синего</td><td>синее</td><td>синюю</td><td>синие / синих</td></tr>
+                                <tr><td>Instrumental</td><td>синим</td><td>синим</td><td>синей</td><td>синими</td></tr>
+                                <tr><td>Präpositiv</td><td>синем</td><td>синем</td><td>синей</td><td>синих</td></tr>
+                            </table>
+
+                            <h3>Личные местоимения – alle Fälle</h3>
+                            <table>
+                                <tr><th>Kasus</th><th>я</th><th>ты</th><th>он</th><th>она</th><th>мы</th><th>вы</th><th>они</th></tr>
+                                <tr><td>Nominativ</td><td>я</td><td>ты</td><td>он</td><td>она</td><td>мы</td><td>вы</td><td>они</td></tr>
+                                <tr><td>Genitiv</td><td>меня</td><td>тебя</td><td>его</td><td>её</td><td>нас</td><td>вас</td><td>их</td></tr>
+                                <tr><td>Dativ</td><td>мне</td><td>тебе</td><td>ему</td><td>ей</td><td>нам</td><td>вам</td><td>им</td></tr>
+                                <tr><td>Akkusativ</td><td>меня</td><td>тебя</td><td>его</td><td>её</td><td>нас</td><td>вас</td><td>их</td></tr>
+                                <tr><td>Instrumental</td><td>мной</td><td>тобой</td><td>им</td><td>ей</td><td>нами</td><td>вами</td><td>ими</td></tr>
+                                <tr><td>Präpositiv</td><td>обо мне</td><td>о тебе</td><td>о нём</td><td>о ней</td><td>о нас</td><td>о вас</td><td>о них</td></tr>
+                            </table>
+
+                            <h3>Спряжение глаголов (Verbkonjugation)</h3>
+                            <p><strong>Präsens – e‑Konjugation</strong> (делать):</p>
+                            <table>
+                                <tr><th>Person</th><th>делать</th><th>читать</th><th>играть</th></tr>
+                                <tr><td>я</td><td>делаю</td><td>читаю</td><td>играю</td></tr>
+                                <tr><td>ты</td><td>делаешь</td><td>читаешь</td><td>играешь</td></tr>
+                                <tr><td>он/она/оно</td><td>делает</td><td>читает</td><td>играет</td></tr>
+                                <tr><td>мы</td><td>делаем</td><td>читаем</td><td>играем</td></tr>
+                                <tr><td>вы</td><td>делаете</td><td>читаете</td><td>играете</td></tr>
+                                <tr><td>они</td><td>делают</td><td>читают</td><td>играют</td></tr>
+                            </table>
+                            <p><strong>Präsens – i‑Konjugation</strong> (говорить):</p>
+                            <table>
+                                <tr><th>Person</th><th>говорить</th><th>любить</th><th>звонить</th></tr>
+                                <tr><td>я</td><td>говорю</td><td>люблю</td><td>звоню</td></tr>
+                                <tr><td>ты</td><td>говоришь</td><td>любишь</td><td>звонишь</td></tr>
+                                <tr><td>он/она/оно</td><td>говорит</td><td>любит</td><td>звонит</td></tr>
+                                <tr><td>мы</td><td>говорим</td><td>любим</td><td>звоним</td></tr>
+                                <tr><td>вы</td><td>говорите</td><td>любите</td><td>звоните</td></tr>
+                                <tr><td>они</td><td>говорят</td><td>любят</td><td>звонят</td></tr>
+                            </table>
+
+                            <p><strong>Vergangenheit</strong> (делать – alle Genera):</p>
+                            <table>
+                                <tr><th>Genus</th><th>делать</th><th>говорить</th></tr>
+                                <tr><td>maskulin (er)</td><td>делал</td><td>говорил</td></tr>
+                                <tr><td>feminin (sie)</td><td>делала</td><td>говорила</td></tr>
+                                <tr><td>neutrum (es)</td><td>делало</td><td>говорило</td></tr>
+                                <tr><td>Plural</td><td>делали</td><td>говорили</td></tr>
+                            </table>
+
+                            <p><strong>Zukunft – unvollendet</strong> (читать):</p>
+                            <table>
+                                <tr><th>Person</th><th>быть + Infinitiv</th></tr>
+                                <tr><td>я</td><td>буду читать</td></tr>
+                                <tr><td>ты</td><td>будешь читать</td></tr>
+                                <tr><td>он/она/оно</td><td>будет читать</td></tr>
+                                <tr><td>мы</td><td>будем читать</td></tr>
+                                <tr><td>вы</td><td>будете читать</td></tr>
+                                <tr><td>они</td><td>будут читать</td></tr>
+                            </table>
+                            <p><strong>Zukunft – vollendet</strong> (прочитать – wie Präsens):</p>
+                            <table>
+                                <tr><th>Person</th><th>прочитать</th></tr>
+                                <tr><td>я</td><td>прочитаю</td></tr>
+                                <tr><td>ты</td><td>прочитаешь</td></tr>
+                                <tr><td>он/она/оно</td><td>прочитает</td></tr>
+                                <tr><td>мы</td><td>прочитаем</td></tr>
+                                <tr><td>вы</td><td>прочитаете</td></tr>
+                                <tr><td>они</td><td>прочитают</td></tr>
+                            </table>
+                            <div class="merk-box">Diese Übersicht fasst alle wichtigen Deklinations‑ und Konjugationsmuster auf einen Blick zusammen.</div>
+                            `
                         }
                     }
                 }
@@ -1557,7 +1674,7 @@
             ];
 
             // ============================================================
-            //  APP-LOGIK
+            //  APP-LOGIK (unverändert bis auf die erweiterte Grammatik)
             // ============================================================
             let vokabeln = [];
             let einstellungen = {
