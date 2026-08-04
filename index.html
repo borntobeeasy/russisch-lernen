@@ -239,6 +239,89 @@
             background: #3d8b40;
         }
 
+        /* ===== ANMELDUNG / KONTO ===== */
+        #authOverlay {
+            width: 100%;
+            max-width: 380px;
+            margin: 6vh auto;
+            background: #FDFBF6;
+            border-radius: 24px;
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03);
+            padding: 34px 30px;
+        }
+        #authOverlay h1 {
+            font-size: 1.5rem;
+            margin-bottom: 2px;
+        }
+        #authOverlay .sub {
+            display: block;
+            color: #8a857b;
+            font-size: 0.9rem;
+            margin-bottom: 22px;
+        }
+        .auth-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 18px;
+            background: #f0ede6;
+            border-radius: 40px;
+            padding: 4px;
+        }
+        .auth-tabs button {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6b665c;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        .auth-tabs button.active {
+            background: #4D83FF;
+            color: #fff;
+        }
+        .auth-formular {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .auth-formular.active { display: flex; }
+        .auth-formular label { margin-bottom: -6px; }
+        .auth-fehler {
+            display: none;
+            background: rgba(214, 74, 74, 0.1);
+            color: #b93030;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+        .auth-fehler.zeigen { display: block; }
+        .auth-status {
+            display: none;
+            text-align: center;
+            color: #8a857b;
+            font-size: 0.9rem;
+            margin: 6vh 0;
+        }
+        .auth-status.zeigen { display: block; }
+        #kontoInfo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #syncStatus {
+            font-size: 0.82rem;
+            color: #8a857b;
+        }
+        #syncStatus.fehler { color: #b93030; }
+        body.dark #authOverlay { background: #3a3a3a; color: #e0e0e0; }
+        body.dark .auth-tabs { background: #2a2a2a; }
+
         input,
         select,
         textarea {
@@ -896,7 +979,37 @@
 </head>
 <body>
 
-    <div class="notizblock" id="app">
+    <div class="auth-status" id="authStatus">Einen Moment, dein Fortschritt wird geladen …</div>
+
+    <div id="authOverlay" style="display:none;">
+        <h1>Russisch lernen</h1>
+        <span class="sub">Конечно! 1 – melde dich an, um deinen Fortschritt zu speichern</span>
+
+        <div class="auth-tabs">
+            <button type="button" class="active" id="authTabLogin">Anmelden</button>
+            <button type="button" id="authTabRegister">Neues Konto</button>
+        </div>
+
+        <div class="auth-fehler" id="authFehler"></div>
+
+        <form class="auth-formular active" id="loginFormular">
+            <label for="loginBenutzername">Benutzername</label>
+            <input type="text" id="loginBenutzername" autocomplete="username" required />
+            <label for="loginPasswort">Passwort</label>
+            <input type="password" id="loginPasswort" autocomplete="current-password" required />
+            <button type="submit" class="btn primär" id="loginBtn" style="justify-content:center; margin-top:6px;">Anmelden</button>
+        </form>
+
+        <form class="auth-formular" id="registerFormular">
+            <label for="registerBenutzername">Benutzername</label>
+            <input type="text" id="registerBenutzername" autocomplete="username" required minlength="3" />
+            <label for="registerPasswort">Passwort</label>
+            <input type="password" id="registerPasswort" autocomplete="new-password" required minlength="6" />
+            <button type="submit" class="btn primär" id="registerBtn" style="justify-content:center; margin-top:6px;">Konto erstellen</button>
+        </form>
+    </div>
+
+    <div class="notizblock" id="app" style="display:none;">
         <div class="papier kariert" id="papierStil">
 
             <header class="header">
@@ -1016,6 +1129,14 @@
             <!-- ===== TAB: EINSTELLUNGEN ===== -->
             <section class="tab-content" id="tabEinstellungen">
                 <div class="einstellungen-group">
+                    <h3>Konto</h3>
+                    <div id="kontoInfo">
+                        <span>Angemeldet als <strong id="kontoBenutzername">–</strong></span>
+                        <span id="syncStatus"></span>
+                        <button class="btn" id="logoutBtn">Abmelden</button>
+                    </div>
+                </div>
+                <div class="einstellungen-group">
                     <h3>Papierstil</h3>
                     <label><input type="radio" name="papier" value="kariert" checked /> Kariert</label>
                     <label><input type="radio" name="papier" value="liniert" /> Liniert</label>
@@ -1073,6 +1194,40 @@
 
         </div><!-- /papier -->
     </div><!-- /notizblock -->
+
+    <!-- ============================================================
+         FIREBASE – Konto & Cloud-Speicherung
+         ============================================================
+         Trage hier die Konfigurationswerte deines eigenen Firebase-
+         Projekts ein (Firebase-Konsole → Projekteinstellungen →
+         "Meine Apps" → Web-App → Konfiguration). Anleitung siehe
+         Chat-Antwort.
+    -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "DEIN_API_KEY",
+            authDomain: "DEIN_PROJEKT.firebaseapp.com",
+            projectId: "DEIN_PROJEKT",
+            storageBucket: "DEIN_PROJEKT.appspot.com",
+            messagingSenderId: "DEINE_SENDER_ID",
+            appId: "DEINE_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+        // Da Firebase Auth eine E-Mail-Adresse erwartet, wird der
+        // Benutzername intern auf eine synthetische E-Mail abgebildet.
+        // Der Benutzer sieht davon nichts.
+        function benutzernameZuEmail(benutzername) {
+            const bereinigt = benutzername.trim().toLowerCase().replace(/[^a-z0-9_.-]/g, '');
+            return bereinigt + '@russisch-lernen.app';
+        }
+    </script>
 
     <script>
         (function() {
@@ -1503,21 +1658,94 @@
 
             function kastenName(k) { return 'Kasten ' + k; }
 
-            // --- localStorage ---
+            // --- Konto / Cloud-Speicherung ---
+            let currentUser = null;
+            let cloudSyncTimer = null;
+            let cloudSyncLaeuft = false;
+
+            function zeigeSyncStatus(text, istFehler) {
+                if (!syncStatus) return;
+                syncStatus.textContent = text;
+                syncStatus.classList.toggle('fehler', !!istFehler);
+            }
+
+            // Speichert lokal sofort (schnell, funktioniert offline) und
+            // stößt zusätzlich – verzögert (debounced) – eine Sicherung in
+            // der Cloud an, damit der Kartei-Fortschritt geräteübergreifend
+            // abrufbar ist.
             function speichern() {
                 try {
                     localStorage.setItem('russischVokabeln', JSON.stringify(vokabeln));
                     localStorage.setItem('russischEinstellungen', JSON.stringify(einstellungen));
                 } catch (e) {}
+                cloudSpeichernVerzoegert();
             }
 
-            function laden() {
+            function cloudSpeichernVerzoegert() {
+                if (!currentUser) return;
+                zeigeSyncStatus('Speichert …');
+                clearTimeout(cloudSyncTimer);
+                cloudSyncTimer = setTimeout(cloudSpeichernJetzt, 800);
+            }
+
+            async function cloudSpeichernJetzt() {
+                if (!currentUser) return;
+                cloudSyncLaeuft = true;
+                try {
+                    await db.collection('benutzer').doc(currentUser.uid).set({
+                        vokabeln,
+                        einstellungen,
+                        aktualisiertAm: Date.now()
+                    }, { merge: true });
+                    zeigeSyncStatus('Gespeichert ✓');
+                } catch (e) {
+                    console.error('Cloud-Speichern fehlgeschlagen', e);
+                    zeigeSyncStatus('Nicht gespeichert – offline?', true);
+                } finally {
+                    cloudSyncLaeuft = false;
+                }
+            }
+
+            // Lädt zuerst aus dem lokalen Cache (für einen schnellen Start),
+            // damit die Oberfläche sofort etwas anzeigen kann.
+            function ladeLokalenCache() {
                 try {
                     const v = localStorage.getItem('russischVokabeln');
                     if (v) vokabeln = JSON.parse(v);
                     const e = localStorage.getItem('russischEinstellungen');
                     if (e) einstellungen = JSON.parse(e);
                 } catch (e) {}
+            }
+
+            // Lädt nach dem Login den Stand aus Firestore und überschreibt
+            // damit den lokalen Cache, damit der Fortschritt auf jedem Gerät
+            // derselbe ist.
+            async function ladeVonCloud() {
+                if (!currentUser) return;
+                try {
+                    const doc = await db.collection('benutzer').doc(currentUser.uid).get();
+                    if (doc.exists) {
+                        const daten = doc.data();
+                        if (Array.isArray(daten.vokabeln) && daten.vokabeln.length > 0) {
+                            vokabeln = daten.vokabeln;
+                        }
+                        if (daten.einstellungen) {
+                            einstellungen = { ...einstellungen, ...daten.einstellungen };
+                        }
+                        try {
+                            localStorage.setItem('russischVokabeln', JSON.stringify(vokabeln));
+                            localStorage.setItem('russischEinstellungen', JSON.stringify(einstellungen));
+                        } catch (e) {}
+                    }
+                    zeigeSyncStatus('Aktuell ✓');
+                } catch (e) {
+                    console.error('Cloud-Laden fehlgeschlagen, benutze lokalen Stand.', e);
+                    zeigeSyncStatus('Cloud nicht erreichbar – zeige letzten Stand', true);
+                }
+            }
+
+            function laden() {
+                ladeLokalenCache();
                 if (!vokabeln || vokabeln.length === 0) {
                     vokabeln = basisVokabeln.map(v => ({ ...v, id: v.id || generateId() }));
                 }
@@ -1526,6 +1754,21 @@
             // --- DOM-Referenzen ---
             const $ = (sel) => document.querySelector(sel);
             const $$ = (sel) => document.querySelectorAll(sel);
+
+            // --- Konto / Anmeldung ---
+            const authStatus = $('#authStatus');
+            const authOverlay = $('#authOverlay');
+            const appEl = $('#app');
+            const authTabLogin = $('#authTabLogin');
+            const authTabRegister = $('#authTabRegister');
+            const loginFormular = $('#loginFormular');
+            const registerFormular = $('#registerFormular');
+            const authFehler = $('#authFehler');
+            const loginBtn = $('#loginBtn');
+            const registerBtn = $('#registerBtn');
+            const logoutBtn = $('#logoutBtn');
+            const kontoBenutzername = $('#kontoBenutzername');
+            const syncStatus = $('#syncStatus');
 
             const tabNav = $('#tabNav');
             const tabContents = {
@@ -2447,33 +2690,127 @@
             });
 
             // ============================================================
-            //  INIT
+            //  KONTO / ANMELDUNG
             // ============================================================
-            laden();
+            function authFehlerText(code) {
+                switch (code) {
+                    case 'auth/email-already-in-use': return 'Dieser Benutzername ist bereits vergeben.';
+                    case 'auth/invalid-email': return 'Bitte einen gültigen Benutzernamen verwenden (nur Buchstaben/Zahlen).';
+                    case 'auth/weak-password': return 'Das Passwort muss mindestens 6 Zeichen lang sein.';
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                    case 'auth/invalid-credential': return 'Benutzername oder Passwort ist falsch.';
+                    case 'auth/too-many-requests': return 'Zu viele Versuche. Bitte kurz warten.';
+                    default: return 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
+                }
+            }
 
-            const firstKeys = Object.keys(grammatikThemen['faelle'].kapitel);
-            const firstNonGroup = firstKeys.find(k => !grammatikThemen['faelle'].kapitel[k].istGruppe);
-            if (firstNonGroup) aktuellesGrammatikKapitel = firstNonGroup;
+            function zeigeAuthFehler(text) {
+                authFehler.textContent = text;
+                authFehler.classList.toggle('zeigen', !!text);
+            }
 
-            if (!vokabeln || vokabeln.length === 0) {
-                loadExternalVocabularies().then(() => {
-                    renderAll();
-                    renderGrammatikThemenButtons();
-                    renderGrammatikKapitelListe();
-                    renderGrammatikSeite();
-                    // Übungen initial mit 'alle' starten
-                    starteUebung('alle');
-                });
-            } else {
+            authTabLogin.addEventListener('click', () => {
+                authTabLogin.classList.add('active');
+                authTabRegister.classList.remove('active');
+                loginFormular.classList.add('active');
+                registerFormular.classList.remove('active');
+                zeigeAuthFehler('');
+            });
+            authTabRegister.addEventListener('click', () => {
+                authTabRegister.classList.add('active');
+                authTabLogin.classList.remove('active');
+                registerFormular.classList.add('active');
+                loginFormular.classList.remove('active');
+                zeigeAuthFehler('');
+            });
+
+            loginFormular.addEventListener('submit', async (ev) => {
+                ev.preventDefault();
+                zeigeAuthFehler('');
+                loginBtn.disabled = true;
+                const benutzername = $('#loginBenutzername').value;
+                const passwort = $('#loginPasswort').value;
+                try {
+                    await auth.signInWithEmailAndPassword(benutzernameZuEmail(benutzername), passwort);
+                } catch (e) {
+                    zeigeAuthFehler(authFehlerText(e.code));
+                } finally {
+                    loginBtn.disabled = false;
+                }
+            });
+
+            registerFormular.addEventListener('submit', async (ev) => {
+                ev.preventDefault();
+                zeigeAuthFehler('');
+                registerBtn.disabled = true;
+                const benutzername = $('#registerBenutzername').value.trim();
+                const passwort = $('#registerPasswort').value;
+                try {
+                    const cred = await auth.createUserWithEmailAndPassword(benutzernameZuEmail(benutzername), passwort);
+                    await cred.user.updateProfile({ displayName: benutzername });
+                    await db.collection('benutzer').doc(cred.user.uid).set({
+                        benutzername,
+                        vokabeln: basisVokabeln.map(v => ({ ...v, id: v.id || generateId() })),
+                        einstellungen,
+                        erstelltAm: Date.now()
+                    });
+                } catch (e) {
+                    zeigeAuthFehler(authFehlerText(e.code));
+                } finally {
+                    registerBtn.disabled = false;
+                }
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                auth.signOut();
+            });
+
+            // ============================================================
+            //  APP-START (nach erfolgreichem Login)
+            // ============================================================
+            async function starteApp() {
+                kontoBenutzername.textContent = currentUser.displayName || 'Benutzer';
+                zeigeSyncStatus('Lädt …');
+                ladeLokalenCache();
+                await ladeVonCloud();
+
+                const firstKeys = Object.keys(grammatikThemen['faelle'].kapitel);
+                const firstNonGroup = firstKeys.find(k => !grammatikThemen['faelle'].kapitel[k].istGruppe);
+                if (firstNonGroup) aktuellesGrammatikKapitel = firstNonGroup;
+
+                if (!vokabeln || vokabeln.length === 0) {
+                    await loadExternalVocabularies();
+                }
                 renderAll();
                 renderGrammatikThemenButtons();
                 renderGrammatikKapitelListe();
                 renderGrammatikSeite();
                 starteUebung('alle');
-                loadExternalVocabularies().then(() => {});
+
+                console.log('Russisch lernen – Übungen jetzt mit Kategorieauswahl (Fälle, Verben, Sonstiges, Alle).');
             }
 
-            console.log('Russisch lernen – Übungen jetzt mit Kategorieauswahl (Fälle, Verben, Sonstiges, Alle).');
+            // ============================================================
+            //  INIT
+            // ============================================================
+            auth.onAuthStateChanged((user) => {
+                authStatus.classList.remove('zeigen');
+                if (user) {
+                    currentUser = user;
+                    authOverlay.style.display = 'none';
+                    appEl.style.display = '';
+                    starteApp();
+                } else {
+                    currentUser = null;
+                    appEl.style.display = 'none';
+                    authOverlay.style.display = 'block';
+                    loginFormular.reset();
+                    registerFormular.reset();
+                    zeigeAuthFehler('');
+                }
+            });
+            authStatus.classList.add('zeigen');
         })();
     </script>
 </body>
