@@ -2117,7 +2117,39 @@
                     }
                 }
                 if (fehler === 0 && alle.length > 0) {
-                    vokabeln = alle.map(v => ({ ...v, id: v.id || generateId() }));
+                    // Bestehenden Lernfortschritt (Kasten, Favoriten, ...) anhand von
+                    // Wort + Kategorie zuordnen, damit das Karteikasten-System beim
+                    // erneuten Laden der externen Dateien NICHT zurückgesetzt wird.
+                    const schluessel = (v) => (v.russisch || '').trim().toLowerCase() + '|' + (v.kategorie || '');
+
+                    const bestehendeMap = new Map();
+                    vokabeln.forEach(v => bestehendeMap.set(schluessel(v), v));
+
+                    const externeSchluessel = new Set();
+                    const zusammengefuehrt = alle.map(v => {
+                        const key = schluessel(v);
+                        externeSchluessel.add(key);
+                        const bestehend = bestehendeMap.get(key);
+                        if (bestehend) {
+                            // Inhalte aus der Datei übernehmen, Lernfortschritt beibehalten
+                            return {
+                                ...v,
+                                id: bestehend.id,
+                                kasten: bestehend.kasten,
+                                liebling: bestehend.liebling,
+                                schwierigMarkiert: bestehend.schwierigMarkiert,
+                                zuletztGelernt: bestehend.zuletztGelernt,
+                                erstelltAm: bestehend.erstelltAm
+                            };
+                        }
+                        return { ...v, id: v.id || generateId(), kasten: v.kasten || 1 };
+                    });
+
+                    // Eigene, manuell angelegte Vokabeln (nicht in den Lektionsdateien
+                    // enthalten) nicht verwerfen, sondern beibehalten.
+                    const eigene = vokabeln.filter(v => !externeSchluessel.has(schluessel(v)));
+
+                    vokabeln = zusammengefuehrt.concat(eigene);
                     speichern();
                     renderAll();
                     console.log('Externe Vokabeln geladen: ' + vokabeln.length);
