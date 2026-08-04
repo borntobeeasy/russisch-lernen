@@ -1300,6 +1300,31 @@
                             <tr><td>конь</td><td>о коне</td><td>песня</td><td>о песне</td></tr></table>
                             <div class="beispiel-box">Beispiel: <strong>Я думаю о друге.</strong> (Ich denke an einen Freund.)</div>`
                         },
+                        'gruppe_plural': { titel: "PLURAL", istGruppe: true, inhalt: '' },
+                        substantiv_plural_nominativ: {
+                            titel: "Plural – Nominativ",
+                            inhalt: `<div class="regel-box">📌 Regel: Maskulin und feminin (hart) erhalten <strong>-ы</strong>, nach г/к/х/ж/ч/ш/щ sowie weich <strong>-и</strong>. Neutrum erhält <strong>-а</strong> (hart) bzw. <strong>-я</strong> (weich).</div>
+                            <table><tr><th>Genus</th><th>Singular</th><th>Plural</th></tr>
+                            <tr><td>maskulin</td><td>стол</td><td>столы</td></tr>
+                            <tr><td>maskulin (auf к)</td><td>ученик</td><td>ученики</td></tr>
+                            <tr><td>feminin</td><td>книга</td><td>книги</td></tr>
+                            <tr><td>neutrum</td><td>окно</td><td>окна</td></tr>
+                            <tr><td>neutrum (weich)</td><td>море</td><td>моря</td></tr></table>
+                            <div class="merk-box">Achtung Ausnahmen: <strong>друг → друзья</strong>, <strong>стул → стулья</strong>, <strong>брат → братья</strong>, <strong>дом → дома</strong>, <strong>город → города</strong>.</div>`
+                        },
+                        substantiv_plural_genitiv: {
+                            titel: "Plural – Genitiv (нет чего? / много чего?)",
+                            inhalt: `<div class="regel-box">📌 Regel: Der Genitiv Plural ist der unregelmäßigste Fall. Er wird u.a. gebraucht nach <strong>нет</strong> (es gibt nicht), nach Zahlen ab 5 sowie nach <strong>много/мало/сколько</strong>.</div>
+                            <table><tr><th>Auslaut Nom. Sg.</th><th>Endung Gen. Pl.</th><th>Beispiel</th></tr>
+                            <tr><td>maskulin, harter Konsonant</td><td>-ов</td><td>стол → столов</td></tr>
+                            <tr><td>maskulin auf ж/ч/ш/щ</td><td>-ей</td><td>карандаш → карандашей</td></tr>
+                            <tr><td>maskulin auf й/ь</td><td>-ев / -ей</td><td>музей → музеев</td></tr>
+                            <tr><td>feminin auf -а</td><td>– (nur Stamm)</td><td>книга → книг</td></tr>
+                            <tr><td>feminin auf -я/-ь</td><td>-ь → и/й</td><td>песня → песен</td></tr>
+                            <tr><td>neutrum auf -о</td><td>– (nur Stamm)</td><td>окно → окон</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>У меня нет книг.</strong> (Ich habe keine Bücher.) <strong>Пять столов.</strong> (Fünf Tische.)</div>
+                            <div class="merk-box">Wichtige Ausnahmen: <strong>человек → людей</strong> (nach Zahlen aber: пять человек), <strong>год → лет</strong> (nach Zahlen), <strong>друг → друзей</strong>, <strong>ребёнок → детей</strong>.</div>`
+                        },
                         'gruppe_adjektive': { titel: "ADJEKTIVE", istGruppe: true, inhalt: '' },
                         adjektiv_nominativ: {
                             titel: "Adjektive im Nominativ",
@@ -1322,6 +1347,16 @@
                             <tr><td>Instrumental</td><td>красивым</td><td>красивым</td><td>красивой</td><td>красивыми</td></tr>
                             <tr><td>Präpositiv</td><td>красивом</td><td>красивом</td><td>красивой</td><td>красивых</td></tr></table>
                             <div class="merk-box">Hinweis: Weiche Deklination (синий) hat Endungen wie -его, -ему, -им, -ем usw.</div>`
+                        },
+                        adjektiv_kurzform: {
+                            titel: "Kurzform der Adjektive (краткие прилагательные)",
+                            inhalt: `<div class="regel-box">📌 Regel: Viele Adjektive haben neben der Langform (attributiv, vor dem Nomen) eine Kurzform, die nur prädikativ (nach "sein") verwendet wird und unveränderlich im Kasus ist – sie richtet sich nur nach Genus und Numerus.</div>
+                            <table><tr><th>Langform</th><th>m.</th><th>f.</th><th>n.</th><th>Pl.</th></tr>
+                            <tr><td>красивый (schön)</td><td>красив</td><td>красива</td><td>красиво</td><td>красивы</td></tr>
+                            <tr><td>интересный (interessant)</td><td>интересен</td><td>интересна</td><td>интересно</td><td>интересны</td></tr>
+                            <tr><td>рад (froh, nur Kurzform)</td><td>рад</td><td>рада</td><td>радо</td><td>рады</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Она красива.</strong> (Sie ist schön.) <strong>Я рад тебя видеть.</strong> (Ich freue mich, dich zu sehen.)</div>
+                            <div class="merk-box">Merke: die Langform beschreibt eine dauerhafte Eigenschaft (<strong>Она красивая</strong> = sie ist [allgemein] schön), die Kurzform oft einen aktuellen Zustand oder eine Wertung.</div>`
                         },
                         'gruppe_pronomen': { titel: "PRONOMEN", istGruppe: true, inhalt: '' },
                         pronomen_personal: {
@@ -1429,6 +1464,58 @@
                             inhalt: `<p>Es gibt zwei Aspekte: unvollendet (Verlauf) und vollendet (Ergebnis).</p>
                             <div class="beispiel-box">Beispiel: <strong>Я читал книгу.</strong> (Ich las – Verlauf.)<br>
                             <strong>Я прочитал книгу.</strong> (Ich habe gelesen – Ergebnis.)</div>`
+                        },
+                        reflexivverben: {
+                            titel: "Reflexive Verben (-ся / -сь)",
+                            inhalt: `<div class="regel-box">📌 Regel: Reflexive Verben enden auf <strong>-ся</strong> (nach Konsonant) bzw. <strong>-сь</strong> (nach Vokal). Sie drücken oft eine Handlung aus, die auf das Subjekt selbst zurückwirkt, ein Passiv oder eine wechselseitige Handlung.</div>
+                            <table><tr><th>Person</th><th>учиться (lernen/studieren)</th></tr>
+                            <tr><td>я</td><td>учусь</td></tr><tr><td>ты</td><td>учишься</td></tr>
+                            <tr><td>он/она</td><td>учится</td></tr><tr><td>мы</td><td>учимся</td></tr>
+                            <tr><td>вы</td><td>учитесь</td></tr><tr><td>они</td><td>учатся</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Я учусь в университете.</strong> (Ich studiere an der Uni.)<br><strong>Как тебя зовут?</strong> (Wie heißt du? – wörtl. wie nennt man dich)</div>
+                            <div class="merk-box">Häufige reflexive Verben: <strong>нравиться</strong> (gefallen), <strong>заниматься</strong> (sich beschäftigen), <strong>начинаться</strong> (beginnen), <strong>улыбаться</strong> (lächeln).</div>`
+                        },
+                        bewegungsverben: {
+                            titel: "Bewegungsverben: идти/ходить, ехать/ездить",
+                            inhalt: `<div class="regel-box">📌 Regel: Russisch unterscheidet bei Fortbewegungsverben zwischen einer <strong>unidirektionalen</strong> Form (Bewegung in eine Richtung, gerade jetzt) und einer <strong>multidirektionalen</strong> Form (Bewegung hin und zurück, gewohnheitsmäßig, ohne feste Richtung).</div>
+                            <table><tr><th>Bedeutung</th><th>unidirektional</th><th>multidirektional</th></tr>
+                            <tr><td>zu Fuß gehen</td><td>идти</td><td>ходить</td></tr>
+                            <tr><td>fahren</td><td>ехать</td><td>ездить</td></tr>
+                            <tr><td>laufen/rennen</td><td>бежать</td><td>бегать</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Я иду в школу.</strong> (Ich gehe [jetzt, einmal] zur Schule.)<br><strong>Я хожу в школу каждый день.</strong> (Ich gehe [gewohnheitsmäßig] jeden Tag zur Schule.)</div>
+                            <div class="merk-box">идти → я иду, ты идёшь, он идёт … ходить → я хожу, ты ходишь, он ходит …</div>`
+                        },
+                        aspektbildung: {
+                            titel: "Aspektpaare bilden (unvollendet ↔ vollendet)",
+                            inhalt: `<div class="regel-box">📌 Regel: Der vollendete Aspekt wird meist mit einer Vorsilbe (Präfix) oder einem Wechsel des Suffixes/Verbstamms gebildet. Der vollendete Aspekt beschreibt ein abgeschlossenes Ergebnis, der unvollendete einen Verlauf, eine Wiederholung oder Tatsache.</div>
+                            <table><tr><th>unvollendet</th><th>vollendet</th><th>Bildung</th></tr>
+                            <tr><td>делать</td><td>сделать</td><td>Präfix с-</td></tr>
+                            <tr><td>читать</td><td>прочитать</td><td>Präfix про-</td></tr>
+                            <tr><td>писать</td><td>написать</td><td>Präfix на-</td></tr>
+                            <tr><td>покупать</td><td>купить</td><td>anderer Stamm</td></tr>
+                            <tr><td>говорить</td><td>сказать</td><td>anderer Stamm</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Я читал книгу два часа.</strong> (Ich habe zwei Stunden gelesen – Verlauf.)<br><strong>Я прочитал книгу.</strong> (Ich habe das Buch [ganz] gelesen – Ergebnis.)</div>
+                            <div class="merk-box">Merke: Der vollendete Aspekt hat keine Präsensform – die "будущее" Form (я прочитаю) ist tatsächlich ein vollendetes Futur, kein Präsens.</div>`
+                        },
+                        modalausdruecke: {
+                            titel: "Modale Ausdrücke: можно, нужно, надо, нельзя",
+                            inhalt: `<div class="regel-box">📌 Regel: Unpersönliche Modalwörter stehen mit dem <strong>Dativ</strong> der handelnden Person und dem Infinitiv.</div>
+                            <table><tr><th>Ausdruck</th><th>Bedeutung</th></tr>
+                            <tr><td>можно</td><td>man darf / man kann</td></tr>
+                            <tr><td>нужно / надо</td><td>man muss / es ist nötig</td></tr>
+                            <tr><td>нельзя</td><td>man darf nicht / es geht nicht</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Мне нужно идти.</strong> (Ich muss gehen.)<br><strong>Здесь нельзя курить.</strong> (Hier darf man nicht rauchen.)<br><strong>Можно войти?</strong> (Darf ich hereinkommen?)</div>
+                            <div class="merk-box">Vergangenheit/Zukunft mit было / будет: <strong>Мне нужно было идти.</strong> (Ich musste gehen.)</div>`
+                        },
+                        imperativ: {
+                            titel: "Imperativ (Befehlsform)",
+                            inhalt: `<div class="regel-box">📌 Regel: Der Imperativ wird meist vom Präsensstamm gebildet. Endung <strong>-й</strong> nach Vokal, <strong>-и</strong> nach Konsonant (betont), <strong>-ь</strong> nach Konsonant (unbetont). Die Höflichkeitsform/Plural erhält zusätzlich <strong>-те</strong>.</div>
+                            <table><tr><th>Infinitiv</th><th>ты-Form</th><th>вы-Form</th></tr>
+                            <tr><td>читать</td><td>читай</td><td>читайте</td></tr>
+                            <tr><td>говорить</td><td>говори</td><td>говорите</td></tr>
+                            <tr><td>отвечать</td><td>отвечай</td><td>отвечайте</td></tr>
+                            <tr><td>смотреть</td><td>смотри</td><td>смотрите</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Слушайте!</strong> (Hört zu!) <strong>Не забудь!</strong> (Vergiss nicht!)</div>`
                         },
                         konjugation_uebersicht: {
                             titel: "Alle Konjugationsmuster (Übersicht)",
@@ -1546,6 +1633,65 @@
                             titel: "Nebensätze (dass, weil, ob)",
                             inhalt: `<p>Konjunktionen: <strong>что</strong> (dass), <strong>потому что</strong> (weil), <strong>ли</strong> (ob).</p>
                             <div class="beispiel-box">Beispiel: <strong>Я знаю, что он придёт.</strong></div>`
+                        },
+                        'gruppe_zahlen_zeit': { titel: "ZAHLEN & ZEIT", istGruppe: true, inhalt: '' },
+                        numeralien_kasus: {
+                            titel: "Zahlen + Substantiv: welcher Fall?",
+                            inhalt: `<div class="regel-box">📌 Regel: Nach <strong>1</strong> (bzw. Zahlen, die auf 1 enden, außer 11) steht das Substantiv im Nominativ Singular. Nach <strong>2, 3, 4</strong> (und Zahlen, die darauf enden, außer 12–14) steht der Genitiv Singular. Nach <strong>5 und höher</strong> (und 0, 11–14) steht der Genitiv Plural.</div>
+                            <table><tr><th>Zahl</th><th>Fall des Substantivs</th><th>Beispiel</th></tr>
+                            <tr><td>1, 21, 31 …</td><td>Nominativ Singular</td><td>один стол, двадцать один стол</td></tr>
+                            <tr><td>2–4, 22–24 …</td><td>Genitiv Singular</td><td>два стола, три книги</td></tr>
+                            <tr><td>5–20, 25–30 …</td><td>Genitiv Plural</td><td>пять столов, десять книг</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>У меня один брат, две сестры и пять друзей.</strong> (Ich habe einen Bruder, zwei Schwestern und fünf Freunde.)</div>
+                            <div class="merk-box">Merke: <strong>два/три/четыре человека</strong>, aber <strong>пять человек</strong> (nicht людей!). Bei <strong>год</strong>: 1 год, 2–4 года, 5+ лет.</div>`
+                        },
+                        uhrzeit: {
+                            titel: "Uhrzeit (который час? / во сколько?)",
+                            inhalt: `<div class="regel-box">📌 Regel: Auf die Frage <strong>Который час?</strong> (Wie spät ist es?) antwortet man mit der Stundenzahl im Nominativ (und час/часа/часов je nach Zahlenregel). Auf <strong>Во сколько?</strong> (Um wie viel Uhr?) antwortet man mit в + Akkusativ.</div>
+                            <table><tr><th>Russisch</th><th>Deutsch</th></tr>
+                            <tr><td>Сейчас час.</td><td>Es ist ein Uhr.</td></tr>
+                            <tr><td>Сейчас два часа.</td><td>Es ist zwei Uhr.</td></tr>
+                            <tr><td>Сейчас пять часов.</td><td>Es ist fünf Uhr.</td></tr>
+                            <tr><td>в час / в два часа / в пять часов</td><td>um ein Uhr / um zwei Uhr / um fünf Uhr</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Во сколько начинается урок?</strong> – <strong>В девять часов.</strong></div>`
+                        },
+                        fragewoerter: {
+                            titel: "Fragewörter",
+                            inhalt: `<table><tr><th>Russisch</th><th>Deutsch</th></tr>
+                            <tr><td>кто?</td><td>wer?</td></tr><tr><td>что?</td><td>was?</td></tr>
+                            <tr><td>где?</td><td>wo?</td></tr><tr><td>куда?</td><td>wohin?</td></tr>
+                            <tr><td>откуда?</td><td>woher?</td></tr><tr><td>когда?</td><td>wann?</td></tr>
+                            <tr><td>почему?</td><td>warum?</td></tr><tr><td>как?</td><td>wie?</td></tr>
+                            <tr><td>сколько?</td><td>wie viel(e)?</td></tr><tr><td>какой?</td><td>welcher/was für ein?</td></tr>
+                            <tr><td>чей?</td><td>wessen?</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>Откуда ты?</strong> (Woher kommst du?) <strong>Какой сегодня день?</strong> (Welcher Tag ist heute?)</div>`
+                        },
+                        konjunktionen: {
+                            titel: "Konjunktionen: и, а, но",
+                            inhalt: `<div class="regel-box">📌 Regel: <strong>и</strong> (und) verbindet Gleichartiges ohne Gegensatz, <strong>а</strong> (und/aber) markiert einen leichten Kontrast oder Themenwechsel, <strong>но</strong> (aber) einen starken Gegensatz.</div>
+                            <table><tr><th>Konjunktion</th><th>Funktion</th><th>Beispiel</th></tr>
+                            <tr><td>и</td><td>und (Aufzählung)</td><td>Я читаю и пишу.</td></tr>
+                            <tr><td>а</td><td>und/aber (Kontrast)</td><td>Я читаю, а он спит.</td></tr>
+                            <tr><td>но</td><td>aber (Gegensatz)</td><td>Я устал, но я работаю.</td></tr></table>`
+                        },
+                        farben: {
+                            titel: "Цвета (Farben)",
+                            inhalt: `<table><tr><th>Russisch</th><th>Deutsch</th></tr>
+                            <tr><td>красный</td><td>rot</td></tr><tr><td>синий</td><td>blau</td></tr>
+                            <tr><td>жёлтый</td><td>gelb</td></tr><tr><td>зелёный</td><td>grün</td></tr>
+                            <tr><td>чёрный</td><td>schwarz</td></tr><tr><td>белый</td><td>weiß</td></tr>
+                            <tr><td>серый</td><td>grau</td></tr><tr><td>оранжевый</td><td>orange</td></tr></table>
+                            <div class="merk-box">Farben sind Adjektive und richten sich in Genus, Numerus und Kasus nach dem Nomen: <strong>красный стол</strong>, <strong>красная машина</strong>, <strong>красное яблоко</strong>.</div>`
+                        },
+                        familie: {
+                            titel: "Семья (Familie)",
+                            inhalt: `<table><tr><th>Russisch</th><th>Deutsch</th></tr>
+                            <tr><td>мать / мама</td><td>Mutter / Mama</td></tr>
+                            <tr><td>отец / папа</td><td>Vater / Papa</td></tr>
+                            <tr><td>сын</td><td>Sohn</td></tr><tr><td>дочь</td><td>Tochter</td></tr>
+                            <tr><td>брат</td><td>Bruder</td></tr><tr><td>сестра</td><td>Schwester</td></tr>
+                            <tr><td>бабушка</td><td>Großmutter</td></tr><tr><td>дедушка</td><td>Großvater</td></tr></table>
+                            <div class="beispiel-box">Beispiel: <strong>У меня есть старший брат и младшая сестра.</strong> (Ich habe einen älteren Bruder und eine jüngere Schwester.)</div>`
                         }
                     }
                 }
@@ -1578,7 +1724,20 @@
                         typ: 'text', antwort: 'о столе', hinweis: 'Präpositiv Endung -е' },
                     { frage: 'Welcher Kasus steht nach der Präposition <span class="russisch">с</span> (mit) ?',
                         typ: 'choice', antwort: 'Instrumental', optionen: ['Nominativ', 'Genitiv', 'Dativ', 'Instrumental'],
-                    hinweis: 'с другом – mit dem Freund' }
+                    hinweis: 'с другом – mit dem Freund' },
+                    { frage: 'Bilde den Nominativ Plural von <span class="russisch">стол</span> (Tisch):',
+                        typ: 'text', antwort: 'столы', hinweis: 'harter Konsonant, Endung -ы' },
+                    { frage: 'Bilde den Nominativ Plural von <span class="russisch">окно</span> (Fenster):',
+                        typ: 'text', antwort: 'окна', hinweis: 'Neutrum, Endung -а' },
+                    { frage: 'Bilde den Genitiv Plural von <span class="russisch">книга</span> (Buch) – У меня нет ___.',
+                        typ: 'text', antwort: 'книг', hinweis: 'feminin auf -а: nur Stamm, kein Vokal' },
+                    { frage: 'Bilde den Genitiv Plural von <span class="russisch">стол</span> (Tisch) – Пять ___.',
+                        typ: 'text', antwort: 'столов', hinweis: 'maskulin, harter Konsonant: -ов' },
+                    { frage: 'Welche Genitiv-Plural-Form von <span class="russisch">человек</span> steht nach "пять"?',
+                        typ: 'choice', antwort: 'человек', optionen: ['человек', 'людей', 'человеков', 'люди'],
+                    hinweis: 'Ausnahme nach Zahlen: пять человек' },
+                    { frage: 'Kurzform von <span class="russisch">красивый</span> für feminin (Она ___.):',
+                        typ: 'text', antwort: 'красива', hinweis: 'Kurzform: -а für feminin' }
                 ],
                 verben: [
                     { frage: 'Konjugiere <span class="russisch">делать</span> (machen) in der 1. Person Singular:',
@@ -1602,7 +1761,23 @@
                     { frage: 'Imperativ Sg. von <span class="russisch">говорить</span> (sprechen):', typ: 'text',
                         antwort: 'говори', hinweis: '2. Person Sg.' },
                     { frage: 'Partizip Aktiv Präsens von <span class="russisch">читать</span> (lesen):', typ: 'text',
-                        antwort: 'читающий', hinweis: 'Endung -ющий' }
+                        antwort: 'читающий', hinweis: 'Endung -ющий' },
+                    { frage: 'Konjugiere das reflexive Verb <span class="russisch">учиться</span> (lernen) in der 1. Person Singular:',
+                        typ: 'text', antwort: 'учусь', hinweis: 'nach Vokal: -сь' },
+                    { frage: 'Welches Verb beschreibt eine einmalige, gerichtete Bewegung "zu Fuß gehen"?',
+                        typ: 'choice', antwort: 'идти', optionen: ['идти', 'ходить', 'ехать', 'ездить'],
+                    hinweis: 'unidirektional, jetzt gerade' },
+                    { frage: 'Welches Verb beschreibt gewohnheitsmäßiges "zu Fuß gehen" ohne feste Richtung?',
+                        typ: 'choice', antwort: 'ходить', optionen: ['идти', 'ходить', 'ехать', 'ездить'],
+                    hinweis: 'multidirektional, Gewohnheit' },
+                    { frage: 'Vollendetes Verb (Präfixbildung) zu <span class="russisch">делать</span> (machen):',
+                        typ: 'text', antwort: 'сделать', hinweis: 'Präfix с-' },
+                    { frage: 'Übersetze: "Ich muss gehen." (mit нужно + Dativ):', typ: 'text',
+                        antwort: 'мне нужно идти', hinweis: 'Dativ der Person + нужно + Infinitiv' },
+                    { frage: 'Imperativ (ты-Form) von <span class="russisch">говорить</span> (sprechen):',
+                        typ: 'text', antwort: 'говори', hinweis: 'betonter Konsonantenstamm: -и' },
+                    { frage: 'Imperativ (вы-Form) von <span class="russisch">читать</span> (lesen):',
+                        typ: 'text', antwort: 'читайте', hinweis: '-й + höfliches -те' }
                 ],
                 sonstiges: [
                     { frage: 'Setze das passende Personalpronomen ein: <span class="russisch">___</span> учитель. (Er ist Lehrer.)',
@@ -1620,7 +1795,29 @@
                     { frage: 'Possessivpronomen "mein" im Nominativ Singular maskulin:', typ: 'text', antwort: 'мой',
                         hinweis: 'Endung -ой' },
                     { frage: 'Wie heißt die Zahl 7 auf Russisch?', typ: 'choice', antwort: 'семь',
-                        optionen: ['шесть', 'семь', 'восемь', 'девять'], hinweis: 'Zwischen 6 und 8' }
+                        optionen: ['шесть', 'семь', 'восемь', 'девять'], hinweis: 'Zwischen 6 und 8' },
+                    { frage: 'Welcher Fall steht nach der Zahl <span class="russisch">два</span> ?', typ: 'choice',
+                        antwort: 'Genitiv Singular', optionen: ['Nominativ Singular', 'Genitiv Singular', 'Genitiv Plural', 'Akkusativ'],
+                    hinweis: '2, 3, 4 → Genitiv Singular' },
+                    { frage: 'Welcher Fall steht nach der Zahl <span class="russisch">пять</span> ?', typ: 'choice',
+                        antwort: 'Genitiv Plural', optionen: ['Nominativ Singular', 'Genitiv Singular', 'Genitiv Plural', 'Dativ'],
+                    hinweis: '5 und höher → Genitiv Plural' },
+                    { frage: 'Bilde die richtige Form: <span class="russisch">три ___</span> (книга):', typ: 'text',
+                        antwort: 'книги', hinweis: 'Genitiv Singular nach 3' },
+                    { frage: 'Bilde die richtige Form: <span class="russisch">пять ___</span> (стол):', typ: 'text',
+                        antwort: 'столов', hinweis: 'Genitiv Plural nach 5' },
+                    { frage: 'Wie fragt man auf Russisch nach der Uhrzeit?', typ: 'choice',
+                        antwort: 'Который час?', optionen: ['Сколько лет?', 'Который час?', 'Куда ты идёшь?', 'Как дела?'],
+                    hinweis: 'wörtlich: "welche Stunde"' },
+                    { frage: 'Übersetze: "Es ist zwei Uhr."', typ: 'text', antwort: 'сейчас два часа',
+                        hinweis: '2–4 → час im Genitiv Singular: часа' },
+                    { frage: 'Welches Fragewort bedeutet "woher"?', typ: 'choice', antwort: 'откуда',
+                        optionen: ['куда', 'откуда', 'где', 'когда'], hinweis: 'Herkunft, nicht Richtung' },
+                    { frage: 'Verbinde sinnvoll: "Я читаю, ___ он спит." (Kontrast, kein starker Gegensatz)',
+                        typ: 'choice', antwort: 'а', optionen: ['и', 'а', 'но', 'что'], hinweis: 'leichter Themenwechsel' },
+                    { frage: 'Wie heißt die Farbe "rot" auf Russisch?', typ: 'text', antwort: 'красный',
+                        hinweis: 'maskuline Form' },
+                    { frage: 'Wie heißt "Bruder" auf Russisch?', typ: 'text', antwort: 'брат', hinweis: 'Familienwort' }
                 ]
             };
 
